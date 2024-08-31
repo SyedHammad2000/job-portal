@@ -3,6 +3,7 @@ import Usermodel from "@/utils/models/Usermodel";
 
 // import {} from "json";
 import jwt from "jsonwebtoken";
+import NextCors from "nextjs-cors";
 
 const allowedOrigins = [
   "https://job-portal-chi-taupe.vercel.app",
@@ -12,16 +13,23 @@ const allowedOrigins = [
 
 export default async (req, res) => {
   await ConnectDb();
-  const origin = req.headers.origin;
+  // const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    console.error(`Origin ${origin} not allowed`);
-  }
+  // if (allowedOrigins.includes(origin)) {
+  //   res.setHeader("Access-Control-Allow-Origin", origin);
+  // } else {
+  //   console.error(`Origin ${origin} not allowed`);
+  // }
 
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  // res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT");
+  // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: allowedOrigins,
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
 
   if (req.method === "OPTIONS") {
     return res.status(200).end(); // Handle preflight requests
