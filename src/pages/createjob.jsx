@@ -1,4 +1,4 @@
-import EmployerWrap from "@/components/withEmployerAuth";
+import withEmployerAuth from "@/components/withEmployerAuth";
 import React from "react";
 
 const Createjob = () => {
