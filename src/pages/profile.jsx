@@ -1,4 +1,4 @@
-import AuthWrapper from "@/components/AuthWrapper";
+import withAuth from "@/components/withAuth";
 import {
   Box,
   Button,
@@ -138,6 +138,6 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withAuth(Profile);
 
 // getServerSideProps
