@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-const EmployerWrap = (Wrapper) => {
+const withEmployerAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
     useEffect(() => {
@@ -15,8 +15,8 @@ const EmployerWrap = (Wrapper) => {
       }
     }, [router]);
 
-    return <Wrapper {...props} />;
+    return <WrappedComponent {...props} />;
   };
 };
 
-export default EmployerWrap;
+export default withEmployerAuth;
