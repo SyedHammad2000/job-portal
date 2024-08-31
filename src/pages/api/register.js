@@ -2,45 +2,29 @@
 
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
+import { corsMiddleware } from "@/utils/middleware/corsMiddleware";
 import Usermodel from "@/utils/models/Usermodel";
 
 import jwt from "jsonwebtoken";
-const allowedOrigins = [
-  "https://job-portal-chi-taupe.vercel.app",
-  "https://job-portal-davj.vercel.app",
-  "https://job-portal-management.netlify.app", // Add your Netlify URL here
-];
 
 export default async (req, res) => {
+  await ConnectDb();
+
   switch (req.method) {
     case "POST":
-      await RegisterPost(req, res);
+      await corsMiddleware(RegisterPost(req, res));
       break;
     case "GET":
       await RegisterGet(req, res);
       break;
     case "PUT":
       //^ i want to wrap in Auth
-      await RegisterPut(req, res);
+      await corsMiddleware(RegisterPut(req, res));
       break;
   }
 };
 
 const RegisterPost = async (req, res) => {
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    console.error(`Origin ${origin} not allowed`);
-  }
-
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end(); // Handle preflight requests
-  }
   try {
     await ConnectDb();
     const { name, email, password, role, contact, address, pic } = req.body;
