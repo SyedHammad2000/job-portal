@@ -12,21 +12,6 @@ const allowedOrigins = [
 ];
 
 export default async (req, res) => {
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    console.error(`Origin ${origin} not allowed`);
-  }
-
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end(); // Handle preflight requests
-  }
-
   switch (req.method) {
     case "POST":
       await RegisterPost(req, res);
@@ -42,6 +27,20 @@ export default async (req, res) => {
 };
 
 const RegisterPost = async (req, res) => {
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    console.error(`Origin ${origin} not allowed`);
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // Handle preflight requests
+  }
   try {
     await ConnectDb();
     const { name, email, password, role, contact, address, pic } = req.body;
