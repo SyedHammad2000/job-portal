@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export default async (req, res) => {
    res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://job-portal-2024.vercel.app/"
+    "https://job-portal-2024.vercel.app"
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
