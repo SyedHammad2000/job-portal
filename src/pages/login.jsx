@@ -15,7 +15,7 @@ import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosLogIn } from "react-icons/io";
 
-const login = () => {
+const Login = () => {
   const [email, setemail] = useState();
   const [password, setpassword] = useState();
   const toast = useToast();
@@ -99,4 +99,4 @@ const login = () => {
   );
 };
 
-export default withLoginAuth(login);
+export default withLoginAuth(Login);
