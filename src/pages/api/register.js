@@ -10,17 +10,22 @@ import jwt from "jsonwebtoken";
 export default async (req, res) => {
   await ConnectDb();
 
+  await corsMiddleware(req, res);
   switch (req.method) {
     case "POST":
-      await corsMiddleware(RegisterPost(req, res));
+      await RegisterPost(req, res);
       break;
     case "GET":
       await RegisterGet(req, res);
       break;
     case "PUT":
       //^ i want to wrap in Auth
-      await corsMiddleware(RegisterPut(req, res));
+      await RegisterPut(req, res);
       break;
+
+    default:
+      res.setHeader("Allow", ["POST", "GET", "PUT"]);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
 
