@@ -60,7 +60,7 @@ const Update = () => {
     }
 
     const { data } = await axios.put(
-      "http://localhost:3000/api/register",
+      `${baseURL}/api/register`,
       {
         name,
         email,
