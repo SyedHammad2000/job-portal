@@ -1,7 +1,9 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import Usermodel from "@/utils/models/Usermodel";
+
 // import {} from "json";
 import jwt from "jsonwebtoken";
+
 
 export default async (req, res) => {
   await ConnectDb();
@@ -9,15 +11,11 @@ export default async (req, res) => {
     "Access-Control-Allow-Origin",
     "https://job-portal-davj.vercel.app"
   );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  if (req.method == "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // Respond with 200 to preflight requests
   }
-
   //! get method
   // if (req.method !== "POST") {
   //   res.status(400).send({
