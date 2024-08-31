@@ -5,18 +5,28 @@ import { Auth } from "@/utils/middleware/auth";
 import Usermodel from "@/utils/models/Usermodel";
 
 import jwt from "jsonwebtoken";
+const allowedOrigins = [
+  "https://job-portal-chi-taupe.vercel.app",
+  "https://job-portal-davj.vercel.app",
+  "https://job-portal-management.netlify.app", // Add your Netlify URL here
+];
 
 export default async (req, res) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://job-portal-management.netlify.app"
-  );
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    console.error(`Origin ${origin} not allowed`);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
   if (req.method === "OPTIONS") {
-    console.log("option");
-    return res.status(200).end(); // Respond with 200 to preflight requests
+    return res.status(200).end(); // Handle preflight requests
   }
+
   switch (req.method) {
     case "POST":
       await RegisterPost(req, res);
