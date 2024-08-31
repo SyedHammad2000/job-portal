@@ -9,7 +9,7 @@ export default async (req, res) => {
   await ConnectDb();
   res.header(
     "Access-Control-Allow-Origin",
-    "https://job-portal-davj.vercel.app"
+    "https://job-portal-2024.netlify.app"
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");

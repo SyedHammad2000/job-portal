@@ -7,6 +7,16 @@ import Usermodel from "@/utils/models/Usermodel";
 import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://job-portal-2024.netlify.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") {
+    console.log("option");
+    return res.status(200).end(); // Respond with 200 to preflight requests
+  }
   switch (req.method) {
     case "POST":
       await RegisterPost(req, res);
