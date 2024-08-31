@@ -1,4 +1,5 @@
 import withLoginAuth from "@/components/withLoginAuth";
+import baseURL from "@/helper/baseURL";
 import {
   FormControl,
   FormLabel,
@@ -33,15 +34,19 @@ const Login = () => {
       });
     }
 
-    const { data } = await axios.post("http://localhost:3000/api/login", {
-      email,
-      password,
-    },{
-      headers: {
+    const { data } = await axios.post(
+      `${baseURL}/api/login`,
+      {
+        email,
+        password,
+      },
+      {
+        headers: {
           // content type
           "Content-Type": "application/json",
         },
-    });
+      }
+    );
     console.log(data);
     if (data.token) {
       toast({

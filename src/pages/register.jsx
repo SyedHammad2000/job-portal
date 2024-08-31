@@ -14,6 +14,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { SiGnuprivacyguard } from "react-icons/si";
+import baseURL from "@/helper/baseURL";
 
 const Register = () => {
   const [name, setname] = useState();
@@ -73,7 +74,7 @@ const Register = () => {
       });
     }
 
-    const data = await axios.post("http://localhost:3000/api/register", {
+    const data = await axios.post(`${baseURL}/api/register`, {
       name,
       email,
       password,

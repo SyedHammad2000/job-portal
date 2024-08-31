@@ -1,3 +1,4 @@
+import baseURL from "@/helper/baseURL";
 import axios from "axios";
 import React from "react";
 
@@ -11,7 +12,7 @@ export async function getServerSideProps(ctx) {
   console.log(ctx.query);
   const { id } = ctx.query;
   const { data } = await axios.get(
-    `http://localhost:3000/api/jobdetail/${id}`,
+    `${baseURL}/api/jobdetail/${id}`,
     {
       headers: {
         //! content type

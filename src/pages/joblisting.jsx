@@ -1,3 +1,4 @@
+import baseURL from "@/helper/baseURL";
 import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
@@ -18,7 +19,6 @@ const Joblisting = ({ data }) => {
             <Heading size="md">{post.title}</Heading>
             <Text>{post.company}</Text>
             <Heading size={"sm"}>PostBy:{post.postedBy.name}</Heading>
-            
           </Box>
         );
       })}
@@ -32,7 +32,7 @@ export default Joblisting;
 
 export async function getServerSideProps() {
   // console.log(ctx);
-  const data = await axios.get("http://localhost:3000/api/job");
+  const data = await axios.get(`${baseURL}/api/job`);
 
   console.log(data.data);
   console.log(data);

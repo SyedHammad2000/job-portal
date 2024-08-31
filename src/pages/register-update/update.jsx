@@ -15,6 +15,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import baseURL from "@/helper/baseURL";
 
 const Update = () => {
   const toast = useToast();
@@ -30,7 +31,7 @@ const Update = () => {
   useEffect(() => {
     settoken(localStorage.getItem("token"));
     const fetch = async () => {
-      const data = await axios.get("http://localhost:3000/api/register", {
+      const data = await axios.get(`${baseURL}/api/register`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

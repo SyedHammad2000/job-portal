@@ -1,4 +1,5 @@
 import withAuth from "@/components/withAuth";
+import baseURL from "@/helper/baseURL";
 import {
   Box,
   Button,
@@ -23,7 +24,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await axios.get("http://localhost:3000/api/register", {
+      const data = await axios.get(`${baseURL}/api/register`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
