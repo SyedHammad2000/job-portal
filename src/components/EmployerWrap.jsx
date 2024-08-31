@@ -7,12 +7,13 @@ const EmployerWrap = (Wrapper) => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (!user) {
         router.push("/login");
-        return;
       }
-      if (user.role !== "employer") {
-        router.push("/profile");
+      if (user) {
+        if (user.role !== "employer") {
+          router.push("/profile");
+        }
       }
-    }, []);
+    }, [router]);
 
     return <Wrapper {...props} />;
   };
