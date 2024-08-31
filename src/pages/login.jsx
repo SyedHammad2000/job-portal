@@ -36,6 +36,11 @@ const Login = () => {
     const { data } = await axios.post("http://localhost:3000/api/login", {
       email,
       password,
+    },{
+      headers: {
+          // content type
+          "Content-Type": "application/json",
+        },
     });
     console.log(data);
     if (data.token) {
