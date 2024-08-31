@@ -1,4 +1,4 @@
-import LoginProtectedRoute from "@/components/withLoginAuth";
+import withLoginAuth from "@/components/withLoginAuth";
 import {
   FormControl,
   FormLabel,
