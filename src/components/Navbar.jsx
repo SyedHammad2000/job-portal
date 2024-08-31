@@ -104,21 +104,30 @@ const Navbar = () => {
           <Menu>
             {users ? (
               <>
-                <MenuButton as={Button} colorScheme="pink">
+                <MenuButton as={Button} colorScheme="blue">
                   {users.name}
                   <br />
                   {users.role}
                 </MenuButton>
-                <MenuList>
-                  <MenuItem onClick={() => Router.push("/profile")}>
+                <MenuList className="bg-black">
+                  <MenuItem
+                    className={"bg-grey text-white"}
+                    onClick={() => Router.push("/profile")}
+                  >
                     My Account
                   </MenuItem>
                   <MenuItem
+                    className={"bg-grey text-white"}
                     onClick={() => Router.push("/register-update/update")}
                   >
                     Modify Account
                   </MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem
+                    className={"bg-grey text-white"}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </MenuItem>
                 </MenuList>
               </>
             ) : (
@@ -198,21 +207,30 @@ const Navbar = () => {
           <Menu className="nvl">
             {users ? (
               <>
-                <MenuButton as={Button} colorScheme="pink">
+                <MenuButton as={Button} colorScheme="blue">
                   {users.name}
                   <br />
                   {users.role}
                 </MenuButton>
-                <MenuList>
-                  <MenuItem onClick={() => Router.push("/profile")}>
+                <MenuList bg={"black"}>
+                  <MenuItem
+                    className={"bg-grey text-white"}
+                    onClick={() => Router.push("/profile")}
+                  >
                     My Account
                   </MenuItem>
                   <MenuItem
+                    className={"bg-grey text-white"}
                     onClick={() => Router.push("/register-update/update")}
                   >
                     Modify Account
                   </MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem
+                    className={"bg-grey text-white"}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </MenuItem>
                 </MenuList>
               </>
             ) : (

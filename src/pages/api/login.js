@@ -13,35 +13,16 @@ const allowedOrigins = [
 
 export default async (req, res) => {
   await ConnectDb();
-  // const origin = req.headers.origin;
-
-  // if (allowedOrigins.includes(origin)) {
-  //   res.setHeader("Access-Control-Allow-Origin", origin);
-  // } else {
-  //   console.error(`Origin ${origin} not allowed`);
-  // }
-
-  // res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS,PUT");
-  // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   await NextCors(req, res, {
-    // Options
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     origin: allowedOrigins,
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
 
   if (req.method === "OPTIONS") {
-    return res.status(200).end(); // Handle preflight requests
+    return res.status(200).end();
   }
-
-  //! get method
-  // if (req.method !== "POST") {
-  //   res.status(400).send({
-  //     message: "Invalid Request",
-  //   });
-  //   return;
-  // }
   try {
     const { email, password } = req.body;
 
