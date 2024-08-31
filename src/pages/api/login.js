@@ -5,6 +5,16 @@ import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
   await ConnectDb();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+
   //! get method
   // if (req.method !== "POST") {
   //   res.status(400).send({
