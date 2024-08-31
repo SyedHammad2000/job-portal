@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const withLoginAuth = (Wrappedcomponent) => {
+const withLoginAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
 
@@ -11,7 +11,7 @@ const withLoginAuth = (Wrappedcomponent) => {
       }
     }, [router]);
 
-    return <Wrappedcomponent {...props} />;
+    return <WrappedComponent {...props} />;
   };
 };
 
