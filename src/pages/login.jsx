@@ -1,4 +1,4 @@
-import LoginProtectedRoute from "@/components/LoginProtectedRoute";
+import LoginProtectedRoute from "@/components/withLoginAuth";
 import {
   FormControl,
   FormLabel,
@@ -99,4 +99,4 @@ const login = () => {
   );
 };
 
-export default LoginProtectedRoute(login);
+export default withLoginAuth(login);
