@@ -81,6 +81,11 @@ const Register = () => {
       address,
       contact,
       pic,
+    },{
+      headers: {
+          // content type
+          "Content-Type": "application/json",
+        },
     });
     console.log(data.data);
     router.push("/login");
