@@ -1,0 +1,23 @@
+/* tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.nvl{
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+  transition: 0.8s;
+  margin: auto;
+  
+}
+
+@media screen and (max-width: 500px) {
+    
+}
