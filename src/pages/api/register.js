@@ -4,13 +4,20 @@ import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import { corsMiddleware } from "@/utils/middleware/corsMiddleware";
 import Usermodel from "@/utils/models/Usermodel";
-
+import NextCors from "nextjs-cors";
 import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
   await ConnectDb();
+  // !Next cors
 
-  await corsMiddleware(req, res);
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "https://job-portal-management.netlify.app/",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
+
   switch (req.method) {
     case "POST":
       await RegisterPost(req, res);
