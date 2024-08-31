@@ -111,19 +111,19 @@ const Navbar = () => {
                 </MenuButton>
                 <MenuList className="bg-black">
                   <MenuItem
-                    className={"bg-blue text-white"}
+                    className="bg-blue-600 text-white"
                     onClick={() => Router.push("/profile")}
                   >
                     My Account
                   </MenuItem>
                   <MenuItem
-                    className={"bg-blue text-white"}
+                    className="bg-blue-600 text-white"
                     onClick={() => Router.push("/register-update/update")}
                   >
                     Modify Account
                   </MenuItem>
                   <MenuItem
-                    className={"bg-blue text-white"}
+                    className="bg-blue-600 text-white"
                     onClick={handleLogout}
                   >
                     Logout
@@ -214,19 +214,19 @@ const Navbar = () => {
                 </MenuButton>
                 <MenuList bg={"black"}>
                   <MenuItem
-                    className={"bg-blue text-white"}
+                    className="bg-blue-600 text-white"
                     onClick={() => Router.push("/profile")}
                   >
                     My Account
                   </MenuItem>
                   <MenuItem
-                    className={"bg-blue text-white"}
+                    className="bg-blue-600 text-white"
                     onClick={() => Router.push("/register-update/update")}
                   >
                     Modify Account
                   </MenuItem>
                   <MenuItem
-                    className={"bg-blue text-white"}
+                    className="bg-blue-600 text-white"
                     onClick={handleLogout}
                   >
                     Logout
