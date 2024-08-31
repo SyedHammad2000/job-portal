@@ -5,7 +5,10 @@ import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
   await ConnectDb();
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://job-portal-davj.vercel.app"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
