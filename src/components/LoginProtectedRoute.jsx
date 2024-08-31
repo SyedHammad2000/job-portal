@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const LoginProtectedRoute = (Content) => {
+const withLoginAuth = (Wrappedcomponent) => {
   return (props) => {
     const router = useRouter();
 
@@ -11,8 +11,8 @@ const LoginProtectedRoute = (Content) => {
       }
     }, [router]);
 
-    return <Content {...props} />;
+    return <Wrappedcomponent {...props} />;
   };
 };
 
-export default LoginProtectedRoute;
+export default withLoginAuth;
