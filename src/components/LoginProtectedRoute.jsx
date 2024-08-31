@@ -9,7 +9,7 @@ const LoginProtectedRoute = (Content) => {
       if (localStorage.getItem("token")) {
         router.push("/profile");
       }
-    }, []);
+    }, [router]);
 
     return <Content {...props} />;
   };
