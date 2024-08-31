@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 export default async (req, res) => {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://job-portal-2024.netlify.app"
+    "https://job-portal-management.netlify.app"
   );
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
