@@ -7,6 +7,12 @@ import Usermodel from "@/utils/models/Usermodel";
 import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
+   res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://job-portal-chi-taupe.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   switch (req.method) {
     case "POST":
       await RegisterPost(req, res);
