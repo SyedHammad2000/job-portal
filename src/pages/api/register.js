@@ -19,7 +19,6 @@ export default async (req, res) => {
       await RegisterGet(req, res);
       break;
     case "PUT":
-      //^ i want to wrap in Auth
       await RegisterPut(req, res);
       break;
 
@@ -91,8 +90,8 @@ const RegisterGet = async (req, res) => {
 };
 
 const RegisterPut = async (req, res) => {
+  await ConnectDb();
   Auth(req, res, async () => {
-    await ConnectDb();
     try {
       const userId = req.user.id;
       console.log(userId);
