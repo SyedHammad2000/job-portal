@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const AuthWrapper = (Content) => {
+const withAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
     useEffect(() => {
@@ -10,8 +10,8 @@ const AuthWrapper = (Content) => {
       }
     }, [router]);
 
-    return <Content {...props} />;
+    return <WrappedComponent {...props} />;
   };
 };
 
-export default AuthWrapper;
+export default withAuth;
