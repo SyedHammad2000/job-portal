@@ -33,6 +33,7 @@ const Update = () => {
     const fetch = async () => {
       const data = await axios.get(`${baseURL}/api/register`, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
