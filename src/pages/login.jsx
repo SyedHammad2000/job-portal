@@ -65,7 +65,14 @@ const Login = () => {
   };
 
   return (
-    <VStack spacing={5} height={"100%"} p="5">
+    <VStack
+      spacing={5}
+      height={"100%"}
+      p="5"
+      background="linear-gradient(30deg,lightblue,black,rgba(
+        210,28,0,0.5
+      ))"
+    >
       <Box
         width={["100%", "50%", "70%", "80%"]}
         mt="2em"

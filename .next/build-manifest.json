@@ -22,15 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/createjob": [
+    "/login": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/createjob.js"
+      "static/chunks/pages/login.js"
     ],
-    "/profile": [
+    "/register": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/profile.js"
+      "static/chunks/pages/register.js"
     ]
   },
   "ampFirstPages": []
