@@ -1,4 +1,6 @@
+import useToken from "@/components/useToken";
 import withEmployerAuth from "@/components/withEmployerAuth";
+import baseURL from "@/helper/baseURL";
 import {
   Box,
   Button,
@@ -8,17 +10,61 @@ import {
   Input,
   Text,
   Textarea,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+
 const Createjob = () => {
   const [title, setTitle] = useState();
   const [company, setCompany] = useState();
   const [location, setLocation] = useState();
   const [description, setDescription] = useState();
+  const toast = useToast();
+  const [token, setToken] = useState();
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!title || !company || !location || !description) {
+      toast({
+        title: "Error",
+        description: "All fields are required",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+    const { data } = await axios.post(
+      `${baseURL}/api/job`,
+      {
+        title,
+        company,
+        location,
+        description,
+      },
+      {
+        headers: {
+          // content type
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (data.success) {
+      console.log(data, token);
+      toast({
+        title: "Success",
+        description: "Job added successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
   return (
     <VStack

@@ -16,7 +16,9 @@ const JobGetById = async (req, res) => {
   const { id } = req.query;
   console.log(id);
 
-  const post = await JobPostSchema.findById({ _id: id });
+  const post = await JobPostSchema.findById({ _id: id })
+    .populate("postedBy")
+    .select("-password -email ");
 
   res.status(200).send({
     message: "successfully fetched ",

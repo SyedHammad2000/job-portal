@@ -62,6 +62,7 @@ const JobPost = async (req, res) => {
         res.status(200).send({
           message: "Job Post Added Successfully",
           data: jobpost,
+          success: true,
         });
       } else {
         res.status(401).send({

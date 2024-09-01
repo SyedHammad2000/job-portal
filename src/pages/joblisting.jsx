@@ -1,28 +1,78 @@
 import baseURL from "@/helper/baseURL";
-import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import axios from "axios";
+import { scroll } from "framer-motion";
+import { useRouter } from "next/router";
 import React from "react";
 
 const Joblisting = ({ data }) => {
+  const router = useRouter();
   console.log(data.posts);
   return (
-    <Container height="100vh">
-      {data.posts.map((post) => {
-        return (
-          <Box
-            key={post._id}
-            boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
-            padding="10px"
-            margin="10px"
-            borderRadius="5px"
-          >
-            <Heading size="md">{post.title}</Heading>
-            <Text>{post.company}</Text>
-            <Heading size={"sm"}>PostBy:{post.postedBy.name}</Heading>
-          </Box>
-        );
-      })}
-    </Container>
+    <VStack maxW={"100vw"} height="100vh" p={5}>
+      <Box
+        p="10px"
+        width={["100%", "50%", "60%", "80%"]}
+        mt={"20px"}
+        height={"90%"}
+        overflowY={"auto"}
+        scrollBehavior={"smooth"}
+        sx={{
+          "&::-webkit-scrollbar": {
+            width: "10px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "lightblue",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "#888",
+            borderRadius: "2px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            background: "black",
+          },
+        }}
+      >
+        {data.posts.map((post) => {
+          return (
+            <Box
+              key={post._id}
+              boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
+              margin="10px"
+              borderRadius="5px"
+              height={"10rem"}
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              p={5}
+              gap={2}
+            >
+              <Heading size="md">{post.title}</Heading>
+              <Text>{post.company}</Text>
+              <Heading size={"sm"}>PostBy:{post.postedBy.name}</Heading>
+              <Button
+                colorScheme={"blue"}
+                p={2}
+                variant={"solid"}
+                outlineColor={"black"}
+                onClick={() => router.push(`${baseURL}/jobdetail/${post._id}`)}
+              >
+                View Details
+              </Button>
+            </Box>
+          );
+        })}
+      </Box>
+    </VStack>
   );
 };
 
@@ -43,3 +93,4 @@ export async function getServerSideProps() {
     },
   };
 }
+
