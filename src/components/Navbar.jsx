@@ -62,7 +62,10 @@ const Navbar = () => {
       >
         <>
           <Link className="text-decoration-none" href={"/joblisting"}>
-            <BsFilePost size={"40px"} />
+            <BsFilePost
+              className="hover:text-blue-400 hover:animate-pulse"
+              size={"40px"}
+            />
           </Link>
         </>
         {token ? (
@@ -70,7 +73,10 @@ const Navbar = () => {
             {users.role === "employer" && (
               <>
                 <Link href={"/createjob"}>
-                  <MdOutlineCreateNewFolder size={40} />
+                  <MdOutlineCreateNewFolder
+                    className="hover:text-blue-400 hover:animate-pulse"
+                    size={40}
+                  />
                 </Link>
               </>
             )}
@@ -109,21 +115,36 @@ const Navbar = () => {
                   <br />
                   {users.role}
                 </MenuButton>
-                <MenuList className="bg-black">
+                <MenuList bg={"black"}>
                   <MenuItem
-                    className="bg-blue-600 text-white"
+                    bg="black"
+                    color="white"
+                    _hover={{
+                      bg: "white",
+                      color: "black",
+                    }}
                     onClick={() => Router.push("/profile")}
                   >
                     My Account
                   </MenuItem>
                   <MenuItem
-                    className="bg-blue-600 text-white"
+                    bg="black"
+                    color="white"
+                    _hover={{
+                      bg: "white",
+                      color: "black",
+                    }}
                     onClick={() => Router.push("/register-update/update")}
                   >
                     Modify Account
                   </MenuItem>
                   <MenuItem
-                    className="bg-blue-600 text-white"
+                    bg="black"
+                    color="white"
+                    _hover={{
+                      bg: "white",
+                      color: "black",
+                    }}
                     onClick={handleLogout}
                   >
                     Logout
@@ -146,7 +167,7 @@ const Navbar = () => {
         top={"0"}
         bg={"black"}
         h={"100%"}
-        zIndex={1}
+        zIndex={10}
         transition={"all 0.3s ease-in-out"}
         // className="transition-transform transform ease-in-out duration-1000"
       >
@@ -158,7 +179,10 @@ const Navbar = () => {
           transition={"all 0.3s ease-in-out"}
         >
           <Link className="text-decoration-none nvl" href={"/joblisting"}>
-            <BsFilePost size={"50px"} />
+            <BsFilePost
+              className="hover:text-blue-400 hover:animate-pulse"
+              size={"50px"}
+            />
           </Link>
 
           {token ? (
@@ -172,7 +196,10 @@ const Navbar = () => {
                     className="nvl"
                     href={"/createjob"}
                   >
-                    <MdOutlineCreateNewFolder size={50} />
+                    <MdOutlineCreateNewFolder
+                      className="hover:text-blue-400 hover:animate-pulse"
+                      size={50}
+                    />
                   </Link>
                 </>
               )}
@@ -214,19 +241,34 @@ const Navbar = () => {
                 </MenuButton>
                 <MenuList bg={"black"}>
                   <MenuItem
-                    className="bg-blue-600 text-white"
+                    bg="black"
+                    color="white"
+                    _hover={{
+                      bg: "white",
+                      color: "black",
+                    }}
                     onClick={() => Router.push("/profile")}
                   >
                     My Account
                   </MenuItem>
                   <MenuItem
-                    className="bg-blue-600 text-white"
+                    bg="black"
+                    color="white"
+                    _hover={{
+                      bg: "white",
+                      color: "black",
+                    }}
                     onClick={() => Router.push("/register-update/update")}
                   >
                     Modify Account
                   </MenuItem>
                   <MenuItem
-                    className="bg-blue-600 text-white"
+                    bg="black"
+                    color="white"
+                    _hover={{
+                      bg: "white",
+                      color: "black",
+                    }}
                     onClick={handleLogout}
                   >
                     Logout
