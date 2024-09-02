@@ -27,7 +27,7 @@ const Jobdetail = ({ data }) => {
 export default Jobdetail;
 
 export async function getServerSideProps(ctx) {
-  console.log(ctx.query);
+
   const { id } = ctx.query;
   const { data } = await axios.get(`${baseURL}/api/jobdetail/${id}`, {
     headers: {
