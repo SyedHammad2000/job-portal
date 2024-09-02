@@ -1,24 +1,62 @@
 import baseURL from "@/helper/baseURL";
-import { Box, Flex, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Heading,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import axios from "axios";
+import Image from "next/image";
 import React from "react";
 
 const Jobdetail = ({ data }) => {
   const { post } = data;
+  let postdate = post.createdAt.slice(0, 10);
   console.log(post);
   return (
-    <VStack height={"100vh"} width={"100%"} maxW={"100%"} p={10}>
+    <VStack
+      height={"100vh"}
+      width={"100%"}
+      maxW={"100%"}
+      p={5}
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
       <Box
-        height={"90%"}
-        width={"80%"}
+        height={"80%"}
+        width={["100%", "70%", "60%", "60%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
-        p={10}
+        p={5}
       >
-        <Text size={"md"}>Job Title: {post.title}</Text>
-        <Text>Company: {post.company}</Text>
-        <Text>Job Requirement: {post.description}</Text>
-        <Text>HR Manager: {post.postedBy.name}</Text>
+        <Text fontFamily={"cursive"} fontSize={"1.2rem"}>
+          <img
+            ml={"10px"}
+            className="rounded-full h-[40px] w-[45px] inline mr-2"
+            src={post.postedBy.pic}
+          />{" "}
+          HR {post.postedBy.name}
+        </Text>
+        <Box
+          position={"absolute"}
+          top="21rem"
+          width={["80%", "40%", "45%", "45%"]}
+          flexWrap={"wrap"}
+          fontSize={["12px",'','','md']}
+          fontWeight={["bold",'normal']}
+        >
+          <Text size={"md"}>Job Title: {post.title}</Text>
+          <Text>Company: {post.company}</Text>
+          <Text>Location: {post.location}</Text>
+          Job Requirement:
+          <Text maxHeight={"100px"} overflowY={"auto"}>
+            {post.description}
+          </Text>
+          <Text>Posted on: {postdate}</Text>
+        </Box>
       </Box>
     </VStack>
   );
@@ -27,7 +65,6 @@ const Jobdetail = ({ data }) => {
 export default Jobdetail;
 
 export async function getServerSideProps(ctx) {
-
   const { id } = ctx.query;
   const { data } = await axios.get(`${baseURL}/api/jobdetail/${id}`, {
     headers: {
