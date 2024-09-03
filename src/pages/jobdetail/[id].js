@@ -45,8 +45,8 @@ const Jobdetail = ({ data }) => {
           top="21rem"
           width={["80%", "40%", "45%", "45%"]}
           flexWrap={"wrap"}
-          fontSize={["12px",'','','md']}
-          fontWeight={["bold",'normal']}
+          fontSize={["12px", "md", "md", "lg"]}
+          fontWeight={["bold", "normal"]}
         >
           <Text size={"md"}>Job Title: {post.title}</Text>
           <Text>Company: {post.company}</Text>
