@@ -55,14 +55,14 @@ const Jobdetail = ({ data }) => {
           top="21rem"
           width={["80%", "50%", "45%", "45%"]}
           flexWrap={"wrap"}
-          fontSize={["12px", "md", "md", "lg"]}
+          fontSize={["sm", "md", "md", "lg"]}
           fontWeight={["bold", "bold"]}
         >
           <Text size={"md"}>Job Title: {post.title}</Text>
           <Text>Company: {post.company}</Text>
           <Text>Location: {post.location}</Text>
           Job Requirement:
-          <Text maxHeight={"50px"} overflowY={"auto"} px={2}>
+          <Text maxHeight={"40px"} overflowY={"auto"} px={2}>
             {post.description}
           </Text>
           <Text>Email me for query {post.postedBy.email}</Text>
