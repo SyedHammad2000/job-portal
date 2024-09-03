@@ -80,7 +80,9 @@ const Jobdetail = ({ data }) => {
         </Text>
         <Box
           position={"absolute"}
-          top={["21rem",'18rem']}
+          pt={10}
+          mt={["10rem", "20"]}
+          // top={["21rem",'18rem']}
           width={["80%", "50%", "45%", "45%"]}
           flexWrap={"wrap"}
           fontSize={["sm", "md", "md", "lg"]}
