@@ -2,6 +2,7 @@ import baseURL from "@/helper/baseURL";
 import {
   Avatar,
   Box,
+  Button,
   Flex,
   Heading,
   Stack,
@@ -20,6 +21,23 @@ const Jobdetail = ({ data }) => {
 
   let postdate = post.createdAt.slice(0, 10);
   console.log(post);
+
+  const scrol = {
+    "&::-webkit-scrollbar": {
+      width: "10px",
+    },
+    "&::-webkit-scrollbar-track": {
+      background: "lightblue",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: "#888",
+      borderRadius: "2px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      background: "black",
+    },
+  };
+
   return (
     <VStack
       height={"100vh"}
@@ -49,10 +67,20 @@ const Jobdetail = ({ data }) => {
             />
           )}
           HR {post.postedBy.name}
+          <Button
+            display={"flex"}
+            variant={"solid"}
+            outline={"none"}
+            colorScheme={"blue"}
+            size={"sm"}
+            float={"inline-end"}
+          >
+            Apply Now
+          </Button>
         </Text>
         <Box
           position={"absolute"}
-          top="21rem"
+          top={["21rem",'18rem']}
           width={["80%", "50%", "45%", "45%"]}
           flexWrap={"wrap"}
           fontSize={["sm", "md", "md", "lg"]}
@@ -62,7 +90,12 @@ const Jobdetail = ({ data }) => {
           <Text>Company: {post.company}</Text>
           <Text>Location: {post.location}</Text>
           Job Requirement:
-          <Text maxHeight={"40px"} overflowY={"auto"} px={2}>
+          <Text
+            maxHeight={["20px", "50px", "60px", "70"]}
+            sx={scrol}
+            overflowY={"auto"}
+            px={2}
+          >
             {post.description}
           </Text>
           <Text>Email me for query {post.postedBy.email}</Text>
