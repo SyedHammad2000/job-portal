@@ -56,7 +56,7 @@ const Jobdetail = ({ data }) => {
     >
       <Grid
         height={["80vh"]}
-        width={["100%", "70%", "60%", "45%"]}
+        width={["100%", "87%", "60%", "45%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
         p={2}
