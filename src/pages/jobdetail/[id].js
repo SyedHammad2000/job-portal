@@ -55,8 +55,8 @@ const Jobdetail = ({ data }) => {
       background={"linear-gradient(40deg,blue,lightblue,black)"}
     >
       <Grid
-        height={["90%", "80%", "80%", "80%"]}
-        width={["100%", "70%", "60%", "60%"]}
+        height={["80vh"]}
+        width={["100", "70%", "60%", "60%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
         p={2}
@@ -64,7 +64,7 @@ const Jobdetail = ({ data }) => {
         templateRows={"2, 1fr"}
         templateColumns={"1,1fr"}
       >
-        <GridItem rowSpan={"1"} height={"100%"} p={1}>
+        <GridItem rowSpan={"1"} height={"100%"} p={1} mt={"2em"}>
           <Text fontFamily={"cursive"} fontSize={"1.2rem"}>
             {matchpic ? (
               <Avatar size={"sm"} name={post.postedBy.name} mr={"10px"} />
@@ -94,7 +94,6 @@ const Jobdetail = ({ data }) => {
               sx={scrol}
               overflowY={"auto"}
               overflowWrap={"anywhere"}
-              p={"3"}
               lineHeight={"20px"}
             >
               {post.description}
@@ -111,6 +110,7 @@ const Jobdetail = ({ data }) => {
             colorScheme={"blue"}
             size={"sm"}
             width={"100px"}
+            margin={"auto"}
           >
             Apply Now
           </Button>
