@@ -9,14 +9,20 @@ import {
   Heading,
   Stack,
   Text,
+  useQuery,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Jobdetail = ({ data }) => {
+  const toast = useToast();
   const [user, setUser] = useState();
+  const [token, setToken] = useState();
   useEffect(() => {
+    setToken(localStorage.getItem("token"));
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
   const { post } = data;
@@ -42,6 +48,23 @@ const Jobdetail = ({ data }) => {
     "&::-webkit-scrollbar-thumb:hover": {
       background: "black",
     },
+  };
+  const postId = post._id;
+  console.log(postId);
+
+  const handleSubmit = async () => {
+    const data = await axios.post(
+      `${baseURL}/api/application/${postId}`,
+      {
+        JobPostId: postId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(data);
   };
 
   return (
@@ -111,6 +134,8 @@ const Jobdetail = ({ data }) => {
             size={"sm"}
             width={"100px"}
             margin={"auto"}
+            onClick={handleSubmit}
+            type="submit"
           >
             Apply Now
           </Button>
