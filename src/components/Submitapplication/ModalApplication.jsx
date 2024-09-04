@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 import baseURL from "@/helper/baseURL";
 
-const ModalApplication = ({ postId,token }) => {
+const ModalApplication = ({ postId, token }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const [Pics, setPics] = useState();
@@ -50,7 +50,7 @@ const ModalApplication = ({ postId,token }) => {
     }
   };
   const Postdetail = async (pics) => {
-    if (pics === undefined) {
+    if (pics === "") {
       return toast({
         title: "Please Select an Image",
         status: "warning",

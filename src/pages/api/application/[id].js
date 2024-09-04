@@ -35,6 +35,7 @@ export default async (req, res) => {
       });
 
       await application.save();
+      console.log(application);
 
       res.status(201).send({
         message: "Application Sent successfully",
