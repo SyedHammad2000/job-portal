@@ -49,18 +49,18 @@ const Jobdetail = ({ data }) => {
       height={"100%"}
       width={"100%"}
       maxW={"100%"}
-      p={2}
+      p={5}
       justifyContent={"center"}
       alignItems={"center"}
       background={"linear-gradient(40deg,blue,lightblue,black)"}
     >
       <Grid
         height={["80vh"]}
-        width={["100", "70%", "60%", "45%"]}
+        width={["100%", "70%", "60%", "45%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
         p={2}
-        color='black'
+        color="black"
         templateRows={"2, 1fr"}
         templateColumns={"1,1fr"}
       >
