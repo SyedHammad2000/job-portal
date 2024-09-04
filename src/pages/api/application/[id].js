@@ -37,7 +37,8 @@ export default async (req, res) => {
       await application.save();
 
       res.status(201).send({
-        message: "Application created successfully",
+        message: "Application Sent successfully",
+        success: true,
       });
     });
   } catch (error) {

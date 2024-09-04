@@ -65,6 +65,15 @@ const Jobdetail = ({ data }) => {
       }
     );
     console.log(data);
+    if (data.data.success) {
+      toast({
+        title: data.data.message,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    }
   };
 
   return (
