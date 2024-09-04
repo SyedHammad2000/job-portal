@@ -1,3 +1,4 @@
+import Modal, { InitialFocus } from "@/components/Modal";
 import baseURL from "@/helper/baseURL";
 import {
   Avatar,
@@ -15,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 const Jobdetail = ({ data }) => {
   const toast = useToast();
@@ -135,19 +135,20 @@ const Jobdetail = ({ data }) => {
           </Box>
         </GridItem>
         {checkuser ? (
-          <Button
-            display={"flex"}
-            variant={"solid"}
-            outline={"none"}
-            colorScheme={"blue"}
-            size={"sm"}
-            width={"100px"}
-            margin={"auto"}
-            onClick={handleSubmit}
-            type="submit"
-          >
-            Apply Now
-          </Button>
+          // <Button
+          //   display={"flex"}
+          //   variant={"solid"}
+          //   outline={"none"}
+          //   colorScheme={"blue"}
+          //   size={"sm"}
+          //   width={"100px"}
+          //   margin={"auto"}
+          //   onClick={handleSubmit}
+          //   type="submit"
+          // >
+          //   Apply
+          // </Button>
+          <InitialFocus />
         ) : (
           <></>
         )}
