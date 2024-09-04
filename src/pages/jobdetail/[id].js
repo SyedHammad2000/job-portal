@@ -46,7 +46,7 @@ const Jobdetail = ({ data }) => {
 
   return (
     <VStack
-      height={"100vh"}
+      height={"100%"}
       width={"100%"}
       maxW={"100%"}
       p={2}
@@ -55,7 +55,7 @@ const Jobdetail = ({ data }) => {
       background={"linear-gradient(40deg,blue,lightblue,black)"}
     >
       <Grid
-        height={["80%", "80%", "80%", "80%"]}
+        height={["90%", "80%", "80%", "80%"]}
         width={["100%", "70%", "60%", "60%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
@@ -89,7 +89,7 @@ const Jobdetail = ({ data }) => {
             <Text>Location: {post.location}</Text>
             Job Requirement:
             <Text
-              maxHeight={["20px", "50px", "60px", "70px"]}
+              maxHeight={["50px", "50px", "60px", "70px"]}
               maxW={["300px", "200px", "300px", "500px"]}
               sx={scrol}
               overflowY={"auto"}
@@ -110,7 +110,7 @@ const Jobdetail = ({ data }) => {
             outline={"none"}
             colorScheme={"blue"}
             size={"sm"}
-            width={'100px'}
+            width={"100px"}
           >
             Apply Now
           </Button>
