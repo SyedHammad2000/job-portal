@@ -11,9 +11,13 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Jobdetail = ({ data }) => {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
   const { post } = data;
   const pic =
     " https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
@@ -21,6 +25,7 @@ const Jobdetail = ({ data }) => {
 
   let postdate = post.createdAt.slice(0, 10);
   console.log(post);
+  const checkuser = user?.role == "applicant";
 
   const scrol = {
     "&::-webkit-scrollbar": {
@@ -67,16 +72,20 @@ const Jobdetail = ({ data }) => {
             />
           )}
           HR {post.postedBy.name}
-          <Button
-            display={"flex"}
-            variant={"solid"}
-            outline={"none"}
-            colorScheme={"blue"}
-            size={"sm"}
-            float={"inline-end"}
-          >
-            Apply Now
-          </Button>
+          {checkuser ? (
+            <Button
+              display={"flex"}
+              variant={"solid"}
+              outline={"none"}
+              colorScheme={"blue"}
+              size={"sm"}
+              float={"inline-end"}
+            >
+              Apply Now
+            </Button>
+          ) : (
+            <></>
+          )}
         </Text>
         <Box
           position={"absolute"}
@@ -97,6 +106,7 @@ const Jobdetail = ({ data }) => {
             sx={scrol}
             overflowY={"auto"}
             px={2}
+            lineHeight={"20px"}
           >
             {post.description}
           </Text>
