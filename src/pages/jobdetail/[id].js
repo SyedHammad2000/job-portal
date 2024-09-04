@@ -56,11 +56,11 @@ const Jobdetail = ({ data }) => {
     >
       <Grid
         height={["80vh"]}
-        width={["100", "70%", "60%", "60%"]}
+        width={["100", "70%", "60%", "45%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
         p={2}
-        bg={"lightblue"}
+        color='black'
         templateRows={"2, 1fr"}
         templateColumns={"1,1fr"}
       >
@@ -89,8 +89,8 @@ const Jobdetail = ({ data }) => {
             <Text>Location: {post.location}</Text>
             Job Requirement:
             <Text
-              maxHeight={["50px", "50px", "60px", "70px"]}
-              maxW={["300px", "200px", "300px", "500px"]}
+              maxHeight={["80px", "80px", "80px", "80px"]}
+              maxW={["300px", "300px", "300px", "500px"]}
               sx={scrol}
               overflowY={"auto"}
               overflowWrap={"anywhere"}
