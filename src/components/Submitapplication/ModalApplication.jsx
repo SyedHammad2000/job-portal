@@ -1,6 +1,6 @@
-import { useDisclosure, useToast } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Button,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -8,19 +8,47 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
   Input,
   FormControl,
   FormLabel,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
+import baseURL from "@/helper/baseURL";
 
-export function InitialFocus() {
+const ModalApplication = ({ postId,token }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const [Pics, setPics] = useState();
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
+  const handleSubmit = async () => {
+    const data = await axios.post(
+      `${baseURL}/api/application/${postId}`,
+      {
+        JobPostId: postId,
+        resume: Pics,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(data);
+    if (data.data.success) {
+      toast({
+        title: data.data.message,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
   const Postdetail = async (pics) => {
     if (pics === undefined) {
       return toast({
@@ -41,7 +69,7 @@ export function InitialFocus() {
         formdata
       );
       console.log(pics);
-      setpic(res.data.url);
+      setPics(res.data.url);
       console.log(res);
     } else {
       toast({
@@ -74,13 +102,13 @@ export function InitialFocus() {
               <Input
                 type="file"
                 accept="application/pdf"
-                onChange={(e) => Postdetail(e.target.value)}
+                onChange={(e) => Postdetail(e.target.files[0])}
               />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
+            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
               Apply Now
             </Button>
             <Button onClick={onClose}>Cancel</Button>
@@ -89,4 +117,6 @@ export function InitialFocus() {
       </Modal>
     </>
   );
-}
+};
+
+export default ModalApplication;
