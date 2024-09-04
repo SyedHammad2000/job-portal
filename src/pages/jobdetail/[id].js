@@ -55,7 +55,7 @@ const Jobdetail = ({ data }) => {
       background={"linear-gradient(40deg,blue,lightblue,black)"}
     >
       <Grid
-        height={["80%", "80%", "60%", "80%"]}
+        height={["80%", "80%", "80%", "80%"]}
         width={["100%", "70%", "60%", "60%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
@@ -76,20 +76,6 @@ const Jobdetail = ({ data }) => {
               />
             )}
             HR {post.postedBy.name}
-            {checkuser ? (
-              <Button
-                display={"flex"}
-                variant={"solid"}
-                outline={"none"}
-                colorScheme={"blue"}
-                size={"sm"}
-                float={"inline-end"}
-              >
-                Apply Now
-              </Button>
-            ) : (
-              <></>
-            )}
           </Text>
         </GridItem>
         <GridItem rowSpan={1} mt={1} height={"100%"}>
@@ -104,9 +90,10 @@ const Jobdetail = ({ data }) => {
             Job Requirement:
             <Text
               maxHeight={["20px", "50px", "60px", "70px"]}
-              maxW={["100px", "200px", "300px", "500px"]}
+              maxW={["300px", "200px", "300px", "500px"]}
               sx={scrol}
               overflowY={"auto"}
+              overflowWrap={"anywhere"}
               p={"3"}
               lineHeight={"20px"}
             >
@@ -116,6 +103,20 @@ const Jobdetail = ({ data }) => {
             <Text>Posted on: {postdate}</Text>
           </Box>
         </GridItem>
+        {checkuser ? (
+          <Button
+            display={"flex"}
+            variant={"solid"}
+            outline={"none"}
+            colorScheme={"blue"}
+            size={"sm"}
+            width={'100px'}
+          >
+            Apply Now
+          </Button>
+        ) : (
+          <></>
+        )}
       </Grid>
     </VStack>
   );
