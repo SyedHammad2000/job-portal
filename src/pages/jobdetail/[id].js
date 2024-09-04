@@ -4,13 +4,14 @@ import {
   Box,
   Button,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const Jobdetail = ({ data }) => {
@@ -48,72 +49,74 @@ const Jobdetail = ({ data }) => {
       height={"100vh"}
       width={"100%"}
       maxW={"100%"}
-      p={5}
+      p={2}
       justifyContent={"center"}
       alignItems={"center"}
       background={"linear-gradient(40deg,blue,lightblue,black)"}
     >
-      <Box
-        height={"80%"}
+      <Grid
+        height={["80%", "80%", "60%", "80%"]}
         width={["100%", "70%", "60%", "60%"]}
         boxShadow={"4px 2px 7px"}
         rounded={"md"}
-        p={5}
+        p={2}
         bg={"lightblue"}
+        templateRows={"2, 1fr"}
+        templateColumns={"1,1fr"}
       >
-        <Text fontFamily={"cursive"} fontSize={"1.2rem"}>
-          {matchpic ? (
-            <Avatar size={"sm"} name={post.postedBy.name} mr={"10px"} />
-          ) : (
-            <img
-              ml={"10px"}
-              className="rounded-full h-[40px] w-[45px] inline mr-2"
-              src={post.postedBy.pic}
-            />
-          )}
-          HR {post.postedBy.name}
-          {checkuser ? (
-            <Button
-              display={"flex"}
-              variant={"solid"}
-              outline={"none"}
-              colorScheme={"blue"}
-              size={"sm"}
-              float={"inline-end"}
-            >
-              Apply Now
-            </Button>
-          ) : (
-            <></>
-          )}
-        </Text>
-        <Box
-          position={"absolute"}
-          pt={10}
-          mt={["10rem", "20"]}
-          // top={["21rem",'18rem']}
-          width={["80%", "50%", "45%", "45%"]}
-          flexWrap={"wrap"}
-          fontSize={["sm", "md", "md", "lg"]}
-          fontWeight={["bold", "bold"]}
-        >
-          <Text size={"md"}>Job Title: {post.title}</Text>
-          <Text>Company: {post.company}</Text>
-          <Text>Location: {post.location}</Text>
-          Job Requirement:
-          <Text
-            maxHeight={["20px", "50px", "60px", "70"]}
-            sx={scrol}
-            overflowY={"auto"}
-            px={2}
-            lineHeight={"20px"}
-          >
-            {post.description}
+        <GridItem rowSpan={"1"} height={"100%"} p={1}>
+          <Text fontFamily={"cursive"} fontSize={"1.2rem"}>
+            {matchpic ? (
+              <Avatar size={"sm"} name={post.postedBy.name} mr={"10px"} />
+            ) : (
+              <img
+                ml={"10px"}
+                className="rounded-full h-[40px] w-[45px] inline mr-2"
+                src={post.postedBy.pic}
+              />
+            )}
+            HR {post.postedBy.name}
+            {checkuser ? (
+              <Button
+                display={"flex"}
+                variant={"solid"}
+                outline={"none"}
+                colorScheme={"blue"}
+                size={"sm"}
+                float={"inline-end"}
+              >
+                Apply Now
+              </Button>
+            ) : (
+              <></>
+            )}
           </Text>
-          <Text>Email me for query {post.postedBy.email}</Text>
-          <Text>Posted on: {postdate}</Text>
-        </Box>
-      </Box>
+        </GridItem>
+        <GridItem rowSpan={1} mt={1} height={"100%"}>
+          <Box
+            flexWrap={"wrap"}
+            fontSize={["sm", "md", "md", "lg"]}
+            fontWeight={["bold", "bold"]}
+          >
+            <Text size={"md"}>Job Title: {post.title}</Text>
+            <Text>Company: {post.company}</Text>
+            <Text>Location: {post.location}</Text>
+            Job Requirement:
+            <Text
+              maxHeight={["20px", "50px", "60px", "70px"]}
+              maxW={["100px", "200px", "300px", "500px"]}
+              sx={scrol}
+              overflowY={"auto"}
+              p={"3"}
+              lineHeight={"20px"}
+            >
+              {post.description}
+            </Text>
+            <Text>Email me for query {post.postedBy.email}</Text>
+            <Text>Posted on: {postdate}</Text>
+          </Box>
+        </GridItem>
+      </Grid>
     </VStack>
   );
 };
