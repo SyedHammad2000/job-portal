@@ -8,15 +8,7 @@ import {
 import React from "react";
 import Updatedrawer from "../UpdateComp/Updatedrawer";
 
-const Menudrop = ({
-  users,
-  handleLogout,
-  isOpen,
-  onToggle,
-  onClose,
-  onOpen,
-  Router,
-}) => {
+const Menudrop = ({ handleLogout, users, Router }) => {
   return (
     <>
       <MenuButton as={Button} colorScheme="blue" textTransform={"uppercase"}>
