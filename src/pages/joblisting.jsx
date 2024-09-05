@@ -18,6 +18,7 @@ const Joblisting = ({ data }) => {
   console.log(data.posts);
   return (
     <HStack
+      backgroundColor={"#FFDFD6"}
       maxW={"100vw"}
       height="100%"
       p={5}
@@ -25,29 +26,6 @@ const Joblisting = ({ data }) => {
       justifyContent={"center"}
       alignItems={"center"}
     >
-      {/* <Box
-        p="10px"
-        width={["100%", "50%", "60%", "80%"]}
-        mt={"20px"}
-        height={"90%"}
-        // overflowY={"auto"}
-        scrollBehavior={"smooth"}
-        sx={{
-          "&::-webkit-scrollbar": {
-            width: "10px",
-          },
-          "&::-webkit-scrollbar-track": {
-            background: "lightblue",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "#888",
-            borderRadius: "2px",
-          },
-          "&::-webkit-scrollbar-thumb:hover": {
-            background: "black",
-          },
-        }}
-      > */}
       {data.posts.map((post) => {
         return (
           <Box
@@ -63,6 +41,8 @@ const Joblisting = ({ data }) => {
             alignItems={"center"}
             p={5}
             gap={2}
+            bg={"cornslik"}
+            color={"crimson"}
           >
             <Heading size="md">{post.title}</Heading>
             <Text>{post.company}</Text>

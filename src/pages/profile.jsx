@@ -55,6 +55,7 @@ const Profile = () => {
           "50%", // 48em-62em
           "60%", // 62em+
         ]}
+        // background="linear-gradient(11deg,  black, maroon, transparent)"
         shadow={"2px 4px 8px"}
       >
         <CardHeader>
@@ -117,7 +118,17 @@ const Profile = () => {
                   {user.users.address}
                 </Text>
               </Box>
-              <Box>
+              <Box
+                fontSize={"20px"}
+                padding={0}
+               
+                fontFamily={"sans-serif"}
+                fontWeight={"none"}
+                color={"white"}
+                _hover={{
+                  color: "black",
+                }}
+              >
                 <Updatedrawer token={token} />
               </Box>
             </Stack>

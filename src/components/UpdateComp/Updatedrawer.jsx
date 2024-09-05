@@ -109,15 +109,9 @@ const Updatedrawer = () => {
         <>
           <Button
             variant={"ghost"}
-            fontSize={"20px"}
-            padding={0}
             onClick={onOpen}
-            fontFamily={"sans-serif"}
-            fontWeight={"none"}
-            color={'white'}
-            _hover={{
-              color: "black",
-            }}
+            colorScheme={'blue'}
+            
           >
             Update Profile
           </Button>
