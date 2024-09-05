@@ -1,5 +1,5 @@
-import useToken from "@/components/useToken";
-import withAuth from "@/components/withAuth";
+import withAuth from "@/components/ProtectedRoute/withAuth";
+import Updatedrawer from "@/components/UpdateComp/Updatedrawer";
 import baseURL from "@/helper/baseURL";
 import {
   Box,
@@ -22,8 +22,10 @@ import React, { useEffect, useState } from "react";
 
 const Profile = () => {
   const [user, setUser] = useState();
+  const [token, setToken] = useState();
 
   useEffect(() => {
+    setToken(localStorage.getItem("token"));
     const fetch = async () => {
       const data = await axios.get(`${baseURL}/api/register`, {
         headers: {
@@ -116,9 +118,7 @@ const Profile = () => {
                 </Text>
               </Box>
               <Box>
-                <Button colorScheme={"blue"}>
-                  <Link href={"/register-update/update"}>Update Profile</Link>
-                </Button>
+                <Updatedrawer token={token} />
               </Box>
             </Stack>
           </CardBody>

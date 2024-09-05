@@ -1,5 +1,4 @@
-import useToken from "@/components/useToken";
-import withEmployerAuth from "@/components/withEmployerAuth";
+import withEmployerAuth from "@/components/ProtectedRoute/withEmployerAuth";
 import baseURL from "@/helper/baseURL";
 import {
   Box,
@@ -8,7 +7,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Text,
   Textarea,
   useToast,
   VStack,
@@ -82,7 +80,7 @@ const Createjob = () => {
         rounded={"md"}
       >
         <FormControl>
-          <FormLabel>Title</FormLabel>
+          <FormLabel color={"black"}>Title</FormLabel>
           <Input
             placeholder={"Job Title"}
             type="text"
@@ -91,16 +89,16 @@ const Createjob = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Company</FormLabel>
+          <FormLabel color={"black"}>Company</FormLabel>
           <Input
-            placeholder="Company"
+            placeholder="Company Name"
             type="text"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Location</FormLabel>
+          <FormLabel color={"black"}>Location</FormLabel>
           <Input
             placeholder="Company Location"
             type="text"
@@ -109,7 +107,7 @@ const Createjob = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel>Description</FormLabel>
+          <FormLabel color={"black"}>Description</FormLabel>
           <Textarea
             placeholder="Job Description"
             type="text"
@@ -117,7 +115,12 @@ const Createjob = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </FormControl>
-        <Button mt={2} variant={"solid"} onClick={handleSubmit}>
+        <Button
+          mt={2}
+          variant={"solid"}
+          colorScheme={"blue"}
+          onClick={handleSubmit}
+        >
           Add
         </Button>
       </Box>

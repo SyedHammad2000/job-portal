@@ -1,24 +1,20 @@
 "use clien";
 import {
   Box,
-  Button,
   Heading,
   HStack,
   IconButton,
   Stack,
   useDisclosure,
   Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { BsFilePost } from "react-icons/bs";
-import { HiLogout } from "react-icons/hi";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { Link } from "@chakra-ui/next-js";
 import { useRouter } from "next/router";
+import Menudrop from "./NavbarComp/Menudrop";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
@@ -60,97 +56,55 @@ const Navbar = () => {
         fontSize={20}
         mr={10}
       >
-        <>
-          <Link className="text-decoration-none" href={"/joblisting"}>
-            <BsFilePost
-              className="hover:text-blue-400 hover:animate-pulse"
-              size={"40px"}
-            />
-          </Link>
-        </>
+        <Link className="text-decoration-none" href={"/joblisting"}>
+          <BsFilePost
+            className="hover:text-blue-400 hover:animate-pulse"
+            size={"40px"}
+          />
+        </Link>
+
         {token ? (
           <>
             {users.role === "employer" && (
-              <>
-                <Link href={"/createjob"}>
-                  <MdOutlineCreateNewFolder
-                    className="hover:text-blue-400 hover:animate-pulse"
-                    size={40}
-                  />
-                </Link>
-              </>
+              <Link href={"/createjob"}>
+                <MdOutlineCreateNewFolder
+                  className="hover:text-blue-400 hover:animate-pulse"
+                  size={40}
+                />
+              </Link>
             )}
           </>
         ) : (
           <>
-            <>
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                href={"/login"}
-              >
-                Login
-              </Link>
-            </>
-            <>
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                href={"/register"}
-              >
-                Register
-              </Link>
-            </>
+            <Link
+              style={{
+                textDecoration: "none",
+              }}
+              href={"/login"}
+            >
+              Login
+            </Link>
+
+            <Link
+              style={{
+                textDecoration: "none",
+              }}
+              href={"/register"}
+            >
+              Register
+            </Link>
           </>
         )}
 
         <>
           <Menu>
             {users ? (
-              <>
-                <MenuButton as={Button} colorScheme="blue">
-                  {users.name}
-                  <br />
-                  {users.role}
-                </MenuButton>
-                <MenuList bg={"black"}>
-                  <MenuItem
-                    bg="black"
-                    color="white"
-                    _hover={{
-                      bg: "white",
-                      color: "black",
-                    }}
-                    onClick={() => Router.push("/profile")}
-                  >
-                    My Account
-                  </MenuItem>
-                  <MenuItem
-                    bg="black"
-                    color="white"
-                    _hover={{
-                      bg: "white",
-                      color: "black",
-                    }}
-                    onClick={() => Router.push("/register-update/update")}
-                  >
-                    Modify Account
-                  </MenuItem>
-                  <MenuItem
-                    bg="black"
-                    color="white"
-                    _hover={{
-                      bg: "white",
-                      color: "black",
-                    }}
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </>
+              <Menudrop
+                users={users}
+                handleLogout={handleLogout}
+                isOpen={isOpen}
+                Router={Router}
+              />
             ) : (
               <></>
             )}
@@ -169,7 +123,6 @@ const Navbar = () => {
         h={"100%"}
         zIndex={10}
         transition={"all 0.3s ease-in-out"}
-        // className="transition-transform transform ease-in-out duration-1000"
       >
         <Stack
           as="nav"
@@ -188,93 +141,52 @@ const Navbar = () => {
           {token ? (
             <>
               {users.role === "employer" && (
-                <>
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                    }}
-                    className="nvl"
-                    href={"/createjob"}
-                  >
-                    <MdOutlineCreateNewFolder
-                      className="hover:text-blue-400 hover:animate-pulse"
-                      size={50}
-                    />
-                  </Link>
-                </>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                  }}
+                  className="nvl"
+                  href={"/createjob"}
+                >
+                  <MdOutlineCreateNewFolder
+                    className="hover:text-blue-400 hover:animate-pulse"
+                    size={50}
+                  />
+                </Link>
               )}
             </>
           ) : (
             <>
-              <>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                  }}
-                  className="nvl"
-                  href={"/login"}
-                >
-                  Login
-                </Link>
-              </>
-              <>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                  }}
-                  className="nvl"
-                  href={"/register"}
-                >
-                  Register
-                </Link>
-              </>
+              <Link
+                style={{
+                  textDecoration: "none",
+                }}
+                className="nvl"
+                href={"/login"}
+              >
+                Login
+              </Link>
+
+              <Link
+                style={{
+                  textDecoration: "none",
+                }}
+                className="nvl"
+                href={"/register"}
+              >
+                Register
+              </Link>
             </>
           )}
 
           <Menu className="nvl">
             {users ? (
-              <>
-                <MenuButton as={Button} colorScheme="blue">
-                  {users.name}
-                  <br />
-                  {users.role}
-                </MenuButton>
-                <MenuList bg={"black"}>
-                  <MenuItem
-                    bg="black"
-                    color="white"
-                    _hover={{
-                      bg: "white",
-                      color: "black",
-                    }}
-                    onClick={() => Router.push("/profile")}
-                  >
-                    My Account
-                  </MenuItem>
-                  <MenuItem
-                    bg="black"
-                    color="white"
-                    _hover={{
-                      bg: "white",
-                      color: "black",
-                    }}
-                    onClick={() => Router.push("/register-update/update")}
-                  >
-                    Modify Account
-                  </MenuItem>
-                  <MenuItem
-                    bg="black"
-                    color="white"
-                    _hover={{
-                      bg: "white",
-                      color: "black",
-                    }}
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </MenuItem>
-                </MenuList>
-              </>
+              <Menudrop
+                users={users}
+                handleLogout={handleLogout}
+                isOpen={isOpen}
+                Router={Router}
+              />
             ) : (
               <></>
             )}

@@ -1,4 +1,4 @@
-import withLoginAuth from "@/components/withLoginAuth";
+import withLoginAuth from "@/components/ProtectedRoute/withLoginAuth";
 import baseURL from "@/helper/baseURL";
 import {
   FormControl,
