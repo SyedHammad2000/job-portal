@@ -20,6 +20,7 @@ const Menudrop = ({ handleLogout, users, Router }) => {
         <MenuItem
           bg="black"
           color="white"
+          fontFamily={'sans-serif'}
           _hover={{
             bg: "white",
             color: "black",
@@ -28,7 +29,7 @@ const Menudrop = ({ handleLogout, users, Router }) => {
         >
           My Account
         </MenuItem>
-        {/* <MenuItem
+        <MenuItem
           bg="black"
           color="white"
           _hover={{
@@ -37,10 +38,11 @@ const Menudrop = ({ handleLogout, users, Router }) => {
           }}
         >
           <Updatedrawer />
-        </MenuItem> */}
+        </MenuItem>
         <MenuItem
           bg="black"
           color="white"
+          fontFamily={'sans-serif'}
           _hover={{
             bg: "white",
             color: "black",

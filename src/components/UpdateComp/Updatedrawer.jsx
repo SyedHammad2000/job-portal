@@ -107,7 +107,17 @@ const Updatedrawer = () => {
     <>
       {token ? (
         <>
-          <Button colorScheme="teal" onClick={onOpen}>
+          <Button
+            variant={"ghost"}
+            fontSize={"20px"}
+            padding={0}
+            onClick={onOpen}
+            fontFamily={"sans-serif"}
+            fontWeight={"none"}
+            _hover={{
+              color: "black",
+            }}
+          >
             Update Profile
           </Button>
           <Drawer
