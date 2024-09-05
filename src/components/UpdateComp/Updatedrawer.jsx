@@ -114,6 +114,7 @@ const Updatedrawer = () => {
             onClick={onOpen}
             fontFamily={"sans-serif"}
             fontWeight={"none"}
+            color={'white'}
             _hover={{
               color: "black",
             }}

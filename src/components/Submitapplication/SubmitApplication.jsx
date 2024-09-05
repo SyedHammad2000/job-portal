@@ -58,18 +58,33 @@ const SubmitApplication = ({ data }) => {
         templateColumns={"1,1fr"}
       >
         <GridItem rowSpan={"1"} height={"100%"} p={1} mt={"2em"}>
-          <Text fontFamily={"cursive"} fontSize={"1.2rem"}>
-            {matchpic ? (
+          {matchpic ? (
+            <>
               <Avatar size={"sm"} name={post.postedBy.name} mr={"10px"} />
-            ) : (
+              <Text
+                fontFamily={"cursive"}
+                display={"inline"}
+                fontSize={"1.2rem"}
+              >
+                HR {post.postedBy.name}
+              </Text>
+            </>
+          ) : (
+            <>
               <img
                 ml={"10px"}
-                className="rounded-full h-[40px] w-[45px] inline mr-2"
+                className="rounded-full h-[40px] w-[45px] mr-2"
                 src={post.postedBy.pic}
               />
-            )}
-            HR {post.postedBy.name}
-          </Text>
+              <Text
+                fontFamily={"cursive"}
+                display={"inline"}
+                fontSize={"1.2rem"}
+              >
+                HR {post.postedBy.name}
+              </Text>
+            </>
+          )}
         </GridItem>
         <GridItem rowSpan={1} mt={1} height={"100%"}>
           <Box
