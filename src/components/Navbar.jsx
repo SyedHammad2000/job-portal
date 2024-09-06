@@ -20,6 +20,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure(false);
   const [users, setUser] = useState();
   const [token, settoken] = useState();
+  const [loading, setLoading] = useState(false);
   const Router = useRouter();
   useEffect(() => {
     const fetchToken = async () => {
@@ -56,21 +57,25 @@ const Navbar = () => {
         fontSize={20}
         mr={10}
       >
-        <Link className="text-decoration-none" href={"/joblisting"}>
-          <BsFilePost
-            className="hover:text-blue-400 hover:animate-pulse"
-            size={"40px"}
-          />
+        <Link
+          style={{
+            textDecoration: "none",
+          }}
+          href={"/joblisting"}
+        >
+          Job Feed
         </Link>
 
         {token ? (
           <>
             {users.role === "employer" && (
-              <Link href={"/createjob"}>
-                <MdOutlineCreateNewFolder
-                  className="hover:text-blue-400 hover:animate-pulse"
-                  size={40}
-                />
+              <Link
+                style={{
+                  textDecoration: "none",
+                }}
+                href={"/createjob"}
+              >
+                Add Post
               </Link>
             )}
           </>
@@ -132,14 +137,14 @@ const Navbar = () => {
           transition={"all 0.3s ease-in-out"}
         >
           <Link
-            className="text-decoration-none nvl"
+            style={{
+              textDecoration: "none",
+            }}
+            className="nvl"
             href={"/joblisting"}
             onClick={onClose}
           >
-            <BsFilePost
-              className="hover:text-blue-400 hover:animate-pulse"
-              size={"50px"}
-            />
+            Job Feed
           </Link>
 
           {token ? (
@@ -153,10 +158,7 @@ const Navbar = () => {
                   href={"/createjob"}
                   onClick={onClose}
                 >
-                  <MdOutlineCreateNewFolder
-                    className="hover:text-blue-400 hover:animate-pulse"
-                    size={50}
-                  />
+                  Add Post
                 </Link>
               )}
             </>
