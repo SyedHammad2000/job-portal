@@ -59,9 +59,14 @@ const Createjob = () => {
         title: "Success",
         description: "Job added successfully",
         status: "success",
-        duration: 3000,
+        duration: 2000,
+        position: "top-left",
         isClosable: true,
       });
+      setTitle("");
+      setCompany("");
+      setLocation("");
+      setDescription("");
     }
   };
   return (

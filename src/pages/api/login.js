@@ -48,11 +48,13 @@ export default async (req, res) => {
         message: "user login successfully",
         user: user,
         token,
+        success: true,
       });
       return;
     } else {
       res.status(401).send({
         message: "user not found",
+        success: false,
       });
     }
     //! i want to set cookies

@@ -72,8 +72,8 @@ const SubmitApplication = ({ data }) => {
           ) : (
             <>
               <img
-                ml={"10px"}
-                className="rounded-full h-[40px] w-[45px] mr-2"
+                ml={"12px"}
+                className="rounded-full h-[40px] w-[45px] inline mr-2 "
                 src={post.postedBy.pic}
               />
               <Text

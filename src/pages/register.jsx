@@ -49,8 +49,6 @@ const Register = () => {
       console.log(pics);
       setpic(res.data.url);
       console.log(res);
-
-    
     } else {
       toast({
         title: "error in image uploading",
@@ -74,23 +72,35 @@ const Register = () => {
       });
     }
 
-    const data = await axios.post(`${baseURL}/api/register`, {
-      name,
-      email,
-      password,
-      role,
-      address,
-      contact,
-      pic,
-    },{
-      headers: {
+    const { data } = await axios.post(
+      `${baseURL}/api/register`,
+      {
+        name,
+        email,
+        password,
+        role,
+        address,
+        contact,
+        pic,
+      },
+      {
+        headers: {
           // content type
           "Content-Type": "application/json",
         },
-    });
-    console.log(data.data);
-    router.push("/login");
+      }
+    );
 
+    if (data.success) {
+      toast({
+        title: "Success",
+        description: "Registered Successfully",
+        position: "top-left",
+        duration: 3000,
+        isClosable: true,
+      });
+      router.push("/login");
+    }
     setname("");
     setemail("");
     setpassword("");
@@ -169,8 +179,12 @@ const Register = () => {
             onChange={(e) => setrole(e.target.value)}
             required
           >
-            <option className="text-black" value="employer">Employer</option>
-            <option className="text-black" value="applicant">Applicant</option>
+            <option className="text-black" value="employer">
+              Employer
+            </option>
+            <option className="text-black" value="applicant">
+              Applicant
+            </option>
           </Select>
         </FormControl>
         <FormControl>

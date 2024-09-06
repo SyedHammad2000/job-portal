@@ -48,13 +48,14 @@ const Login = () => {
       }
     );
     console.log(data);
-    if (data.token) {
+    if (data.token && data.success) {
       toast({
-        title: "Welcome",
+        title: "Welcome to Job Portal",
         description: "Succesfully logged in",
         status: "success",
         duration: 3000,
         isClosable: true,
+        position: "top-left",
       });
 
       localStorage.setItem("token", data.token);

@@ -69,6 +69,7 @@ const RegisterPost = async (req, res) => {
     res.status(200).send({
       message: "user created successfully",
       user,
+      success: true,
     });
   } catch (error) {
     res.status(401).send({
