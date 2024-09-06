@@ -17,50 +17,15 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import baseURL from "@/helper/baseURL";
+import useCloudinary from "../cloudinarycomponent/useCloudinary";
 
 const ModalApplication = ({ postId, token }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { loading, Postdetail, Pics, setPics } = useCloudinary();
   const toast = useToast();
-  const [Pics, setPics] = useState();
-  const [loading, setloading] = useState(false);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
-  const Postdetail = async (pics) => {
-    setloading(true);
-    if (pics === undefined) {
-      setPics("");
-      setloading(false);
-      return toast({
-        title: "Please Select an Image",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
-
-    if (pics.type === "application/pdf") {
-      const formdata = new FormData();
-      formdata.append("file", pics);
-      formdata.append("upload_preset", "ecommerce");
-      formdata.append("cloud_name", "dn3tasa5d");
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dn3tasa5d/image/upload",
-        formdata
-      );
-      await setPics(res.data.url);
-      setloading(false);
-    } else {
-      toast({
-        title: "error in image uploading",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-        position: "top-left",
-      });
-    }
-  };
   const handleSubmit = async () => {
     const { data } = await axios.post(
       `${baseURL}/api/application/${postId}`,
@@ -81,7 +46,7 @@ const ModalApplication = ({ postId, token }) => {
         status: "success",
         duration: 3000,
         isClosable: true,
-        position: "top",
+        position: "top-left",
       });
       onClose();
       setPics("");
@@ -109,6 +74,7 @@ const ModalApplication = ({ postId, token }) => {
                 type="file"
                 accept="application/pdf"
                 onChange={(e) => Postdetail(e.target.files[0])}
+                p={1}
               />
             </FormControl>
           </ModalBody>

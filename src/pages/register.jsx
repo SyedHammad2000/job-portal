@@ -15,50 +15,19 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { SiGnuprivacyguard } from "react-icons/si";
 import baseURL from "@/helper/baseURL";
+import useCloudinary from "@/components/cloudinarycomponent/useCloudinary";
 
 const Register = () => {
+  const { Postdetail, Pics, loading, setPics } = useCloudinary();
   const [name, setname] = useState();
   const [email, setemail] = useState();
   const [password, setpassword] = useState();
   const [role, setrole] = useState();
   const [address, setaddress] = useState();
   const [contact, setcontact] = useState();
-  const [pic, setpic] = useState();
+
   const toast = useToast();
   const router = useRouter();
-
-  const Postdetail = async (pics) => {
-    if (pics === undefined) {
-      return toast({
-        title: "Please Select an Image",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
-      const formdata = new FormData();
-      formdata.append("file", pics);
-      formdata.append("upload_preset", "ecommerce");
-      formdata.append("cloud_name", "dn3tasa5d");
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dn3tasa5d/image/upload",
-        formdata
-      );
-      console.log(pics);
-      setpic(res.data.url);
-      console.log(res);
-    } else {
-      toast({
-        title: "error in image uploading",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -81,7 +50,7 @@ const Register = () => {
         role,
         address,
         contact,
-        pic,
+        pic: Pics,
       },
       {
         headers: {
@@ -100,13 +69,14 @@ const Register = () => {
         isClosable: true,
       });
       router.push("/login");
+      setname("");
+      setemail("");
+      setpassword("");
+      setrole("");
+      setaddress("");
+      setcontact("");
+      setPics("");
     }
-    setname("");
-    setemail("");
-    setpassword("");
-    setrole("");
-    setaddress("");
-    setcontact("");
   };
 
   return (
@@ -191,13 +161,17 @@ const Register = () => {
           <FormLabel>Upload Your Picture</FormLabel>
           <Input
             type="file"
-            p={1.5}
             accept="image/*"
-            placeholder="Choose a file"
             onChange={(e) => Postdetail(e.target.files[0])}
+            p={1}
           />
         </FormControl>
-        <Button variant={"solid"} type="submit" onClick={handleSubmit}>
+        <Button
+          variant={"solid"}
+          type="submit"
+          onClick={handleSubmit}
+          isLoading={loading}
+        >
           Sign In
         </Button>
       </Box>
