@@ -23,10 +23,12 @@ const ModalApplication = ({ postId, token }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, Postdetail, Pics, setPics } = useCloudinary();
   const toast = useToast();
+  const [loader, setLoader] = useState(false);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
   const handleSubmit = async () => {
+    setLoader(true);
     const { data } = await axios.post(
       `${baseURL}/api/application/${postId}`,
       {
@@ -50,6 +52,16 @@ const ModalApplication = ({ postId, token }) => {
       });
       onClose();
       setPics("");
+      setLoader(false);
+    } else {
+      toast({
+        title: data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+      setLoader(false);
     }
   };
 
@@ -87,7 +99,7 @@ const ModalApplication = ({ postId, token }) => {
               isDisabled={!Pics}
               isLoading={loading}
             >
-              Apply Now
+              {loader ? <Spinner /> : "Apply Now"}
             </Button>
             <Button
               onClick={() => {

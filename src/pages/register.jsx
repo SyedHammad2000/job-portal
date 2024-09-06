@@ -148,6 +148,7 @@ const Register = () => {
             value={role}
             onChange={(e) => setrole(e.target.value)}
             required
+          
           >
             <option className="text-black" value="employer">
               Employer
@@ -171,6 +172,7 @@ const Register = () => {
           type="submit"
           onClick={handleSubmit}
           isLoading={loading}
+          
         >
           Sign In
         </Button>
