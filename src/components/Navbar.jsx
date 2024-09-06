@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import Menudrop from "./NavbarComp/Menudrop";
 
 const Navbar = () => {
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const { isOpen, onOpen, onClose, onToggle } = useDisclosure(false);
   const [users, setUser] = useState();
   const [token, settoken] = useState();
   const Router = useRouter();
@@ -131,7 +131,11 @@ const Navbar = () => {
           transform={isOpen ? "translateX(0px)" : "translateX(-200px)"}
           transition={"all 0.3s ease-in-out"}
         >
-          <Link className="text-decoration-none nvl" href={"/joblisting"}>
+          <Link
+            className="text-decoration-none nvl"
+            href={"/joblisting"}
+            onClick={onClose}
+          >
             <BsFilePost
               className="hover:text-blue-400 hover:animate-pulse"
               size={"50px"}
@@ -147,6 +151,7 @@ const Navbar = () => {
                   }}
                   className="nvl"
                   href={"/createjob"}
+                  onClick={onClose}
                 >
                   <MdOutlineCreateNewFolder
                     className="hover:text-blue-400 hover:animate-pulse"
@@ -163,6 +168,7 @@ const Navbar = () => {
                 }}
                 className="nvl"
                 href={"/login"}
+                onClick={onClose}
               >
                 Login
               </Link>
@@ -173,6 +179,7 @@ const Navbar = () => {
                 }}
                 className="nvl"
                 href={"/register"}
+                onClick={onClose}
               >
                 Register
               </Link>
@@ -186,6 +193,7 @@ const Navbar = () => {
                 handleLogout={handleLogout}
                 isOpen={isOpen}
                 Router={Router}
+                onClose={onClose}
               />
             ) : (
               <></>

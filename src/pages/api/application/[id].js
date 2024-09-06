@@ -6,10 +6,22 @@ import JobPostSchema from "@/utils/models/JobPostSchema";
 
 export default async (req, res) => {
   await ConnectDb();
+
+  switch (req.method) {
+    case "POST":
+      await ApplicationPost(req, res);
+      break;
+    // !Auth apply middleware
+    case "GET":
+      await Auth(ApplicationGet(req, res));
+      break;
+  }
+};
+
+export const ApplicationPost = async (req, res) => {
   try {
     //! params
-    const { id } = req.query;
-
+    // const { id } = req.query;
     await Auth(req, res, async () => {
       const { JobPostId, ApplicantId, resume } = req.body;
       const userId = req.user.id;
@@ -46,6 +58,26 @@ export default async (req, res) => {
     console.log(error);
     res.status(400).send({
       message: "Invalid Request",
+    });
+  }
+};
+
+export const ApplicationGet = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await Usermodel.findById({ _id: userId });
+    if (!user.employer) {
+      return res.status(400).send({
+        success: false,
+        message: "You are not employer",
+      });
+    }else{
+      
+    }
+  } catch (error) {
+    console.log(error, "error in ApplicationGet method");
+    res.status(404).send({
+      success: false,
     });
   }
 };

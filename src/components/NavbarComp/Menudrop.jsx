@@ -8,7 +8,7 @@ import {
 import React from "react";
 import Updatedrawer from "../UpdateComp/Updatedrawer";
 
-const Menudrop = ({ handleLogout, users, Router }) => {
+const Menudrop = ({ handleLogout, users, Router, onClose }) => {
   return (
     <>
       <MenuButton as={Button} colorScheme="blue" textTransform={"uppercase"}>
@@ -25,12 +25,19 @@ const Menudrop = ({ handleLogout, users, Router }) => {
             bg: "white",
             color: "black",
           }}
-          onClick={() => Router.push("/profile")}
+          onClick={() => {
+            Router.push("/profile");
+            onClose();
+          }}
         >
           My Account
         </MenuItem>
         <MenuItem
-          bg="black" 
+          bg="black"
+          onClick={() => {
+            Router.push("/profile");
+            onClose();
+          }}
         >
           <Updatedrawer />
         </MenuItem>
