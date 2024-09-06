@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -13,6 +13,7 @@ import {
   FormLabel,
   useDisclosure,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
 import baseURL from "@/helper/baseURL";
@@ -21,12 +22,47 @@ const ModalApplication = ({ postId, token }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const [Pics, setPics] = useState();
-
+  const [loading, setloading] = useState(false);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
+  const Postdetail = async (pics) => {
+    setloading(true);
+    if (pics === undefined) {
+      setPics("");
+      setloading(false);
+      return toast({
+        title: "Please Select an Image",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+
+    if (pics.type === "application/pdf") {
+      const formdata = new FormData();
+      formdata.append("file", pics);
+      formdata.append("upload_preset", "ecommerce");
+      formdata.append("cloud_name", "dn3tasa5d");
+      const res = await axios.post(
+        "https://api.cloudinary.com/v1_1/dn3tasa5d/image/upload",
+        formdata
+      );
+      await setPics(res.data.url);
+      setloading(false);
+    } else {
+      toast({
+        title: "error in image uploading",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
+    }
+  };
   const handleSubmit = async () => {
-    const data = await axios.post(
+    const { data } = await axios.post(
       `${baseURL}/api/application/${postId}`,
       {
         JobPostId: postId,
@@ -39,46 +75,16 @@ const ModalApplication = ({ postId, token }) => {
       }
     );
     console.log(data);
-    if (data.data.success) {
+    if (data.success) {
       toast({
-        title: data.data.message,
+        title: data.message,
         status: "success",
         duration: 3000,
         isClosable: true,
         position: "top",
       });
-    }
-  };
-  const Postdetail = async (pics) => {
-    if (pics === "") {
-      return toast({
-        title: "Please Select an Image",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
-    }
-    if (pics.type === "application/pdf") {
-      const formdata = new FormData();
-      formdata.append("file", pics);
-      formdata.append("upload_preset", "ecommerce");
-      formdata.append("cloud_name", "dn3tasa5d");
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dn3tasa5d/image/upload",
-        formdata
-      );
-      console.log(pics);
-      setPics(res.data.url);
-      console.log(res);
-    } else {
-      toast({
-        title: "error in image uploading",
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-        position: "bottom",
-      });
+      onClose();
+      setPics("");
     }
   };
 
@@ -108,10 +114,23 @@ const ModalApplication = ({ postId, token }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={handleSubmit}
+              isDisabled={!Pics}
+              isLoading={loading}
+            >
               Apply Now
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button
+              onClick={() => {
+                onClose();
+                setPics("");
+              }}
+            >
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
