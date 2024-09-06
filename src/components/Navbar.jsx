@@ -16,11 +16,9 @@ import { Link } from "@chakra-ui/next-js";
 import { useRouter } from "next/router";
 import Menudrop from "./NavbarComp/Menudrop";
 
-const Navbar = () => {
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure(false);
+const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
   const [users, setUser] = useState();
   const [token, settoken] = useState();
-  const [loading, setLoading] = useState(false);
   const Router = useRouter();
   useEffect(() => {
     const fetchToken = async () => {
@@ -29,6 +27,7 @@ const Navbar = () => {
     };
     fetchToken();
   }, [token]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -133,7 +132,7 @@ const Navbar = () => {
           as="nav"
           p={4}
           gap={20}
-          transform={isOpen ? "translateX(0px)" : "translateX(-200px)"}
+          transform={isOpen ? "translateX(0px)" : "translateX(-250px)"}
           transition={"all 0.3s ease-in-out"}
         >
           <Link
@@ -188,7 +187,7 @@ const Navbar = () => {
             </>
           )}
 
-          <Menu className="nvl">
+          <Menu className="nvl" m={"auto"}>
             {users ? (
               <Menudrop
                 users={users}
