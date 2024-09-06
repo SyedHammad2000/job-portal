@@ -27,7 +27,7 @@ const Menudrop = ({ handleLogout, users, Router, onClose }) => {
           }}
           onClick={() => {
             Router.push("/profile");
-            onClose();
+            onClose()
           }}
         >
           My Account

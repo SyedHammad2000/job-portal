@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -19,10 +20,13 @@ import { IoIosLogIn } from "react-icons/io";
 const Login = () => {
   const [email, setemail] = useState();
   const [password, setpassword] = useState();
+
+  const [loader, setLoader] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
     if (!password || !email) {
       toast({
@@ -32,6 +36,8 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       });
+      setLoader(false);
+      return;
     }
 
     const { data } = await axios.post(
@@ -57,11 +63,21 @@ const Login = () => {
         isClosable: true,
         position: "top-left",
       });
-
+      setLoader(false);
       localStorage.setItem("token", data.token);
       const user = JSON.stringify(data.user);
       localStorage.setItem("user", user);
       window.location.href = "/profile";
+    } else {
+      setLoader(false);
+      toast({
+        title: "Error",
+        description: data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
     }
   };
 
@@ -110,7 +126,7 @@ const Login = () => {
           />
         </FormControl>
         <Button variant={"solid"} onClick={handleSubmit}>
-          <IoIosLogIn size={"md"} />
+          {loader ? <Spinner /> : <IoIosLogIn size={"md"} />}
         </Button>
       </Box>
     </VStack>

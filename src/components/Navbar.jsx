@@ -108,6 +108,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                 handleLogout={handleLogout}
                 isOpen={isOpen}
                 Router={Router}
+                onClose={onClose}
               />
             ) : (
               <></>

@@ -56,7 +56,6 @@ const Updatedrawer = () => {
       `${baseURL}/api/register`,
       {
         name,
-        email,
         password,
         role,
         address,
@@ -144,6 +143,7 @@ const Updatedrawer = () => {
                       type="text"
                       value={email}
                       onChange={(e) => setemail(e.target.value)}
+                      isDisabled
                     />
                   </FormControl>
                   <FormControl>

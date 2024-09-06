@@ -8,6 +8,7 @@ import {
   Button,
   Select,
   Textarea,
+  Spinner,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import axios from "axios";
@@ -25,14 +26,17 @@ const Register = () => {
   const [role, setrole] = useState();
   const [address, setaddress] = useState();
   const [contact, setcontact] = useState();
+  const [loader, setLoader] = useState(false);
 
   const toast = useToast();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     if (!name || !email || !password) {
-      toast({
+      setLoader(false);
+      return toast({
         title: "Error",
         description: "All fields are required",
         status: "error",
@@ -61,6 +65,7 @@ const Register = () => {
     );
 
     if (data.success) {
+      setLoader(false);
       toast({
         title: "Success",
         description: "Registered Successfully",
@@ -76,6 +81,15 @@ const Register = () => {
       setaddress("");
       setcontact("");
       setPics("");
+    } else {
+      setLoader(false);
+      toast({
+        title: "Error",
+        description: data.message,
+        position: "top-left",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -148,7 +162,6 @@ const Register = () => {
             value={role}
             onChange={(e) => setrole(e.target.value)}
             required
-          
           >
             <option className="text-black" value="employer">
               Employer
@@ -172,9 +185,8 @@ const Register = () => {
           type="submit"
           onClick={handleSubmit}
           isLoading={loading}
-          
         >
-          Sign In
+          {loader ? <Spinner /> : "Sign In"}
         </Button>
       </Box>
     </VStack>
