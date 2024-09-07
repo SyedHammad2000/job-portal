@@ -11,8 +11,6 @@ import {
   useDisclosure,
   Stack,
   FormLabel,
-  Box,
-  InputGroup,
   Select,
   Textarea,
   Input,
@@ -24,9 +22,11 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 import React, { useState, useEffect } from "react";
+import useCloudinary from "../cloudinarycomponent/useCloudinary";
 
 const Updatedrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { loading, Postdetail, Pics, setPics } = useCloudinary();
   const firstField = React.useRef();
   const [name, setname] = useState();
   const [email, setemail] = useState();
@@ -35,14 +35,17 @@ const Updatedrawer = () => {
   const [contact, setcontact] = useState();
   const [address, setaddress] = useState();
   const [token, setToken] = useState();
+  const [image, setImage] = useState();
+  const [loader, setloader] = useState(false);
   const toast = useToast();
-
   const router = useRouter();
 
   console.log(token);
   const handleSubmit = async (e) => {
+    setloader(true);
     e.preventDefault();
     if (!name || !email || !password) {
+      setloader(false);
       toast({
         title: "Error",
         description: "All fields are required",
@@ -60,6 +63,7 @@ const Updatedrawer = () => {
         role,
         address,
         contact,
+        pic: Pics ? Pics : image,
       },
       {
         headers: {
@@ -81,23 +85,26 @@ const Updatedrawer = () => {
     });
     localStorage.setItem("user", JSON.stringify(data.user));
     window.location.reload();
+
+    setloader(false);
   };
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     const fetch = async () => {
-      const data = await axios.get(`${baseURL}/api/register`, {
+      const { data } = await axios.get(`${baseURL}/api/register`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       console.log(data.data);
-      setname(data.data.users.name);
-      setemail(data.data.users.email);
-      setpassword(data.data.users.password);
-      setrole(data.data.users.role);
-      setcontact(data.data.users.contact);
-      setaddress(data.data.users.address);
+      setname(data.users.name);
+      setemail(data.users.email);
+      setpassword(data.users.password);
+      setrole(data.users.role);
+      setcontact(data.users.contact);
+      setaddress(data.users.address);
+      setImage(data.users.pic);
     };
     fetch();
   }, []);
@@ -106,12 +113,7 @@ const Updatedrawer = () => {
     <>
       {token ? (
         <>
-          <Button
-            variant={"ghost"}
-            onClick={onOpen}
-            colorScheme={'blue'}
-            
-          >
+          <Button variant={"ghost"} onClick={onOpen} colorScheme={"blue"}>
             Update Profile
           </Button>
           <Drawer
@@ -170,6 +172,14 @@ const Updatedrawer = () => {
                     />
                   </FormControl>
                   <FormControl>
+                    <FormLabel>Picture</FormLabel>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => Postdetail(e.target.files[0])}
+                    />
+                  </FormControl>
+                  <FormControl>
                     <FormLabel>Role</FormLabel>
                     <Select
                       placeholder="Select Type"
@@ -188,8 +198,12 @@ const Updatedrawer = () => {
                 <Button variant="outline" mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme="blue" onClick={handleSubmit}>
-                  Update
+                <Button
+                  colorScheme="blue"
+                  onClick={handleSubmit}
+                  isLoading={loading}
+                >
+                  {loader ? <Spinner /> : "Update Profile"}
                 </Button>
               </DrawerFooter>
             </DrawerContent>
