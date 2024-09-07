@@ -7,6 +7,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   Textarea,
   useToast,
   VStack,
@@ -19,6 +20,7 @@ const Createjob = () => {
   const [company, setCompany] = useState();
   const [location, setLocation] = useState();
   const [description, setDescription] = useState();
+  const [loader, setLoader] = useState(false);
   const toast = useToast();
   const [token, setToken] = useState();
   useEffect(() => {
@@ -26,8 +28,11 @@ const Createjob = () => {
   }, []);
 
   const handleSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
     if (!title || !company || !location || !description) {
+      setLoader(false);
+
       toast({
         title: "Error",
         description: "All fields are required",
@@ -63,6 +68,7 @@ const Createjob = () => {
         position: "top-left",
         isClosable: true,
       });
+      setLoader(false);
       setTitle("");
       setCompany("");
       setLocation("");
@@ -126,7 +132,7 @@ const Createjob = () => {
           colorScheme={"blue"}
           onClick={handleSubmit}
         >
-          Add
+          {loader ? <Spinner /> : "Add"}
         </Button>
       </Box>
     </VStack>
