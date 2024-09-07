@@ -2,13 +2,18 @@ import mongoose from "mongoose";
 
 const ApplicationModel = new mongoose.Schema(
   {
+    ApplicantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     JobPostId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Jobpost",
     },
-    ApplicantId: {
+    postBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     status: {
       type: String,

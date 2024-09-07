@@ -2,6 +2,7 @@ import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import ApplicationModel from "@/utils/models/ApplicationModel";
 import JobPostSchema from "@/utils/models/JobPostSchema";
+import Usermodel from "@/utils/models/Usermodel";
 // import { connect } from "mongoose";
 
 export default async (req, res) => {
@@ -13,45 +14,51 @@ export default async (req, res) => {
       break;
     // !Auth apply middleware
     case "GET":
-      await Auth(ApplicationGet(req, res));
+      await ApplicationGet(req, res);
       break;
   }
 };
 
 export const ApplicationPost = async (req, res) => {
+  await ConnectDb();
   try {
     //! params
     // const { id } = req.query;
     await Auth(req, res, async () => {
-      const { JobPostId, ApplicantId, resume } = req.body;
-      const userId = req.user.id;
+      const { JobPostId, ApplicantId, resume, postById } = req.body;
+
       const jobId = await JobPostSchema.findById({
         _id: JobPostId,
       });
+      const user = await Usermodel.findOne({ _id: postById });
+      console.log(user);
+      // console.log(jobId.postedBy._id);
 
       if (!jobId) {
         return res.status(400).send({
           message: "Invalid Request",
         });
       }
-      if (jobId === userId) {
-        return res.status(400).send({
-          message: "You can't apply for your own job",
-        });
-      }
 
       let application = await new ApplicationModel({
+        ApplicantId,
         JobPostId: jobId._id,
-        ApplicantId: userId,
+        postBy: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+        },
         resume,
       });
 
       await application.save();
+
       console.log(application);
 
       res.status(201).send({
         message: "Application Sent successfully",
         success: true,
+        data: application,
       });
     });
   } catch (error) {
@@ -64,16 +71,29 @@ export const ApplicationPost = async (req, res) => {
 
 export const ApplicationGet = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const user = await Usermodel.findById({ _id: userId });
-    if (!user.employer) {
-      return res.status(400).send({
-        success: false,
-        message: "You are not employer",
+    await Auth(req, res, async () => {
+      const userId = req.user.id;
+      const applications = await ApplicationModel.find({
+        postBy: userId,
+      })
+        .populate("ApplicantId")
+        .populate("JobPostId");
+
+      if (applications.length == 0) {
+        return res.status(404).send({
+          success: false,
+          message: "No applications found",
+        });
+      }
+
+      res.status(200).send({
+        success: true,
+        message: "Applications fetched successfully",
+        applications,
+        userId: userId,
+        count: applications.length,
       });
-    }else{
-      
-    }
+    });
   } catch (error) {
     console.log(error, "error in ApplicationGet method");
     res.status(404).send({

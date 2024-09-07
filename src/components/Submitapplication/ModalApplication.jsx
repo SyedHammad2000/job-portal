@@ -19,21 +19,27 @@ import axios from "axios";
 import baseURL from "@/helper/baseURL";
 import useCloudinary from "../cloudinarycomponent/useCloudinary";
 
-const ModalApplication = ({ postId, token }) => {
+const ModalApplication = ({ postId, token, postBy }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loading, Postdetail, Pics, setPics } = useCloudinary();
+  const { loading, Postdetail, Pics, setPics, setloading } = useCloudinary();
+  const [user, setuser] = useState();
   const toast = useToast();
   const [loader, setLoader] = useState(false);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+  useEffect(() => {
+    setuser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   const handleSubmit = async () => {
     setLoader(true);
     const { data } = await axios.post(
-      `${baseURL}/api/application/${postId}`,
+      `${baseURL}/api/application/applications`,
       {
+        ApplicantId: user._id,
         JobPostId: postId,
         resume: Pics,
+        postById: postBy._id,
       },
       {
         headers: {
@@ -85,7 +91,7 @@ const ModalApplication = ({ postId, token }) => {
               <Input
                 type="file"
                 accept="application/pdf"
-                onChange={(e) => Postdetail(e.target.files[0])}
+                onChange={(e) => Postdetail(e.target.files[0], "raw")}
                 p={1}
               />
             </FormControl>
@@ -104,7 +110,9 @@ const ModalApplication = ({ postId, token }) => {
             <Button
               onClick={() => {
                 onClose();
-                setPics("");
+                setLoader(false);
+                setloading(false);
+                setPics(null);
               }}
             >
               Cancel

@@ -7,7 +7,7 @@ const useCloudinary = () => {
   const toast = useToast();
   const [Pics, setPics] = useState("");
   const [loading, setloading] = useState(false);
-  const Postdetail = async (pics) => {
+  const Postdetail = async (pics, type) => {
     setloading(true);
     if (pics === undefined) {
       setPics("");
@@ -25,9 +25,10 @@ const useCloudinary = () => {
       const formdata = new FormData();
       formdata.append("file", pics);
       formdata.append("upload_preset", "ecommerce");
-      formdata.append("cloud_name", "dn3tasa5d");
+      // formdata.append("cloud_name", "dn3tasa5d");
+      formdata.append("resource_type", type);
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dn3tasa5d/image/upload",
+        `https://api.cloudinary.com/v1_1/dn3tasa5d/${type}/upload`,
         formdata
       );
       await setPics(res.data.url);
@@ -49,6 +50,7 @@ const useCloudinary = () => {
       formdata.append("file", pics);
       formdata.append("upload_preset", "ecommerce");
       formdata.append("cloud_name", "dn3tasa5d");
+      // formdata.append("resource_type", type);
       const res = await axios.post(
         "https://api.cloudinary.com/v1_1/dn3tasa5d/image/upload",
         formdata
@@ -85,6 +87,7 @@ const useCloudinary = () => {
     Pics,
     loading,
     setPics,
+    setloading,
   };
 };
 

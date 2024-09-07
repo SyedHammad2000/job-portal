@@ -6,11 +6,16 @@ import Modal from "./ModalApplication";
 const SubmitApplication = ({ data }) => {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
+  const { post } = data;
+  const postBy = {
+    _id: post.postedBy._id,
+    name: post.postedBy.name,
+    email: post.postedBy.email,
+  };
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
-  const { post } = data;
   const pic =
     " https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
   const matchpic = pic === post.postedBy.pic;
@@ -112,7 +117,7 @@ const SubmitApplication = ({ data }) => {
         </GridItem>
         {checkuser ? (
           // ^ Modal
-          <Modal postId={postId} token={token} />
+          <Modal postId={postId} token={token} postBy={postBy} />
         ) : (
           // ^ Modal
           <></>
