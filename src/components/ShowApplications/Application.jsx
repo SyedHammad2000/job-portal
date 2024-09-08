@@ -1,6 +1,7 @@
 import { Box, Button, Heading, Link, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { ApplicationContext } from "../appContext/ApplicationContext";
+import nookies from "nookies"
 
 const Application = () => {
   const { post } = useContext(ApplicationContext);
@@ -75,3 +76,6 @@ const Application = () => {
 };
 
 export default Application;
+
+
+

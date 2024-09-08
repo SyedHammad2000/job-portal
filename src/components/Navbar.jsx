@@ -16,25 +16,30 @@ import { useRouter } from "next/router";
 import Menudrop from "./NavbarComp/Menudrop";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { ApplicationContext } from "./appContext/ApplicationContext";
+// import nookies from "nookies";
+// import Cookies from "js-cookie";
 
 const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
-  const [users, setUser] = useState();
-  const [token, settoken] = useState();
-  const { postlength } = useContext(ApplicationContext);
+  // const [users, setUser] = useState();
+  // const [token, settoken] = useState();
+  const { postlength, users, tokens, Settoken, Setuser, handleLogout } =
+    useContext(ApplicationContext);
   const Router = useRouter();
-  useEffect(() => {
-    const fetchToken = async () => {
-      await settoken(localStorage.getItem("token"));
-      setUser(JSON.parse(localStorage.getItem("user")));
-    };
-    fetchToken();
-  }, [token]);
+  // useEffect(() => {
+  //   const fetchToken = async () => {
+  //     await settoken(localStorage.getItem("tokens"));
+  //     setUser(JSON.parse(localStorage.getItem("user")));
+  //   };
+  //   fetchToken();
+  // }, [tokens]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.reload("/login");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("tokens");
+  //   localStorage.removeItem("user");
+  //   Cookies.remove("tokens");
+
+  //   window.location.reload("/login");
+  // };
   return (
     <Box
       display={"flex"}
@@ -45,39 +50,42 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
       color={"white"}
     >
       <Heading ml={5}>Job Portal</Heading>
+
       <Box display={"flex"}>
-        <Link
-          display={{ lg: "none" }}
-          href={"/applications"}
-          style={{
-            position: "relative",
-            width: "30px",
-            margin: "auto",
-          }}
-        >
-          <Box>
-            {postlength > 0 ? (
-              <Text
-                position={"absolute"}
-                top={"-10px"}
-                right={"4px"}
-                bgColor={"green"}
-                w={"18px"}
-                h={5}
-                textAlign={"center"}
-                rounded={"full"}
-                display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
-              >
-                {postlength}
-              </Text>
-            ) : (
-              <></>
-            )}
-            <IoNotificationsSharp size={20} />
-          </Box>
-        </Link>
+        {users == "employer" && (
+          <Link
+            display={{ lg: "none" }}
+            href={"/applications"}
+            style={{
+              position: "relative",
+              width: "30px",
+              margin: "auto",
+            }}
+          >
+            <Box>
+              {postlength > 0 ? (
+                <Text
+                  position={"absolute"}
+                  top={"-10px"}
+                  right={"4px"}
+                  bgColor={"green"}
+                  w={"18px"}
+                  h={5}
+                  textAlign={"center"}
+                  rounded={"full"}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  {postlength}
+                </Text>
+              ) : (
+                <></>
+              )}
+              <IoNotificationsSharp size={20} />
+            </Box>
+          </Link>
+        )}
 
         <IconButton
           size="md"
@@ -102,7 +110,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
           Job Feed
         </Link>
 
-        {token ? (
+        {tokens ? (
           <>
             {users.role === "employer" && (
               <>
@@ -217,7 +225,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
             Job Feed
           </Link>
 
-          {token ? (
+          {tokens ? (
             <>
               {users.role === "employer" && (
                 <>

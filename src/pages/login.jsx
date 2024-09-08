@@ -1,5 +1,6 @@
 import withLoginAuth from "@/components/ProtectedRoute/withLoginAuth";
 import baseURL from "@/helper/baseURL";
+import Cookie from "js-cookie";
 import {
   FormControl,
   FormLabel,
@@ -23,7 +24,7 @@ const Login = () => {
 
   const [loader, setLoader] = useState(false);
   const toast = useToast();
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleSubmit = async (e) => {
     setLoader(true);
@@ -65,6 +66,7 @@ const Login = () => {
       });
       setLoader(false);
       localStorage.setItem("token", data.token);
+      Cookie.set("token", data.token, { expires: 30 });
       const user = JSON.stringify(data.user);
       localStorage.setItem("user", user);
       window.location.href = "/profile";
@@ -126,7 +128,7 @@ const Login = () => {
           />
         </FormControl>
         <Button variant={"solid"} onClick={handleSubmit}>
-          {loader ? <Spinner /> : <IoIosLogIn size={"md"} />}
+          {loader ? <Spinner /> : <IoIosLogIn size="30" />}
         </Button>
       </Box>
     </VStack>

@@ -1,6 +1,7 @@
 import withAuth from "@/components/ProtectedRoute/withAuth";
 import Updatedrawer from "@/components/UpdateComp/Updatedrawer";
 import baseURL from "@/helper/baseURL";
+import nookies from "nookies";
 import {
   Box,
   Button,
@@ -18,27 +19,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 
-const Profile = () => {
-  const [user, setUser] = useState();
-  const [token, setToken] = useState();
-
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-    const fetch = async () => {
-      const data = await axios.get(`${baseURL}/api/register`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(data.data);
-      setUser(data.data);
-    };
-
-    fetch();
-  }, []);
-
+const Profile = ({ user, token }) => {
   return (
     <VStack
       height="100%"
@@ -121,7 +103,6 @@ const Profile = () => {
               <Box
                 fontSize={"20px"}
                 padding={0}
-               
                 fontFamily={"sans-serif"}
                 fontWeight={"none"}
                 color={"white"}
@@ -154,3 +135,35 @@ const Profile = () => {
 export default withAuth(Profile);
 
 // getServerSideProps
+
+export const getServerSideProps = async (context) => {
+  const cookies = nookies.get(context);
+  console.log(cookies);
+
+  if (!cookies.token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  const data = await axios.get(`${baseURL}/api/register`, {
+    headers: {
+      Authorization: `Bearer ${cookies.token}`,
+    },
+  });
+
+  console.log(data.data);
+
+  // const token = cookies.token;
+
+  // console.log(token);
+
+  return {
+    props: {
+      user: data.data,
+      token: cookies.token,
+    },
+  };
+};

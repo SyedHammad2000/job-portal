@@ -1,6 +1,7 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import Usermodel from "@/utils/models/Usermodel";
-
+// import nookies from "nookies";
+import cookie from "cookie";
 // import {} from "json";
 import jwt from "jsonwebtoken";
 import NextCors from "nextjs-cors";
@@ -36,12 +37,19 @@ export default async (req, res) => {
     const user = await Usermodel.findOne({ email });
     const payload = {
       id: user._id,
+      email: user.email,
+      name: user.name,
     };
 
     const usermatch = (await user.password) === password;
     const token = jwt.sign(payload, process.env.JWT_TOKEN, {
       expiresIn: "30d",
     });
+
+    // console.log(token);
+    // cookie
+
+    // console.log(cookies);
 
     if (usermatch) {
       res.status(200).send({

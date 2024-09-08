@@ -40,7 +40,6 @@ const Updatedrawer = () => {
   const toast = useToast();
   const router = useRouter();
 
-  console.log(token);
   const handleSubmit = async (e) => {
     setloader(true);
     e.preventDefault();

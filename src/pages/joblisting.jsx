@@ -18,7 +18,8 @@ const Joblisting = ({ data }) => {
   console.log(data.posts);
   return (
     <HStack
-      backgroundColor={"#FFDFD6"}
+      backgroundColor={"white"}
+      
       maxW={"100vw"}
       height="100%"
       p={5}
@@ -42,7 +43,7 @@ const Joblisting = ({ data }) => {
             p={5}
             gap={2}
             bg={"cornslik"}
-            color={"crimson"}
+            color={"black"}
           >
             <Heading size="md">{post.title}</Heading>
             <Text>{post.company}</Text>

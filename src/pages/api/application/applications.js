@@ -79,12 +79,12 @@ export const ApplicationGet = async (req, res) => {
         .populate("ApplicantId")
         .populate("JobPostId");
 
-      if (applications.length == 0) {
-        return res.status(404).send({
-          success: false,
-          message: "No applications found",
-        });
-      }
+      // if (applications.length == 0) {
+      //   return res.status(404).send({
+      //     success: false,
+      //     message: "No applications found",
+      //   });
+      // }
 
       res.status(200).send({
         success: true,
