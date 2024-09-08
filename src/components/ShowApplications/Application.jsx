@@ -36,7 +36,7 @@ const Application = () => {
 
               <Link
                 href={post.resume}
-                download
+                // download
                 target="_blank"
                 rel="noopener noreferrer"
                 color="brown"
