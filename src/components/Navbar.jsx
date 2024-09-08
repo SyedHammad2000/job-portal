@@ -7,18 +7,20 @@ import {
   Stack,
   useDisclosure,
   Menu,
+  Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import React, { useEffect, useState } from "react";
-import { BsFilePost } from "react-icons/bs";
-import { MdOutlineCreateNewFolder } from "react-icons/md";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "@chakra-ui/next-js";
 import { useRouter } from "next/router";
 import Menudrop from "./NavbarComp/Menudrop";
+import { IoNotificationsSharp } from "react-icons/io5";
+import { ApplicationContext } from "./appContext/ApplicationContext";
 
 const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
   const [users, setUser] = useState();
   const [token, settoken] = useState();
+  const { postlength } = useContext(ApplicationContext);
   const Router = useRouter();
   useEffect(() => {
     const fetchToken = async () => {
@@ -68,14 +70,44 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
         {token ? (
           <>
             {users.role === "employer" && (
-              <Link
-                style={{
-                  textDecoration: "none",
-                }}
-                href={"/createjob"}
-              >
-                Add Post
-              </Link>
+              <>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                  }}
+                  href={"/createjob"}
+                >
+                  Add Post
+                </Link>
+                <Link
+                  href={"/applications"}
+                  style={{
+                    position: "relative",
+                    width: "30px",
+                    margin: "auto",
+                  }}
+                >
+                  <Box>
+                    {postlength > 0 ? (
+                      <Text
+                        position={"absolute"}
+                        top={"-10px"}
+                        right={"4px"}
+                        bgColor={"green"}
+                        w={"4"}
+                        h={5}
+                        textAlign={"center"}
+                        rounded={"full"}
+                      >
+                        {postlength}
+                      </Text>
+                    ) : (
+                      <></>
+                    )}
+                    <IoNotificationsSharp size={25} />
+                  </Box>
+                </Link>
+              </>
             )}
           </>
         ) : (
@@ -150,16 +182,46 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
           {token ? (
             <>
               {users.role === "employer" && (
-                <Link
-                  style={{
-                    textDecoration: "none",
-                  }}
-                  className="nvl"
-                  href={"/createjob"}
-                  onClick={onClose}
-                >
-                  Add Post
-                </Link>
+                <>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                    }}
+                    className="nvl"
+                    href={"/createjob"}
+                    onClick={onClose}
+                  >
+                    Add Post
+                  </Link>
+                  <Link
+                    href={"/applications"}
+                    style={{
+                      position: "relative",
+                      width: "30px",
+                      margin: "auto",
+                    }}
+                  >
+                    <Box>
+                      {postlength > 0 ? (
+                        <Text
+                          position={"absolute"}
+                          top={"-10px"}
+                          right={"4px"}
+                          bgColor={"green"}
+                          w={"4"}
+                          h={5}
+                          textAlign={"center"}
+                          rounded={"full"}
+                        >
+                          {postlength}
+                        </Text>
+                      ) : (
+                        <></>
+                      )}
+                      <IoNotificationsSharp size={25} />
+                    </Box>
+                  </Link>
+                </>
               )}
             </>
           ) : (
