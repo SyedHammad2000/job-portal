@@ -33,13 +33,11 @@ const Application = () => {
               {/* <iframe src={post.resume} width="100%" height="100%">
                 Pdf{" "}
               </iframe> */}
-              <a href={post.resume}>pdf</a>
 
               <Link
                 href={post.resume}
                 // download
                 target="_blank"
-                rel="noopener noreferrer"
                 color="brown"
                 fontSize="14px"
               >

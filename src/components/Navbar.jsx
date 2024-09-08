@@ -45,12 +45,47 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
       color={"white"}
     >
       <Heading ml={5}>Job Portal</Heading>
-      <IconButton
-        size="md"
-        icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-        display={{ lg: "none" }}
-        onClick={onToggle}
-      />
+      <Box display={"flex"}>
+        <Link
+          display={{ lg: "none" }}
+          href={"/applications"}
+          style={{
+            position: "relative",
+            width: "30px",
+            margin: "auto",
+          }}
+        >
+          <Box>
+            {postlength > 0 ? (
+              <Text
+                position={"absolute"}
+                top={"-10px"}
+                right={"4px"}
+                bgColor={"green"}
+                w={"18px"}
+                h={5}
+                textAlign={"center"}
+                rounded={"full"}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+              >
+                {postlength}
+              </Text>
+            ) : (
+              <></>
+            )}
+            <IoNotificationsSharp size={20} />
+          </Box>
+        </Link>
+
+        <IconButton
+          size="md"
+          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+          display={{ lg: "none" }}
+          onClick={onToggle}
+        />
+      </Box>
       <HStack
         display={{ base: "none", lg: "flex" }}
         gap={10}
@@ -94,10 +129,13 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                         top={"-10px"}
                         right={"4px"}
                         bgColor={"green"}
-                        w={"4"}
+                        w={"18px"}
                         h={5}
                         textAlign={"center"}
                         rounded={"full"}
+                        display={"flex"}
+                        justifyContent={"center"}
+                        alignItems={"center"}
                       >
                         {postlength}
                       </Text>
@@ -199,6 +237,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                       position: "relative",
                       width: "30px",
                       margin: "auto",
+                      display: "none",
                     }}
                   >
                     <Box>
@@ -208,10 +247,13 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                           top={"-10px"}
                           right={"4px"}
                           bgColor={"green"}
-                          w={"4"}
+                          w={"18px"}
                           h={5}
                           textAlign={"center"}
                           rounded={"full"}
+                          display={"flex"}
+                          justifyContent={"center"}
+                          alignItems={"center"}
                         >
                           {postlength}
                         </Text>
