@@ -30,9 +30,10 @@ const Application = () => {
               <Heading size="md">{post.status}</Heading>
               <Text>{post.ApplicantId.name}</Text>
 
-              <iframe src={post.resume} width="100%" height="100%">
+              {/* <iframe src={post.resume} width="100%" height="100%">
                 Pdf{" "}
-              </iframe>
+              </iframe> */}
+              <a href={post.resume}>pdf</a>
 
               <Link
                 href={post.resume}
