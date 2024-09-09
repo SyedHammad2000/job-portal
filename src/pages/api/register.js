@@ -106,7 +106,7 @@ const RegisterPut = async (req, res) => {
     try {
       const userId = req.user.id;
       console.log(userId);
-      const { name, password, role, contact, address, pic, email } = req.body;
+      const { name, password, role, contact, address, pic } = req.body;
 
       await Usermodel.findByIdAndUpdate(userId, {
         name,

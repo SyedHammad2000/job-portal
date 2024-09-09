@@ -1,5 +1,6 @@
 import withAuth from "@/components/ProtectedRoute/withAuth";
-import Updatedrawer from "@/components/UpdateComp/Updatedrawer";
+// import Updatedrawer from "@/components/UpdateComp/Updatedrawer";
+
 import baseURL from "@/helper/baseURL";
 import nookies from "nookies";
 import {
@@ -20,8 +21,11 @@ import {
 import axios from "axios";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Updatedrawer from "./update/update";
+import { useRouter } from "next/router";
 
 const Profile = ({ user, token }) => {
+  const router = useRouter();
   const MotionCard = motion(Card);
 
   return (
@@ -122,7 +126,7 @@ const Profile = ({ user, token }) => {
                   color: "black",
                 }}
               >
-                <Updatedrawer token={token} />
+                <Updatedrawer user={user} token={token} />
               </Box>
             </Stack>
           </CardBody>
@@ -167,10 +171,6 @@ export const getServerSideProps = async (context) => {
   });
 
   console.log(data.data);
-
-  // const token = cookies.token;
-
-  // console.log(token);
 
   return {
     props: {

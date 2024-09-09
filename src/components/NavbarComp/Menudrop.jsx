@@ -6,7 +6,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import Updatedrawer from "../UpdateComp/Updatedrawer";
 
 const Menudrop = ({ handleLogout, users, Router, onClose }) => {
   return (
@@ -27,19 +26,10 @@ const Menudrop = ({ handleLogout, users, Router, onClose }) => {
           }}
           onClick={() => {
             Router.push("/profile");
-            onClose()
-          }}
-        >
-          My Account
-        </MenuItem>
-        <MenuItem
-          bg="black"
-          onClick={() => {
-            Router.push("/profile");
             onClose();
           }}
         >
-          <Updatedrawer />
+          My Account
         </MenuItem>
         <MenuItem
           bg="black"
