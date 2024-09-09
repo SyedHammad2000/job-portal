@@ -4,11 +4,13 @@ import { Box, Button, Heading, HStack, Link, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import nookies from "nookies";
+import { motion } from "framer-motion";
 
 const Applications = ({ posts }) => {
   const { applications } = posts;
 
   console.log(applications);
+  const MotionBox = motion(Box);
 
   return (
     <HStack
@@ -25,7 +27,14 @@ const Applications = ({ posts }) => {
         {applications.length > 0 ? (
           applications.map((post) => {
             return (
-              <Box
+              <MotionBox
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                }}
+                transition={{ duration: 0.7 }}
                 key={post._id}
                 boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
                 margin="10px"
@@ -80,7 +89,7 @@ const Applications = ({ posts }) => {
                     Reject
                   </Button>
                 </Box>
-              </Box>
+              </MotionBox>
             );
           })
         ) : (

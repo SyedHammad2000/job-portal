@@ -10,12 +10,14 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import React from "react";
 
 const Joblisting = ({ data }) => {
   const router = useRouter();
   console.log(data.posts);
+  const MotionBox = motion(Box);
   return (
     <HStack
       backgroundColor={"white"}
@@ -28,7 +30,16 @@ const Joblisting = ({ data }) => {
     >
       {data.posts.map((post) => {
         return (
-          <Box
+          <MotionBox
+            initial={{
+              x: -100,
+              opacity: 0,
+            }}
+            animate={{
+              x: 0,
+              opacity: 1,
+            }}
+            transition={{ duration: 0.5 }}
             key={post._id}
             boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
             margin="10px"
@@ -44,7 +55,7 @@ const Joblisting = ({ data }) => {
             bg={"cornslik"}
             color={"black"}
           >
-            <Heading size="md" textAlign={'center'}>
+            <Heading size="md" textAlign={"center"}>
               {post.title}
             </Heading>
             <Text>{post.company}</Text>
@@ -58,7 +69,7 @@ const Joblisting = ({ data }) => {
             >
               View Details
             </Button>
-          </Box>
+          </MotionBox>
         );
       })}
       {/* </Box> */}

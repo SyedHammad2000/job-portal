@@ -19,8 +19,11 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Profile = ({ user, token }) => {
+  const MotionCard = motion(Card);
+
   return (
     <VStack
       height="100%"
@@ -30,7 +33,16 @@ const Profile = ({ user, token }) => {
         background: "linear-gradient(11deg, white, black, maroon, transparent)",
       }}
     >
-      <Card
+      <MotionCard
+        initial={{
+          x: -100,
+          opacity: 0,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+        }}
+        transition={{ duration: 0.5 }}
         width={[
           "100%", // 0-30em
           "70%", // 30em-48em
@@ -127,7 +139,7 @@ const Profile = ({ user, token }) => {
             </Link>
           </Box>
         )}
-      </Card>
+      </MotionCard>
     </VStack>
   );
 };
