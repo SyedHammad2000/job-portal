@@ -10,11 +10,17 @@ const ApplicationProvider = ({ children }) => {
   const [postlength, setPostslength] = useState([]);
   const [users, Setuser] = useState();
   const [tokens, Settoken] = useState();
+  const [totaluser, settotaluser] = useState();
   useEffect(() => {
     const token = localStorage.getItem("token");
     Settoken(token);
     const user = localStorage.getItem("user");
     Setuser(JSON.parse(user));
+    const FetchUsers = async () => {
+      const { data } = await axios.get(`${baseURL}/api/register`);
+      console.log(data, "data");
+      settotaluser(data);
+    };
     const FetchApp = async () => {
       const { data } = await axios.get(
         `${baseURL}/api/application/applications`,
@@ -29,6 +35,7 @@ const ApplicationProvider = ({ children }) => {
       console.log(data.applications);
     };
     FetchApp();
+    FetchUsers();
   }, []);
 
   const handleLogout = () => {
@@ -50,6 +57,7 @@ const ApplicationProvider = ({ children }) => {
         Settoken,
         Setuser,
         handleLogout,
+        totaluser,
       }}
     >
       {children}

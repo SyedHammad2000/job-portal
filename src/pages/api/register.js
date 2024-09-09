@@ -23,6 +23,9 @@ export default async (req, res) => {
       await RegisterPost(req, res);
       break;
     case "GET":
+      await RegisterGetById(req, res);
+      break;
+    case "GET":
       await RegisterGet(req, res);
       break;
     case "PUT":
@@ -78,7 +81,7 @@ const RegisterPost = async (req, res) => {
   }
 };
 
-const RegisterGet = async (req, res) => {
+const RegisterGetById = async (req, res) => {
   await ConnectDb();
   Auth(req, res, async () => {
     const userId = req.user.id;
@@ -86,7 +89,7 @@ const RegisterGet = async (req, res) => {
     try {
       const users = await Usermodel.findById(userId);
       res.status(200).send({
-        message: "users fetched successfully",
+        message: "user fetched successfully",
         users,
       });
     } catch (error) {
@@ -132,4 +135,22 @@ const RegisterPut = async (req, res) => {
       });
     }
   });
+};
+
+const RegisterGet = async (req, res) => {
+  await ConnectDb();
+
+  const userId = req.user.id;
+  console.log();
+  try {
+    const users = await Usermodel.find({});
+    res.status(200).send({
+      message: "users fetched successfully",
+      users,
+    });
+  } catch (error) {
+    res.status(401).send({
+      message: "error in register controller" + error,
+    });
+  }
 };

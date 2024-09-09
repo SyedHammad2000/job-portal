@@ -19,7 +19,6 @@ const Joblisting = ({ data }) => {
   return (
     <HStack
       backgroundColor={"white"}
-      
       maxW={"100vw"}
       height="100%"
       p={5}
@@ -34,7 +33,7 @@ const Joblisting = ({ data }) => {
             boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
             margin="10px"
             borderRadius="5px"
-            height={"10rem"}
+            height={"100%"}
             width={["20rem", "15rem", "20rem", "20rem"]}
             display={"flex"}
             flexDirection={"column"}
@@ -45,7 +44,9 @@ const Joblisting = ({ data }) => {
             bg={"cornslik"}
             color={"black"}
           >
-            <Heading size="md">{post.title}</Heading>
+            <Heading size="md" textAlign={'center'}>
+              {post.title}
+            </Heading>
             <Text>{post.company}</Text>
             <Heading size={"sm"}>PostBy:{post.postedBy.name}</Heading>
             <Button

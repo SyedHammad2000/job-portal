@@ -41,7 +41,9 @@ const Applications = ({ posts }) => {
                 bg={""}
                 color={"crimson"}
               >
-                <Heading size="md">{post.JobPostId.title}</Heading>
+                <Heading size="md" textAlign={"center"}>
+                  {post.JobPostId.title}
+                </Heading>
                 <Text>{post.ApplicantId.name}</Text>
 
                 {/* <iframe src={post.resume} width="100%" height="100%">
