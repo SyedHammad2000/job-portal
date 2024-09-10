@@ -20,68 +20,6 @@ const Applications = ({ posts }) => {
 
   console.log(applications);
   const MotionBox = motion(Box);
-  const handleAccept = async () => {
-    const { data } = await axios.post(
-      `${baseURL}/api/receiver/${post.JobPostId._id}`,
-      {
-        to: post.ApplicantId.email,
-        message: `Your application is accepted & Your interview has been scheduled for upcoming Saturday`,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${nookies.get().token}`,
-        },
-      }
-    );
-
-    console.log(data);
-
-    toast({
-      title: "Application Accepted",
-      description: data.message,
-      status: "success",
-      duration: 3000,
-
-      isClosable: true,
-    });
-
-    await axios.delete(`${baseURL}/api/receiver/${post._id}`, {
-      headers: {
-        Authorization: `Bearer ${nookies.get().token}`,
-      },
-    });
-    window.location.reload();
-  };
-  const handleRejected = async () => {
-    const { data } = await axios.post(
-      `${baseURL}/api/receiver/${post.JobPostId._id}`,
-      {
-        to: post.ApplicantId.email,
-        message: `Sorry, Your application is rejected`,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${nookies.get().token}`,
-        },
-      }
-    );
-    console.log(data);
-
-    toast({
-      title: "Application Rejected",
-      description: data.message,
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-
-    await axios.delete(`${baseURL}/api/application/${post._id}`, {
-      headers: {
-        Authorization: `Bearer ${nookies.get().token}`,
-      },
-    });
-    window.location.reload();
-  };
 
   return (
     <HStack
@@ -147,7 +85,41 @@ const Applications = ({ posts }) => {
                     variant={"solid"}
                     outlineColor={"black"}
                     mr="4"
-                    onClick={handleAccept}
+                    onClick={async () => {
+                      const { data } = await axios.post(
+                        `${baseURL}/api/receiver/${post.JobPostId._id}`,
+                        {
+                          to: post.ApplicantId.email,
+                          message: `Your application is accepted & Your interview has been scheduled for upcoming Saturday`,
+                        },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+
+                      console.log(data);
+
+                      toast({
+                        title: "Application Accepted",
+                        description: data.message,
+                        status: "success",
+                        duration: 3000,
+
+                        isClosable: true,
+                      });
+
+                      await axios.delete(
+                        `${baseURL}/api/receiver/${post._id}`,
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+                      await window.location.href("/applications");
+                    }}
                   >
                     Accept
                   </Button>
@@ -157,7 +129,39 @@ const Applications = ({ posts }) => {
                     variant={"solid"}
                     outlineColor={"black"}
                     display={"inline"}
-                    onClick={handleRejected}
+                    onClick={async () => {
+                      const { data } = await axios.post(
+                        `${baseURL}/api/receiver/${post.JobPostId._id}`,
+                        {
+                          to: post.ApplicantId.email,
+                          message: `Sorry, Your application is rejected`,
+                        },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+                      console.log(data);
+
+                      toast({
+                        title: "Application Rejected",
+                        description: data.message,
+                        status: "success",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+
+                      await axios.delete(
+                        `${baseURL}/api/application/${post._id}`,
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+                      await window.location.href("/applications");
+                    }}
                   >
                     Reject
                   </Button>
