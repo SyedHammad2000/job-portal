@@ -1,6 +1,14 @@
 import Application from "@/components/ShowApplications/Application";
 import baseURL from "@/helper/baseURL";
-import { Box, Button, Heading, HStack, Link, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Link,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import nookies from "nookies";
@@ -8,6 +16,7 @@ import { motion } from "framer-motion";
 
 const Applications = ({ posts }) => {
   const { applications } = posts;
+  const toast = useToast();
 
   console.log(applications);
   const MotionBox = motion(Box);
@@ -76,6 +85,41 @@ const Applications = ({ posts }) => {
                     variant={"solid"}
                     outlineColor={"black"}
                     mr="4"
+                    onClick={async () => {
+                      const { data } = await axios.post(
+                        `${baseURL}/api/receiver/${post.JobPostId._id}`,
+                        {
+                          to: post.ApplicantId.email,
+                          message: `Your application is accepted & Your interview has been scheduled for upcoming Saturday`,
+                        },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+
+                      console.log(data);
+
+                      toast({
+                        title: "Application Accepted",
+                        description: data.message,
+                        status: "success",
+                        duration: 3000,
+
+                        isClosable: true,
+                      });
+
+                      await axios.delete(
+                        `${baseURL}/api/receiver/${post._id}`,
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+                      window.location.reload();
+                    }}
                   >
                     Accept
                   </Button>
@@ -85,6 +129,39 @@ const Applications = ({ posts }) => {
                     variant={"solid"}
                     outlineColor={"black"}
                     display={"inline"}
+                    onClick={async () => {
+                      const { data } = await axios.post(
+                        `${baseURL}/api/receiver/${post.JobPostId._id}`,
+                        {
+                          to: post.ApplicantId.email,
+                          message: `Sorry, Your application is rejected`,
+                        },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+                      console.log(data);
+
+                      toast({
+                        title: "Application Rejected",
+                        description: data.message,
+                        status: "success",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+
+                      await axios.delete(
+                        `${baseURL}/api/application/${post._id}`,
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
+                          },
+                        }
+                      );
+                      window.location.reload();
+                    }}
                   >
                     Reject
                   </Button>

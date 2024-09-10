@@ -31,13 +31,9 @@ const Application = () => {
               <Heading size="md">{post.status}</Heading>
               <Text>{post.ApplicantId.name}</Text>
 
-              {/* <iframe src={post.resume} width="100%" height="100%">
-                Pdf{" "}
-              </iframe> */}
 
               <Link
                 href={post.resume}
-                // download
                 target="_blank"
                 color="brown"
                 fontSize="14px"

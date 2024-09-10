@@ -3,6 +3,7 @@ import { Auth } from "@/utils/middleware/auth";
 import ApplicationModel from "@/utils/models/ApplicationModel";
 import JobPostSchema from "@/utils/models/JobPostSchema";
 import Usermodel from "@/utils/models/Usermodel";
+import nodemailer from "nodemailer";
 // import { connect } from "mongoose";
 
 export default async (req, res) => {
@@ -16,6 +17,10 @@ export default async (req, res) => {
     case "GET":
       await ApplicationGet(req, res);
       break;
+
+    case "PUT":
+      await ApplicationPut(req, res);
+      break;
   }
 };
 
@@ -25,7 +30,7 @@ export const ApplicationPost = async (req, res) => {
     //! params
     // const { id } = req.query;
     await Auth(req, res, async () => {
-      const { JobPostId, ApplicantId, resume, postById } = req.body;
+      const { JobPostId, ApplicantId, resume, postById, message } = req.body;
 
       const jobId = await JobPostSchema.findById({
         _id: JobPostId,
@@ -49,6 +54,8 @@ export const ApplicationPost = async (req, res) => {
           email: user.email,
         },
         resume,
+        message,
+        notify: false,
       });
 
       await application.save();
