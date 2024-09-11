@@ -30,6 +30,7 @@ export default async (req, res) => {
     if (!email || !password) {
       res.status(401).send({
         message: "All fields are required",
+        success: false,
       });
       return;
     }
@@ -41,17 +42,13 @@ export default async (req, res) => {
       name: user.name,
     };
 
-    const usermatch = (await user.password) === password;
+    const usermatchpassword = (await user.password) === password;
+
     const token = jwt.sign(payload, process.env.JWT_TOKEN, {
       expiresIn: "30d",
     });
 
-    // console.log(token);
-    // cookie
-
-    // console.log(cookies);
-
-    if (usermatch) {
+    if (usermatchpassword) {
       res.status(200).send({
         message: "user login successfully",
         user: user,
@@ -59,12 +56,12 @@ export default async (req, res) => {
         success: true,
       });
       return;
-    } else {
-      res.status(401).send({
-        message: "user not found",
-        success: false,
-      });
     }
+
+    res.status(400).send({
+      message: "Invalid credentials",
+      success: false,
+    });
     //! i want to set cookies
   } catch (error) {
     res.status(400).send({

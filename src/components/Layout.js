@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { Box, useDisclosure } from "@chakra-ui/react";
+import { Box, ChakraProvider, useDisclosure } from "@chakra-ui/react";
 // import { Container } from "@chakra-ui/react";
 import React from "react";
 import { ApplicationProvider } from "./appContext/ApplicationContext";
@@ -14,16 +14,18 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <ApplicationProvider>
-        <Navbar
-          onClose={onClose}
-          onOpen={onOpen}
-          isOpen={isOpen}
-          onToggle={onToggle}
-        />
-        <Box onClick={handleClick}>{children}</Box>
-        <Footer />
-      </ApplicationProvider>
+      <ChakraProvider>
+        <ApplicationProvider>
+          <Navbar
+            onClose={onClose}
+            onOpen={onOpen}
+            isOpen={isOpen}
+            onToggle={onToggle}
+          />
+          <Box onClick={handleClick}>{children}</Box>
+          <Footer />
+        </ApplicationProvider>
+      </ChakraProvider>
     </>
   );
 };

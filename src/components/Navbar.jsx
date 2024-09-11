@@ -79,7 +79,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
         )}
         {users?.role === "applicant" && (
           <Link
-            href={"/notifications"}
+            href={"/notification"}
             display={{ lg: "none" }}
             style={{
               position: "relative",
@@ -184,7 +184,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
             )}
             {users?.role === "applicant" ? (
               <Link
-                href={"/notifications"}
+                href={"/notification"}
                 display={{}}
                 style={{
                   position: "relative",

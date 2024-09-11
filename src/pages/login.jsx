@@ -29,52 +29,66 @@ const Login = () => {
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    if (!password || !email) {
-      toast({
-        title: "Error",
-        description: "All fields are required",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      setLoader(false);
-      return;
-    }
-
-    const { data } = await axios.post(
-      `${baseURL}/api/login`,
-      {
-        email,
-        password,
-      },
-      {
-        headers: {
-          // content type
-          "Content-Type": "application/json",
-        },
+    try {
+      if (!password || !email) {
+        toast({
+          title: "Error",
+          description: "All fields are required",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        setLoader(false);
+        return;
       }
-    );
-    console.log(data);
-    if (data.token && data.success) {
-      toast({
-        title: "Welcome to Job Portal",
-        description: "Succesfully logged in",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top-left",
-      });
-      setLoader(false);
-      localStorage.setItem("token", data.token);
-      Cookie.set("token", data.token, { expires: 30 });
-      const user = JSON.stringify(data.user);
-      localStorage.setItem("user", user);
-      window.location.href = "/";
-    } else {
+
+      const { data } = await axios.post(
+        `${baseURL}/api/login`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            // content type
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(data);
+
+      if (data.success) {
+        toast({
+          title: "Welcome to Job Portal",
+          description: "Succesfully logged in",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-left",
+        });
+        setLoader(false);
+        localStorage.setItem("token", data.token);
+        Cookie.set("token", data.token, { expires: 30 });
+        const user = JSON.stringify(data.user);
+        localStorage.setItem("user", user);
+        window.location.href = "/";
+      }
+
+      if (!data.success) {
+        setLoader(false);
+        toast({
+          title: "Error",
+          description: data.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
       setLoader(false);
       toast({
         title: "Error",
-        description: data.message,
+        description: `${error}`,
         status: "error",
         duration: 3000,
         isClosable: true,
