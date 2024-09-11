@@ -7,7 +7,9 @@ const ApplicationContext = createContext();
 
 const ApplicationProvider = ({ children }) => {
   const [post, setPost] = useState();
+  const [app, setApp] = useState();
   const [postlength, setPostslength] = useState([]);
+  const [applength, setApplength] = useState([]);
   const [users, Setuser] = useState();
   const [tokens, Settoken] = useState();
   const [totaluser, settotaluser] = useState();
@@ -37,6 +39,20 @@ const ApplicationProvider = ({ children }) => {
     FetchApp();
     FetchUsers();
   }, []);
+  useEffect(() => {
+    const tok = Cookies.get("token");
+    const FetchApp = async () => {
+      const { data } = await axios.get(`${baseURL}/api/receiver/receiver`, {
+        headers: {
+          Authorization: `Bearer ${tok}`,
+        },
+      });
+      setApp(data.receiver);
+      setApplength(data.receiver.length);
+      console.log(data.receiver);
+    };
+    FetchApp();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -58,6 +74,8 @@ const ApplicationProvider = ({ children }) => {
         Setuser,
         handleLogout,
         totaluser,
+        app,
+        applength,
       }}
     >
       {children}

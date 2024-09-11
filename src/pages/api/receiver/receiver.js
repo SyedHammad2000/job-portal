@@ -9,7 +9,8 @@ export default async (req, res) => {
       await ReceiverGet(req, res);
       break;
 
-    case "POST":
+    case "DELETE":
+      await ReceiverDelete(req, res);
       break;
   }
 };
@@ -39,3 +40,14 @@ export const ReceiverGet = async (req, res) => {
     });
   }
 };
+
+
+export const ReceiverDelete=async(req, res)=>{
+ await ConnectDb()
+ const {id}=req.query
+ const receiver=await Receivermodal.findByIdAndDelete({
+  _id:id
+ })
+ res.send({receiver})
+  
+}

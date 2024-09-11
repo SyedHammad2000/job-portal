@@ -12,6 +12,10 @@ export default async (req, res) => {
     case "POST":
       await ReceiverPost(req, res);
       break;
+
+    case "DELETE":
+      await ReceiverDelete(req, res);
+      break;
   }
 };
 
@@ -51,4 +55,13 @@ export const ReceiverPost = async (req, res) => {
       success: false,
     });
   }
+};
+
+export const ReceiverDelete = async (req, res) => {
+  await ConnectDb();
+  const { id } = req.query;
+  const receiver = await Receivermodal.findByIdAndDelete({
+    _id: id,
+  });
+  res.send({ receiver });
 };
