@@ -73,7 +73,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
               ) : (
                 <></>
               )}
-              <IoNotificationsSharp size={20} />
+              <IoNotificationsSharp size={20} color="red" />
             </Box>
           </Link>
         )}
@@ -109,7 +109,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
               ) : (
                 <></>
               )}
-              <IoNotificationsSharp size={25} />
+              <IoNotificationsSharp size={25} color="red" />
             </Box>
           </Link>
         )}
@@ -178,7 +178,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                     ) : (
                       <></>
                     )}
-                    <IoNotificationsSharp size={25} />
+                    <IoNotificationsSharp size={25} color="red" />
                   </Box>
                 </Link>
               </>
@@ -214,7 +214,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                   ) : (
                     <></>
                   )}
-                  <IoNotificationsSharp size={25} />
+                  <IoNotificationsSharp size={25} color="red" />
                 </Box>
               </Link>
             ) : (

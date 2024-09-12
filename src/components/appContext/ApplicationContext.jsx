@@ -15,6 +15,7 @@ const ApplicationProvider = ({ children }) => {
   const [tokens, Settoken] = useState();
   const [totaluser, settotaluser] = useState();
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
     Settoken(token);
@@ -59,6 +60,8 @@ const ApplicationProvider = ({ children }) => {
         setLoading,
         setjobs,
         jobs,
+        loader,
+        setLoader,
       }}
     >
       {children}

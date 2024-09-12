@@ -18,9 +18,17 @@ import { ApplicationContext } from "@/components/appContext/ApplicationContext";
 
 const Applications = () => {
   const toast = useToast();
+  const [loaders, setLoaders] = useState(false);
 
-  const { setPost, post, setPostslength, loading, setLoading } =
-    useContext(ApplicationContext);
+  const {
+    setPost,
+    post,
+    setPostslength,
+    loading,
+    setLoading,
+    setLoader,
+    loader,
+  } = useContext(ApplicationContext);
 
   useEffect(() => {
     const fetchApp = async () => {
@@ -43,7 +51,8 @@ const Applications = () => {
   }, []);
 
   const MotionBox = motion(Box);
-  const handleDelete = async (id) => {
+  const handleDeleteAccept = async (id) => {
+    setLoader(true);
     const res = await axios.delete(`${baseURL}/api/application/${id}`, {
       headers: {
         Authorization: `Bearer ${nookies.get().token}`,
@@ -52,6 +61,19 @@ const Applications = () => {
     console.log(res);
     setPost(post?.filter((item) => item._id !== id));
     window.location.reload();
+    setLoader(false);
+  };
+  const handleDeleteReject = async (id) => {
+    setLoaders(true);
+    const res = await axios.delete(`${baseURL}/api/application/${id}`, {
+      headers: {
+        Authorization: `Bearer ${nookies.get().token}`,
+      },
+    });
+    console.log(res);
+    setPost(post?.filter((item) => item._id !== id));
+    window.location.reload();
+    setLoaders(false);
   };
 
   return (
@@ -126,8 +148,9 @@ const Applications = () => {
                           }
                         ),
                       ]);
-                      await handleDelete(post._id);
+                      await handleDeleteAccept(post._id);
                     }}
+                    isLoading={loader}
                   >
                     Accept
                   </Button>
@@ -136,21 +159,23 @@ const Applications = () => {
                     p={2}
                     display={"inline"}
                     onClick={async () => {
-                      axios.post(
-                        `${baseURL}/api/receiver/${post.JobPostId._id}`,
-                        {
-                          to: post.ApplicantId.email,
-                          message: `Your application is rejected`,
-                        },
-                        {
-                          headers: {
-                            Authorization: `Bearer ${nookies.get().token}`,
+                      await Promise.all([
+                        axios.post(
+                          `${baseURL}/api/receiver/${post.JobPostId._id}`,
+                          {
+                            to: post.ApplicantId.email,
+                            message: `Your application is rejected`,
                           },
-                        }
-                      );
-
-                      await handleDelete(post._id);
+                          {
+                            headers: {
+                              Authorization: `Bearer ${nookies.get().token}`,
+                            },
+                          }
+                        ),
+                      ]);
+                      await handleDeleteReject(post._id);
                     }}
+                    isLoading={loaders}
                   >
                     Reject
                   </Button>
@@ -159,7 +184,9 @@ const Applications = () => {
             );
           })
         ) : (
-          <Heading>{loading ? <Spinner /> : "No Applications"}</Heading>
+          <Heading>
+            {loading ? <Spinner size={"xl"} /> : "No Applications"}
+          </Heading>
         )}
       </>
     </HStack>

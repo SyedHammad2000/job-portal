@@ -51,6 +51,8 @@ const Joblisting = () => {
                   opacity: 1,
                 }}
                 transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 key={post._id}
                 boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
                 margin="10px"
@@ -89,7 +91,7 @@ const Joblisting = () => {
       ) : (
         <>
           {loading ? (
-            <Spinner size={"lg"} />
+            <Spinner size={"xl"} />
           ) : (
             <Heading>No Jobs Available</Heading>
           )}
