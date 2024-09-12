@@ -1,13 +1,22 @@
 "use-client";
-import { Box, Button, Heading, HStack, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Spinner,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React, { useState, useEffect, useContext } from "react";
 import nookies from "nookies";
 import baseURL from "@/helper/baseURL";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { ApplicationContext } from "@/components/appContext/ApplicationContext";
 const Notifications = () => {
-  const [app, setdata] = useState();
   const [loading, setLoading] = useState(false);
+  const { setApp, app, setApplength } = useContext(ApplicationContext);
 
   useEffect(() => {
     const FetchApp = async () => {
@@ -18,9 +27,10 @@ const Notifications = () => {
         },
       });
 
-      setdata(data.receiver);
+      setApp(data.receiver);
+      setApplength(data.receiver.length);
       console.log(data.receiver);
-      if (setdata) {
+      if (setApp) {
         setLoading(false);
       }
     };
@@ -30,7 +40,8 @@ const Notifications = () => {
   const handleClick = async (id) => {
     const data = await axios.delete(`${baseURL}/api/receiver/${id}`);
     console.log(data);
-    setdata(app?.filter((item) => item._id !== id));
+    setApp(app?.filter((item) => item._id !== id));
+    window.location.reload();
   };
 
   const MotionBox = motion(Box);
@@ -66,7 +77,7 @@ const Notifications = () => {
               flexDirection={"column"}
               justifyContent={"center"}
               alignItems={"center"}
-              width={["100%", "40%", "30%", "30%"]}
+              width={["20rem", "15rem", "20rem", "20rem"]}
               bgColor={"blue"}
               p={4}
               bg={"#FFF4EA"}
@@ -88,7 +99,9 @@ const Notifications = () => {
           );
         })
       ) : (
-        <Heading>{loading ? "" : "No Notifications"}</Heading>
+        <Heading>
+          {loading ? <Spinner size={"lg"} /> : "No Notifications"}
+        </Heading>
       )}
     </HStack>
   );

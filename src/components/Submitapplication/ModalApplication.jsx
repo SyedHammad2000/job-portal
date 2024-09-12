@@ -59,6 +59,7 @@ const ModalApplication = ({ postId, token, postBy }) => {
       onClose();
       setPics("");
       setLoader(false);
+      window.location.reload();
     } else {
       toast({
         title: data.message,

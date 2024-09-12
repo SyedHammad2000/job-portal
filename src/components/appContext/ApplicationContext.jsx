@@ -13,6 +13,7 @@ const ApplicationProvider = ({ children }) => {
   const [users, Setuser] = useState();
   const [tokens, Settoken] = useState();
   const [totaluser, settotaluser] = useState();
+  const [loading,setLoading]=useState(false)
   useEffect(() => {
     const token = localStorage.getItem("token");
     Settoken(token);
@@ -24,34 +25,6 @@ const ApplicationProvider = ({ children }) => {
       settotaluser(data);
     };
     FetchUsers();
-  }, []);
-  useEffect(() => {
-    const tok = Cookies.get("token");
-    const FetchApp = async () => {
-      const { data } = await axios.get(`${baseURL}/api/receiver/receiver`, {
-        headers: {
-          Authorization: `Bearer ${tok}`,
-        },
-      });
-      setApp(data.receiver);
-      setApplength(data.receiver.length);
-      console.log(data.receiver);
-    };
-
-    const Fetchapp = async () => {
-      const { data } = await axios.get(
-        `${baseURL}/api/application/applications`,
-        {
-          headers: {
-            Authorization: `Bearer ${tok}`,
-          },
-        }
-      );
-      setPost(data.applications);
-      setPostslength(data.applications.length);
-    };
-    FetchApp();
-    Fetchapp();
   }, []);
 
   const handleLogout = () => {
@@ -78,6 +51,9 @@ const ApplicationProvider = ({ children }) => {
         applength,
         setApplength,
         setPostslength,
+        setApp,
+        setPost,
+        loading,setLoading
       }}
     >
       {children}

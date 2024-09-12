@@ -19,16 +19,8 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { ApplicationContext } from "./appContext/ApplicationContext";
 
 const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
-  const {
-    postlength,
-    users,
-    tokens,
-    Settoken,
-    Setuser,
-    handleLogout,
-    app,
-    applength,
-  } = useContext(ApplicationContext);
+  const { postlength, users, tokens, handleLogout, applength } =
+    useContext(ApplicationContext);
   const Router = useRouter();
 
   console.log(users);
@@ -42,7 +34,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
       bg="black"
       color={"white"}
     >
-      <Heading ml={5} my={"auto"} >
+      <Heading ml={5} my={"auto"}>
         Job Portal
       </Heading>
 
@@ -110,7 +102,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
                   display={"flex"}
                   justifyContent={"center"}
                   alignItems={"center"}
-                  className='animate-pulse'
+                  className="animate-pulse"
                 >
                   {applength}
                 </Badge>

@@ -6,20 +6,25 @@ import {
   Heading,
   HStack,
   Link,
+  Spinner,
   Text,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import nookies from "nookies";
 import { motion } from "framer-motion";
+import { ApplicationContext } from "@/components/appContext/ApplicationContext";
 
 const Applications = () => {
   const toast = useToast();
-  const [app, setApp] = useState();
+
+  const { setPost, post, setPostslength, loading, setLoading } =
+    useContext(ApplicationContext);
 
   useEffect(() => {
     const fetchApp = async () => {
+      setLoading(true);
       const { data } = await axios.get(
         `${baseURL}/api/application/applications`,
         {
@@ -28,9 +33,9 @@ const Applications = () => {
           },
         }
       );
-
-      setApp(data.applications);
-
+      setPost(data.applications);
+      setLoading(false);
+      setPostslength(data.applications.length);
       console.log(data.applications);
     };
 
@@ -45,12 +50,13 @@ const Applications = () => {
       },
     });
     console.log(res);
-    setApp(app?.filter((item) => item._id !== id));
+    setPost(post?.filter((item) => item._id !== id));
+    window.location.reload();
   };
 
   return (
     <HStack
-      backgroundColor={"white"}
+      backgroundColor={"#FFF4EA"}
       minH={"100vh"}
       height="100%"
       p={5}
@@ -59,8 +65,8 @@ const Applications = () => {
       alignItems={"center"}
     >
       <>
-        {app?.length > 0 ? (
-          app?.map((post) => {
+        {post?.length > 0 ? (
+          post?.map((post) => {
             return (
               <MotionBox
                 initial={{
@@ -70,6 +76,8 @@ const Applications = () => {
                   opacity: 1,
                 }}
                 transition={{ duration: 0.7 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 key={post._id}
                 boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
                 margin="10px"
@@ -82,8 +90,7 @@ const Applications = () => {
                 alignItems={"center"}
                 p={5}
                 gap={2}
-                bg={""}
-                color={"crimson"}
+                bg={"#FFF4EA"}
               >
                 <Heading size="md" textAlign={"center"}>
                   {post.JobPostId.title}
@@ -101,10 +108,8 @@ const Applications = () => {
 
                 <Box>
                   <Button
-                    colorScheme={"blue"}
+                    colorScheme={"green"}
                     p={2}
-                    variant={"solid"}
-                    outlineColor={"black"}
                     mr="4"
                     onClick={async () => {
                       await Promise.all([
@@ -127,10 +132,8 @@ const Applications = () => {
                     Accept
                   </Button>
                   <Button
-                    colorScheme={"blue"}
+                    colorScheme={"red"}
                     p={2}
-                    variant={"solid"}
-                    outlineColor={"black"}
                     display={"inline"}
                     onClick={async () => {
                       axios.post(
@@ -156,7 +159,7 @@ const Applications = () => {
             );
           })
         ) : (
-          <Heading>No Applications</Heading>
+          <Heading>{loading ? <Spinner /> : "No Applications"}</Heading>
         )}
       </>
     </HStack>
