@@ -11,9 +11,10 @@ const ApplicationProvider = ({ children }) => {
   const [postlength, setPostslength] = useState([]);
   const [applength, setApplength] = useState([]);
   const [users, Setuser] = useState();
+  const [jobs, setjobs] = useState();
   const [tokens, Settoken] = useState();
   const [totaluser, settotaluser] = useState();
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
     Settoken(token);
@@ -26,6 +27,7 @@ const ApplicationProvider = ({ children }) => {
     };
     FetchUsers();
   }, []);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -53,7 +55,10 @@ const ApplicationProvider = ({ children }) => {
         setPostslength,
         setApp,
         setPost,
-        loading,setLoading
+        loading,
+        setLoading,
+        setjobs,
+        jobs,
       }}
     >
       {children}
