@@ -10,8 +10,10 @@ export default async (req, res) => {
 };
 
 export const ApplicationDel = async (req, res) => {
-  await Auth(req, res, async () => {
-    const { id } = req.query;
-    await ApplicationModel.findByIdAndDelete(id);
+  const { id } = req.query;
+  await ApplicationModel.findByIdAndDelete(id);
+  res.status(200).send({
+    message: "Success",
+    success: true,
   });
 };

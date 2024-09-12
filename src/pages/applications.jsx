@@ -14,12 +14,29 @@ import React, { useState, useEffect } from "react";
 import nookies from "nookies";
 import { motion } from "framer-motion";
 
-const Applications = ({ posts }) => {
-  const { applications } = posts;
+const Applications = () => {
   const toast = useToast();
+  const [app, setApp] = useState();
 
+  useEffect(() => {
+    const fetchApp = async () => {
+      const { data } = await axios.get(
+        `${baseURL}/api/application/applications`,
+        {
+          headers: {
+            Authorization: `Bearer ${nookies.get().token}`,
+          },
+        }
+      );
 
-  console.log(applications);
+      setApp(data.applications);
+
+      console.log(data.applications);
+    };
+
+    fetchApp();
+  }, []);
+
   const MotionBox = motion(Box);
   const handleDelete = async (id) => {
     const res = await axios.delete(`${baseURL}/api/application/${id}`, {
@@ -27,7 +44,8 @@ const Applications = ({ posts }) => {
         Authorization: `Bearer ${nookies.get().token}`,
       },
     });
-    window.location.reload();
+    console.log(res);
+    setApp(app?.filter((item) => item._id !== id));
   };
 
   return (
@@ -40,10 +58,9 @@ const Applications = ({ posts }) => {
       justifyContent={"center"}
       alignItems={"center"}
     >
-      {/* <Application />{'clientside'} */}
       <>
-        {applications.length > 0 ? (
-          applications.map((post) => {
+        {app?.length > 0 ? (
+          app?.map((post) => {
             return (
               <MotionBox
                 initial={{
@@ -72,11 +89,6 @@ const Applications = ({ posts }) => {
                   {post.JobPostId.title}
                 </Heading>
                 <Text>{post.ApplicantId.name}</Text>
-
-                {/* <iframe src={post.resume} width="100%" height="100%">
-                  Pdf{" "}
-                </iframe> */}
-
                 <Link
                   href={post.resume}
                   // download
@@ -108,10 +120,8 @@ const Applications = ({ posts }) => {
                             },
                           }
                         ),
-
-                        handleDelete(post._id),
-                        window.location.reload(),
                       ]);
+                      await handleDelete(post._id);
                     }}
                   >
                     Accept
@@ -123,22 +133,20 @@ const Applications = ({ posts }) => {
                     outlineColor={"black"}
                     display={"inline"}
                     onClick={async () => {
-                      await Promise.all([
-                        axios.post(
-                          `${baseURL}/api/receiver/${post.JobPostId._id}`,
-                          {
-                            to: post.ApplicantId.email,
-                            message: `Sorry, Your application is rejected`,
+                      axios.post(
+                        `${baseURL}/api/receiver/${post.JobPostId._id}`,
+                        {
+                          to: post.ApplicantId.email,
+                          message: `Your application is rejected`,
+                        },
+                        {
+                          headers: {
+                            Authorization: `Bearer ${nookies.get().token}`,
                           },
-                          {
-                            headers: {
-                              Authorization: `Bearer ${nookies.get().token}`,
-                            },
-                          }
-                        ),
-                        handleDelete(post._id),
-                        window.location.reload(),
-                      ]);
+                        }
+                      );
+
+                      await handleDelete(post._id);
                     }}
                   >
                     Reject
@@ -157,30 +165,30 @@ const Applications = ({ posts }) => {
 
 export default Applications;
 
-export const getServerSideProps = async (context) => {
-  const cookies = await nookies.get(context);
-  console.log(cookies, "token");
+// export const getServerSideProps = async (context) => {
+//   const cookies = await nookies.get(context);
+//   console.log(cookies, "token");
 
-  if (!cookies.token) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+//   if (!cookies.token) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  const data = await axios.get(`${baseURL}/api/application/applications`, {
-    headers: {
-      Authorization: `Bearer ${cookies.token}`,
-    },
-  });
+//   const data = await axios.get(`${baseURL}/api/application/applications`, {
+//     headers: {
+//       Authorization: `Bearer ${cookies.token}`,
+//     },
+//   });
 
-  console.log(data.data, "data");
+//   console.log(data.data, "data");
 
-  return {
-    props: {
-      posts: data.data,
-    },
-  };
-};
+//   return {
+//     props: {
+//       posts: data.data,
+//     },
+//   };
+// };

@@ -23,20 +23,6 @@ const ApplicationProvider = ({ children }) => {
       console.log(data, "data");
       settotaluser(data);
     };
-    const FetchApp = async () => {
-      const { data } = await axios.get(
-        `${baseURL}/api/application/applications`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setPost(data.applications);
-      setPostslength(data.applications.length);
-      console.log(data.applications);
-    };
-    FetchApp();
     FetchUsers();
   }, []);
   useEffect(() => {
@@ -51,7 +37,21 @@ const ApplicationProvider = ({ children }) => {
       setApplength(data.receiver.length);
       console.log(data.receiver);
     };
+
+    const Fetchapp = async () => {
+      const { data } = await axios.get(
+        `${baseURL}/api/application/applications`,
+        {
+          headers: {
+            Authorization: `Bearer ${tok}`,
+          },
+        }
+      );
+      setPost(data.applications);
+      setPostslength(data.applications.length);
+    };
     FetchApp();
+    Fetchapp();
   }, []);
 
   const handleLogout = () => {
@@ -76,6 +76,8 @@ const ApplicationProvider = ({ children }) => {
         totaluser,
         app,
         applength,
+        setApplength,
+        setPostslength,
       }}
     >
       {children}
