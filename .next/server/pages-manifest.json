@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/joblisting": "pages/joblisting.js",
-  "/notification": "pages/notification.js",
-  "/api/job": "pages/api/job.js"
+  "/": "pages/index.js",
+  "/api/job": "pages/api/job.js",
+  "/joblisting": "pages/joblisting.js"
 }

@@ -113,7 +113,7 @@ const Joblisting = () => {
         p={5}
         wrap={"wrap"}
         justifyContent={"center"}
-        alignItems={"center"}
+        alignItems={""}
       >
         {jobs?.posts ? (
           <>
