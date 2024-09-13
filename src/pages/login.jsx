@@ -107,7 +107,7 @@ const Login = () => {
       ))"
     >
       <Box
-        width={["100%", "50%", "70%", "80%"]}
+        width={["100%", "50%", "70%", "40rem"]}
         mt="2em"
         height={"30em"}
         display={"flex"}

@@ -13,6 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 
 const Createjob = () => {
@@ -26,7 +27,7 @@ const Createjob = () => {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
-
+  const MotionBox = motion(Box);
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
@@ -83,12 +84,21 @@ const Createjob = () => {
       p={5}
     >
       <Heading size={"md"}>Add Job Post</Heading>
-      <Box
+      <MotionBox
         width={["100%", "50%", "60%", "60%"]}
         p={10}
         background={"linear-gradient(20deg,white,wheat)"}
         boxShadow={"lg"}
         rounded={"md"}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        transition={{ duration: 0.7 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         <FormControl>
           <FormLabel color={"black"}>Title</FormLabel>
@@ -134,7 +144,7 @@ const Createjob = () => {
         >
           {loader ? <Spinner /> : "Add"}
         </Button>
-      </Box>
+      </MotionBox>
     </VStack>
   );
 };

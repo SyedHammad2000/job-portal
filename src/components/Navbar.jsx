@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import Menudrop from "./NavbarComp/Menudrop";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { ApplicationContext } from "./appContext/ApplicationContext";
+import Image from "next/image";
+import logo from "./../assets/logoo.svg";
 
 const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
   const { postlength, users, tokens, handleLogout, applength } =
@@ -34,9 +36,15 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
       bg="black"
       color={"white"}
     >
-      <Heading ml={5} my={"auto"}>
-        Job Portal
-      </Heading>
+      <Link href={"/"}>
+        <Image
+          src={logo}
+          alt="logo"
+          width={100}
+          height={100}
+          style={{ cursor: "pointer",height:'80px',width:'200px' }}
+        />
+      </Link>
 
       <Box display={"flex"}>
         {users?.role === "employer" && (

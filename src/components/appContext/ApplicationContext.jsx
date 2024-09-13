@@ -21,6 +21,7 @@ const ApplicationProvider = ({ children }) => {
     Settoken(token);
     const user = localStorage.getItem("user");
     Setuser(JSON.parse(user));
+
     const FetchUsers = async () => {
       const { data } = await axios.get(`${baseURL}/api/register`);
       console.log(data, "data");
@@ -28,7 +29,6 @@ const ApplicationProvider = ({ children }) => {
     };
     FetchUsers();
   }, []);
-  
 
   const handleLogout = () => {
     localStorage.removeItem("token");

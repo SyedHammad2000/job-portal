@@ -100,7 +100,7 @@ const Register = () => {
       p={2}
     >
       <Box
-        width={["100%", "50%", "70%", "80%"]}
+        width={["100%", "20rem", "30rem", "40rem"]}
         mt="1em"
         display={"flex"}
         flexDirection={"column"}

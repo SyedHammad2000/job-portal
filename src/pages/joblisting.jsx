@@ -84,37 +84,35 @@ const Joblisting = () => {
                 >
                   View Details
                 </Button>
+                <Text
+                  fontSize={"10px"} 
+                  color={"black"}
+                  textAlign={"center"}
+                  fontWeight={"bold"}
+                  >{post.createdAt.slice("0", "10")}</Text>
               </MotionBox>
             );
           })}
         </>
       ) : (
-        <>
-          {loading ? (
-            <Spinner size={"xl"} />
-          ) : (
-            <Heading>No Jobs Available</Heading>
-          )}
-        </>
+        <Heading
+          size={"lg"}
+          background={"darkcyan"}
+          color={"white"}
+          p={3}
+          borderRadius={"5px"}
+          boxShadow={
+            "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
+          }
+          _hover={{
+            background: "red",
+          }}
+        >
+          {loading ? <Spinner /> : "No Jobs Available"}
+        </Heading>
       )}
     </HStack>
   );
 };
 
 export default Joblisting;
-
-// get serverside props
-
-// export async function getServerSideProps() {
-//   // console.log(ctx);
-//   const data = await axios.get(`${baseURL}/api/job`);
-
-//   console.log(data.data);
-//   console.log(data);
-
-//   return {
-//     props: {
-//       data: data.data,
-//     },
-//   };
-// }
