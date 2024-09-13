@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/applications": "pages/applications.js",
   "/joblisting": "pages/joblisting.js",
-  "/api/job": "pages/api/job.js",
-  "/jobdetail/[id]": "pages/jobdetail/[id].js"
+  "/notification": "pages/notification.js",
+  "/api/job": "pages/api/job.js"
 }

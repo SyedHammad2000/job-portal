@@ -22,11 +22,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/jobdetail/[id]": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/jobdetail/[id].js"
-    ],
     "/joblisting": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
