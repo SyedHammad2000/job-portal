@@ -12,13 +12,6 @@ import {
   Spinner,
   Text,
   useDisclosure,
-} from "@chakra-ui/react";
-import axios from "axios";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { IconButton } from "@chakra-ui/react";
-import {
   Modal,
   ModalOverlay,
   ModalContent,
@@ -27,10 +20,16 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import { IconButton } from "@chakra-ui/react";
 
 const Joblisting = () => {
   const router = useRouter();
-  const { jobs, setjobs, loading, setLoading } = useContext(ApplicationContext);
+  const { loading, setLoading } = useContext(ApplicationContext);
+  const [jobs, setjobs] = useState();
   const [filters, setFilter] = useState();
   const [searchTerm, setsearch] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -73,7 +72,7 @@ const Joblisting = () => {
 
   useEffect(() => {
     filterData();
-  }, [searchTerm, jobs, endDate, startDate]);
+  }, [searchTerm, jobs, startDate, endDate]);
 
   console.log(jobs);
   const MotionBox = motion(Box);
@@ -128,7 +127,17 @@ const Joblisting = () => {
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
+              <Button
+                mr={3}
+                colorScheme={"red"}
+                onClick={() => {
+                  setEndDate("");
+                  setStartDate("");
+                }}
+              >
+                Clear
+              </Button>
+              <Button mr={1} onClick={onClose}>
                 Close
               </Button>
             </ModalFooter>
@@ -217,8 +226,12 @@ const Joblisting = () => {
             _hover={{
               background: "red",
             }}
+            width={[""]}
+            textAlign={"center"}
+            h={"30%"}
+            m="auto"
           >
-            {loading ? <Spinner /> : "No Jobs Available"}
+            {loading ? <Spinner size={"xl"} /> : "No Jobs Available"}
           </Heading>
         )}
       </HStack>

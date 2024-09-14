@@ -11,7 +11,7 @@ const ApplicationProvider = ({ children }) => {
   const [postlength, setPostslength] = useState([]);
   const [applength, setApplength] = useState([]);
   const [users, Setuser] = useState();
-  const [jobs, setjobs] = useState();
+  // const [jobs, setjobs] = useState();
   const [tokens, Settoken] = useState();
   const [totaluser, settotaluser] = useState();
   const [loading, setLoading] = useState(false);
@@ -58,8 +58,6 @@ const ApplicationProvider = ({ children }) => {
         setPost,
         loading,
         setLoading,
-        setjobs,
-        jobs,
         loader,
         setLoader,
       }}
