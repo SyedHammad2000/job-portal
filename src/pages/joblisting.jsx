@@ -18,6 +18,15 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { IconButton } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
 const Joblisting = () => {
   const router = useRouter();
@@ -27,6 +36,7 @@ const Joblisting = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
@@ -40,6 +50,9 @@ const Joblisting = () => {
     };
     fetch();
   }, []);
+  const handleOpen = () => {
+    setOpen(!open);
+  };
   const filterData = (e) => {
     const filtereddata = jobs?.posts.filter((item) => {
       const itemDate = new Date(item.createdAt.slice("0", "10"));
@@ -66,44 +79,61 @@ const Joblisting = () => {
   const MotionBox = motion(Box);
   return (
     <>
-      <Box pt={2} pl={2} pr={2} gap={3} display={["","", "flex"]}>
+      <Box pt={2} pl={2} pr={2} gap={3} display={"flex"}>
         <FormControl display={"flex"}>
           <IconButton
             icon={<SearchIcon />}
-            onClick={onToggle}
+            onClick={handleOpen}
             bg="lightblue"
             rounded="none"
             size="md"
           />
           <Input
             rounded={"none"}
-            width={isOpen ? ["100%", "15rem"] : "0"}
-            transition="all 0.5s ease-in"
-            border="none"
+            padding={open ? "10px" : "0"}
+            width={open ? ["100%", "15rem"] : "0"}
+            transition="all 0.3s ease-in"
+            border={open ? "1px solid black" : "none"}
             type="text"
             placeholder={"Search Jobs"}
             value={searchTerm}
             onChange={(e) => setsearch(e.target.value)}
           />
         </FormControl>
-        <FormControl>
-          <FormLabel>Start Date</FormLabel>
-          <Input
-            width={"12rem"}
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>End Date</FormLabel>
-          <Input
-            width={"12rem"}
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </FormControl>
+
+        <Button onClick={onOpen}>Filters</Button>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalContent w={"250px"}>
+            <ModalHeader>Filter by Date</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody display={"flex"}>
+              <FormControl>
+                <FormLabel>Start Date</FormLabel>
+                <Input
+                  width={"3.3rem"}
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>End Date</FormLabel>
+                <Input
+                  width={"3.3rem"}
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
       <HStack
         backgroundColor={"white"}

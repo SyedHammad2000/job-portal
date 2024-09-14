@@ -3,6 +3,8 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
+  "/jobdetail/[id]": "pages/jobdetail/[id].js",
   "/api/job": "pages/api/job.js",
+  "/api/register": "pages/api/register.js",
   "/joblisting": "pages/joblisting.js"
 }
