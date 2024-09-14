@@ -18,7 +18,7 @@ import Menudrop from "./NavbarComp/Menudrop";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { ApplicationContext } from "./appContext/ApplicationContext";
 import Image from "next/image";
-import logo from "./../assets/logoo.svg";
+import picss from "@/assets/LOGO_MAKER.jpeg";
 
 const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
   const { postlength, users, tokens, handleLogout, applength } =
@@ -38,11 +38,11 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
     >
       <Link href={"/"}>
         <Image
-          src={logo}
+          src={picss}
           alt="logo"
           width={100}
           height={100}
-          style={{ cursor: "pointer",height:'80px',width:'200px' }}
+          style={{ cursor: "pointer", height: "80px", width: "150px" }}
         />
       </Link>
 
