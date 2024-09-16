@@ -50,7 +50,7 @@ const Message = ({ id }) => {
     fetchUser();
 
     return () => {
-      socket.disconnect();
+      sockets.disconnect();
     };
   }, [id]);
 
@@ -82,18 +82,49 @@ const Message = ({ id }) => {
     }
   };
   console.log(messages, "mesg");
+
+  const scrol = {
+    "&::-webkit-scrollbar": {
+      width: "10px",
+    },
+    "&::-webkit-scrollbar-track": {
+      background: "lightblue",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: "#888",
+      borderRadius: "2px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      background: "black",
+    },
+  };
   return (
-    <Container minW={"100%"} p={1} gap={2}>
+    <Container
+      minW={"100%"}
+      p={"2"}
+      gap={2}
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      m={2}
+    >
+      <Heading>Messenger</Heading>
       <Grid
         templateColumns={"repeat(1,1fr)"}
         gap={1}
         maxH={"80vh"}
         h={"80vh"}
         p={2}
-        overflow={"scroll"}
+        overflowY={"scroll"}
+        w={["100%", "70%", "50%", "40%"]}
+        bg={"wheat"}
+        borderRadius={"10px"}
+        sx={scrol}
+        border={"2px solid wheat"}
+        boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
       >
-        <VStack spacing={4} align={"right"} w={"100%"}>
-          <Heading>User</Heading>
+        <VStack spacing={4} align={""} justifyContent={"center"} w={""}>
           {messages?.map((msg, index) => {
             return (
               <Box key={index}>
@@ -115,12 +146,16 @@ const Message = ({ id }) => {
         </VStack>
       </Grid>
       <Input
-      mt='5'
+        mt="5"
         type="text"
         value={message}
         onChange={(e) => SetMessage(e.target.value)}
+        placeholder="Enter Message"
+        w={["100%", "70%", "50%", "40%"]}
       />
-      <Button mt='4' onClick={handleClick}>Send</Button>
+      <Button mt="4" onClick={handleClick}>
+        Send
+      </Button>
     </Container>
   );
 };

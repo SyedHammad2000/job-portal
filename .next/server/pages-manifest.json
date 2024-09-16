@@ -4,6 +4,5 @@
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
   "/chat/[id]": "pages/chat/[id].js",
-  "/api/chat/[id]": "pages/api/chat/[id].js",
-  "/api/register": "pages/api/register.js"
+  "/api/chat/[id]": "pages/api/chat/[id].js"
 }
