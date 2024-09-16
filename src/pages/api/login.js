@@ -37,7 +37,7 @@ export default async (req, res) => {
 
     const user = await Usermodel.findOne({ email });
     const payload = {
-      id: user._id,
+      _id: user._id,
       email: user.email,
       name: user.name,
     };

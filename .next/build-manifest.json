@@ -27,10 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/joblisting": [
+    "/chat/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/joblisting.js"
+      "static/chunks/pages/chat/[id].js"
     ]
   },
   "ampFirstPages": []
