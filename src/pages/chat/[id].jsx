@@ -13,29 +13,65 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import nookies from "nookies";
 import io from "socket.io-client";
-
+import Pusher from "pusher-js";
 const Message = ({ id }) => {
   const [messages, SetMessages] = useState([]);
   const [message, SetMessage] = useState();
   const [user, setUser] = useState();
   let [socket, setSocket] = useState();
   const token = nookies.get().token;
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem("user")));
+  //   const sockets = io({
+  //     path: "/api/socket",
+  //   });
+  //   setSocket(sockets);
+
+  //   sockets.on("newMessage", (msg) => {
+  //     console.log("New message received:", msg);
+  //     SetMessages((prev) => [...prev, msg]);
+  //   });
+  //   // Unique room for the chat
+  //   sockets.emit("joinRoom", { room: "abc" });
+
+  //   // Listen for new messages
+
+  //   const fetchUser = async () => {
+  //     if (!nookies.get().token || !id) {
+  //       return console.log("erroe");
+  //     }
+  //     const res = await axios.get(`${baseURL}/api/chat/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     SetMessages(res?.data?.chat?.messages || []);
+  //   };
+  //   fetchUser();
+
+  //   return () => {
+  //     sockets.disconnect();
+  //   };
+  // }, [id]);
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("user")));
-    const sockets = io({
-      path: "/api/socket",
+    const userId = JSON.parse(localStorage.getItem("user"));
+    setUser(userId._id);
+    if (!id || !userId._id) {
+      return console.log("erroe");
+    }
+    const Channelname = `abc`;
+
+    const pusher = new Pusher("4d4ed87c336a296d9617", {
+      cluster: "ap1",
+      authEndpoint: "api/pusher/auth",
+      useTLS: true,
     });
-    setSocket(sockets);
 
-    sockets.on("newMessage", (msg) => {
-      console.log("New message received:", msg);
-      SetMessages((prev) => [...prev, msg]);
+    const channel = pusher.subscribe(Channelname);
+    channel.bind("newMessage", (data) => {
+      SetMessages((prev) => [...prev, data]);
+      console.log("message", data);
     });
-    // Unique room for the chat
-    sockets.emit("joinRoom", { room: "abc" });
-
-    // Listen for new messages
-
     const fetchUser = async () => {
       if (!nookies.get().token || !id) {
         return console.log("erroe");
@@ -50,10 +86,10 @@ const Message = ({ id }) => {
     fetchUser();
 
     return () => {
-      sockets.disconnect();
+      pusher.unbind_all();
+      pusher.unsubscribe(Channelname);
     };
   }, [id]);
-
   const handleClick = async (e) => {
     // !socket
     e.preventDefault();
@@ -70,14 +106,16 @@ const Message = ({ id }) => {
         }
       );
 
-      socket.emit("sendMessage", {
-        room: "abc", // The room id or chat id
-        message: {
-          text: message,
-          timestamp: new Date(),
-          sender: user._id, // Ensure you include sender id or user info
-        },
-      });
+      // socket.emit("sendMessage", {
+      //   room: "abc", // The room id or chat id
+      //   message: {
+      //     text: message,
+      //     timestamp: new Date(),
+      //     sender: user._id, // Ensure you include sender id or user info
+      //   },
+      // });
+      // trigerr pusher
+      
       SetMessages(data?.chat?.messages);
     }
   };
@@ -128,15 +166,15 @@ const Message = ({ id }) => {
           {messages?.map((msg, index) => {
             return (
               <Box key={index}>
-                <Text textAlign={msg.sender === user._id ? "right" : "left"}>
+                <Text textAlign={msg.sender === user ? "right" : "left"}>
                   {msg.text}
                 </Text>
-                <Text textAlign={msg.sender === user._id ? "right" : "left"}>
+                <Text textAlign={msg.sender === user ? "right" : "left"}>
                   {msg.timestamp.slice("0", "10")}
                 </Text>
                 <Text
-                  color={msg.sender === user._id ? "green" : "red"}
-                  textAlign={msg.sender === user._id ? "right" : "left"}
+                  color={msg.sender === user ? "green" : "red"}
+                  textAlign={msg.sender === user ? "right" : "left"}
                 >
                   {msg.sender}
                 </Text>

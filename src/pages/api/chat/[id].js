@@ -2,6 +2,16 @@ import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import ChatModel from "@/utils/models/ChatModel";
 import { initSocket } from "@/utils/socket/initSocket";
+import Pusher from "pusher";
+
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_APP_SECRET,
+  cluster: process.env.PUSHER_APP_CLUSTER,
+  useTLS: true,
+});
+
 export default async (req, res) => {
   await ConnectDb();
 
@@ -64,11 +74,19 @@ export const ChatCreatePost = async (req, res) => {
         ],
       });
       chat.messages.push({ text, timestamp: new Date(), sender: userId });
+
+      const Channelname = `abc`;
+      const push = await pusher.trigger(Channelname, "newMessage", {
+        sender: userId,
+        text,
+        timestamp: new Date(),
+      });
       await chat.save();
 
       res.status(200).send({
         success: true,
         chat,
+        push,
       });
     });
   } catch (error) {
