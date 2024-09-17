@@ -20,39 +20,7 @@ const Message = ({ id }) => {
   const [user, setUser] = useState();
   let [socket, setSocket] = useState();
   const token = nookies.get().token;
-  // useEffect(() => {
-  //   setUser(JSON.parse(localStorage.getItem("user")));
-  //   const sockets = io({
-  //     path: "/api/socket",
-  //   });
-  //   setSocket(sockets);
 
-  //   sockets.on("newMessage", (msg) => {
-  //     console.log("New message received:", msg);
-  //     SetMessages((prev) => [...prev, msg]);
-  //   });
-  //   // Unique room for the chat
-  //   sockets.emit("joinRoom", { room: "abc" });
-
-  //   // Listen for new messages
-
-  //   const fetchUser = async () => {
-  //     if (!nookies.get().token || !id) {
-  //       return console.log("erroe");
-  //     }
-  //     const res = await axios.get(`${baseURL}/api/chat/${id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     SetMessages(res?.data?.chat?.messages || []);
-  //   };
-  //   fetchUser();
-
-  //   return () => {
-  //     sockets.disconnect();
-  //   };
-  // }, [id]);
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem("user"));
     setUser(userId._id);
@@ -106,17 +74,8 @@ const Message = ({ id }) => {
         }
       );
 
-      // socket.emit("sendMessage", {
-      //   room: "abc", // The room id or chat id
-      //   message: {
-      //     text: message,
-      //     timestamp: new Date(),
-      //     sender: user._id, // Ensure you include sender id or user info
-      //   },
-      // });
-      // trigerr pusher
-      
       SetMessages(data?.chat?.messages);
+      SetMessage("");
     }
   };
   console.log(messages, "mesg");
