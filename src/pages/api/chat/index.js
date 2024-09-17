@@ -6,7 +6,7 @@ export default async (req, res) => {
   await ConnectDb();
   if (req.method === "POST") {
     try {
-      const { id,message } = req.body;
+      const { id, message } = req.body;
 
       //   console.log(userId);
       await Auth(req, res, async () => {
@@ -14,7 +14,9 @@ export default async (req, res) => {
         const chat = await new ChatModel({
           senderId: req.user._id,
           receiverId: id,
-          messages: [{ text:message, timestamp: new Date(), sender: req.user._id }],
+          messages: [
+            { text: message, timestamp: new Date(), sender: req.user.name },
+          ],
         });
         res.status(200).send({
           success: false,

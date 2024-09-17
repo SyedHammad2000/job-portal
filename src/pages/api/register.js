@@ -84,7 +84,7 @@ const RegisterPost = async (req, res) => {
 const RegisterGetById = async (req, res) => {
   await ConnectDb();
   Auth(req, res, async () => {
-    const userId = req.user.id;
+    const userId = req.user._id;
     console.log();
     try {
       const users = await Usermodel.findById(userId);
@@ -140,13 +140,13 @@ const RegisterPut = async (req, res) => {
 const RegisterGet = async (req, res) => {
   await ConnectDb();
 
-  const userId = req.user.id;
-  console.log();
   try {
-    const users = await Usermodel.find({});
-    res.status(200).send({
-      message: "users fetched successfully",
-      users,
+    Auth(req, res, async () => {
+      const users = await Usermodel.find({});
+      res.status(200).send({
+        message: "users fetched successfully",
+        users,
+      });
     });
   } catch (error) {
     res.status(401).send({

@@ -27,6 +27,7 @@ import { useRouter } from "next/router";
 const Profile = ({ user, token }) => {
   const router = useRouter();
   const MotionCard = motion(Card);
+  console.log(user,'usering');
 
   return (
     <VStack
@@ -65,7 +66,7 @@ const Profile = ({ user, token }) => {
               <Image
                 borderRadius="full"
                 boxSize="150px"
-                src={user.users.pic}
+                src={user?.users.pic}
                 alt="Dan Abramov"
               />
               <Box>
@@ -166,7 +167,7 @@ export const getServerSideProps = async (context) => {
   }
   const data = await axios.get(`${baseURL}/api/register`, {
     headers: {
-      Authorization: `Bearer ${cookies.token}`,
+      Authorization: `Bearer ${cookies?.token}`,
     },
   });
 
@@ -174,7 +175,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      user: data.data,
+      user: data?.data,
       token: cookies.token,
     },
   };

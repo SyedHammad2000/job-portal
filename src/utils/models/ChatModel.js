@@ -23,8 +23,8 @@ const ChatModel = new mongoose.Schema({
         default: Date.now,
       },
       sender: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
+        required: true,
       },
     },
   ],

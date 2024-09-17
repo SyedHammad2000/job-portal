@@ -23,7 +23,7 @@ const Message = ({ id }) => {
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem("user"));
-    setUser(userId._id);
+    setUser(userId);
     if (!id || !userId._id) {
       return console.log("erroe");
     }
@@ -49,6 +49,8 @@ const Message = ({ id }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log("res", res?.data);
       SetMessages(res?.data?.chat?.messages || []);
     };
     fetchUser();
@@ -58,6 +60,7 @@ const Message = ({ id }) => {
       pusher.unsubscribe(Channelname);
     };
   }, [id]);
+  console.log(user, "user");
   const handleClick = async (e) => {
     // !socket
     e.preventDefault();
@@ -115,25 +118,26 @@ const Message = ({ id }) => {
         p={2}
         overflowY={"scroll"}
         w={["100%", "70%", "50%", "40%"]}
-        bg={"wheat"}
         borderRadius={"10px"}
         sx={scrol}
         border={"2px solid wheat"}
         boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
+        // bg="grey"
+        opacity={messages.length >0 ? "1" : "0.5"}
       >
         <VStack spacing={4} align={""} justifyContent={"center"} w={""}>
           {messages?.map((msg, index) => {
             return (
               <Box key={index}>
-                <Text textAlign={msg.sender === user ? "right" : "left"}>
+                <Text textAlign={msg.sender === user.name ? "right" : "left"}>
                   {msg.text}
                 </Text>
-                <Text textAlign={msg.sender === user ? "right" : "left"}>
+                <Text textAlign={msg.sender === user.name ? "right" : "left"}>
                   {msg.timestamp.slice("0", "10")}
                 </Text>
                 <Text
-                  color={msg.sender === user ? "green" : "red"}
-                  textAlign={msg.sender === user ? "right" : "left"}
+                  color={msg.sender === user.name ? "green" : "red"}
+                  textAlign={msg.sender === user.name ? "right" : "left"}
                 >
                   {msg.sender}
                 </Text>

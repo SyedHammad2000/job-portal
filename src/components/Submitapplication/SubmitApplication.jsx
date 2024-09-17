@@ -1,7 +1,16 @@
 import baseURL from "@/helper/baseURL";
-import { Avatar, Box, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Grid,
+  GridItem,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Modal from "./ModalApplication";
+import { useRouter } from "next/router";
 
 const SubmitApplication = ({ data }) => {
   const [user, setUser] = useState();
@@ -42,6 +51,8 @@ const SubmitApplication = ({ data }) => {
   const postId = post._id;
   console.log(postId);
 
+  const router = useRouter();
+
   return (
     <VStack
       height={"100%"}
@@ -73,6 +84,13 @@ const SubmitApplication = ({ data }) => {
               >
                 HR {post.postedBy.name}
               </Text>
+              <Button
+                size={"sm"}
+                float={"inline-end"}
+                onClick={() => router.push(`/chat/${post.postedBy._id}`)}
+              >
+                Message
+              </Button>
             </>
           ) : (
             <>
@@ -88,6 +106,13 @@ const SubmitApplication = ({ data }) => {
               >
                 HR {post.postedBy.name}
               </Text>
+              <Button
+                size={"sm"}
+                float={"inline-end"}
+                onClick={() => router.push(`/chat/${post.postedBy._id}`)}
+              >
+                Message
+              </Button>
             </>
           )}
         </GridItem>

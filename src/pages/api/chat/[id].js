@@ -39,10 +39,10 @@ export const ChatGet = async (req, res) => {
           { senderId: id, receiverId: senderId },
         ],
       }).sort({ createdAt: -1 });
+
       if (!chat) {
-        return res.status(401).send({
+        return res.status(200).send({
           success: false,
-          data: [],
         });
       }
 
@@ -73,21 +73,41 @@ export const ChatCreatePost = async (req, res) => {
           { senderId: id, receiverId: userId },
         ],
       });
-      chat.messages.push({ text, timestamp: new Date(), sender: userId });
+      if (chat) {
+        chat.messages.push({
+          text,
+          timestamp: new Date(),
+          sender: req.user.name,
+        });
 
-      const Channelname = `abc`;
-      const push = await pusher.trigger(Channelname, "newMessage", {
-        sender: userId,
-        text,
-        timestamp: new Date(),
-      });
-      await chat.save();
+        const Channelname = `abc`;
+        const push = await pusher.trigger(Channelname, "newMessage", {
+          sender: userId,
+          text,
+          timestamp: new Date(),
+        });
+        await chat.save();
+        res.status(200).send({
+          success: true,
+          chat,
+          push,
+        });
+      }
+      if (!chat) {
+        const chat = await new ChatModel({
+          senderId: req.user._id,
+          receiverId: id,
+          messages: [
+            { text: text, timestamp: new Date(), sender: req.user.name },
+          ],
+        });
+        await chat.save();
 
-      res.status(200).send({
-        success: true,
-        chat,
-        push,
-      });
+        return res.status(200).send({
+          success: true,
+          msg: "chat is created",
+        });
+      }
     });
   } catch (error) {
     console.log(error);
