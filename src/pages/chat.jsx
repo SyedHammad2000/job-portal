@@ -1,38 +1,69 @@
 import baseURL from "@/helper/baseURL";
-import { Container, Grid, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Heading,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import axios from "axios";
-import React,{useEffect,useState} from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 const Chat = () => {
-    const [user,setUser]=useState()
+  const [user, setUser] = useState();
+  const [data, setdata] = useState();
+  const router = useRouter();
 
-    useEffect(()=>{
-       const fetchUser= async()=>{
-            const {data}=await axios.get(`${baseURL}`)
+  useEffect(() => {
+    setdata(JSON.parse(localStorage.getItem("user")));
+    const fetchUser = async () => {
+      const { data } = await axios.get(`${baseURL}/api/chat`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
+      setUser(data);
+    };
 
-       }
-        
-    },[])
+    fetchUser();
+  }, []);
+  console.log(data);
 
-
-    
   return (
-    <Container minH={"100vh"} minW={"100%"} h={"100%"} p={1}>
-      <Grid
-        templateColumns={"repeat(2,1fr)"}
-        gap={1}
-        maxH={"80vh"}
-        h={"80vh"}
-        p={2}
-      >
-        <VStack spacing={4} align={"left"} bg={"red"} w={"40%"}>
-          <Heading>User</Heading>
-        </VStack>
-        <VStack spacing={4} align={"right"} bg={"red"} w={"100%"}>
-          <Text>Hello</Text>
-        </VStack>
-      </Grid>
+    <Container minH={"100vh"} minW={"100%"} h={"100%"} p={2}>
+      <VStack spacing={4}>
+        {user?.chats?.map((chat) => (
+          <>
+            <Box key={chat._id}>
+              <Button
+                onClick={() => {
+                  router.push(
+                    `/chat/${
+                      chat.receiverId._id === data._id
+                        ? chat.senderId._id
+                        : chat.receiverId._id
+                    }`
+                  );
+                }}
+              >
+                Message from
+                <br />
+                {chat.receiverId.name === data.name
+                  ? chat.senderId.name
+                  : chat.receiverId.name}
+              </Button>
+            </Box>
+            {/* <Box>
+              <Text>{chat.senderId.name}</Text>
+            </Box> */}
+          </>
+        ))}
+      </VStack>
     </Container>
   );
 };

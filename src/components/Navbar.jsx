@@ -19,6 +19,7 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { ApplicationContext } from "./appContext/ApplicationContext";
 import Image from "next/image";
 import picss from "@/assets/LOGO_MAKER.jpeg";
+import { FaFacebookMessenger, FaMailchimp } from "react-icons/fa";
 
 const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
   const { postlength, users, tokens, handleLogout, applength } =
@@ -143,6 +144,9 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
           href={"/joblisting"}
         >
           Job Feed
+        </Link>
+        <Link href={"/chat"} m={"auto"}>
+          <FaFacebookMessenger size={"30px"} />
         </Link>
 
         {tokens ? (
@@ -296,6 +300,9 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
             onClick={onClose}
           >
             Job Feed
+          </Link>
+          <Link href={"/chat"} m={"auto"}>
+            <FaFacebookMessenger size={"30px"} />
           </Link>
 
           {tokens ? (
