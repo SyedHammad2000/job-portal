@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import NextCors from "nextjs-cors";
 
 const allowedOrigins = [
-  "https://job-portal-chi-taupe.vercel.app",
+  "https://main--job-portal-management.netlify.app",
   "https://job-portal-davj.vercel.app",
   "https://job-portal-management.netlify.app", // Add your Netlify URL here
 ];
