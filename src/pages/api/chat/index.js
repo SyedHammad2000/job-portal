@@ -4,15 +4,14 @@ import ChatModel from "@/utils/models/ChatModel";
 import NextCors from "nextjs-cors";
 // import NextCors from "nextjs-cors";
 
+await NextCors(req, res, {
+  // Optionssers (IE11, various SmartTVs) choke on 204
+
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  origin: "https://job-portal-management.netlify.app/",
+  optionsSuccessStatus: 200, // some legacy brow
+});
 export default async (req, res) => {
-  await NextCors(req, res, {
-    // Optionssers (IE11, various SmartTVs) choke on 204
-
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "https://job-portal-management.netlify.app/",
-    optionsSuccessStatus: 200, // some legacy brow
-  });
-
   await ConnectDb();
 
   try {
@@ -28,8 +27,6 @@ export default async (req, res) => {
         success: true,
         chats,
       });
-
-      return;
     });
   } catch (error) {
     console.log(error, "error in try catch block");
