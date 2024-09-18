@@ -1,6 +1,7 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import ChatModel from "@/utils/models/ChatModel";
+import NextCors from "nextjs-cors";
 // import NextCors from "nextjs-cors";
 
 export default async (req, res) => {
