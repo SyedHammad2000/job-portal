@@ -12,10 +12,21 @@ export default async (req, res) => {
     origin: "https://job-portal-management.netlify.app",
     optionsSuccessStatus: 200, // some legacy brow
   });
+  switch (req.method) {
+    case "GET":
+      await ChatGet(req, res);
+      break;
+  }
+};
 
+export const ChatGet = async (req, res) => {
   try {
     //   console.log(userId);
     await Auth(req, res, async () => {
+      if (!req.user._id) {
+        return res.status(401).send({ message: "Unauthorized" });
+      }
+
       const chats = await ChatModel.find({
         $or: [{ senderId: req.user._id }, { receiverId: req.user._id }],
       })

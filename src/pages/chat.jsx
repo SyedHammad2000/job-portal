@@ -1,11 +1,18 @@
 import baseURL from "@/helper/baseURL";
-import { Badge, Box, Button, Container, Text, VStack } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  Container,
+  Spinner,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useContext } from "react";
 import nookies from "nookies";
 import { ApplicationContext } from "@/components/appContext/ApplicationContext";
-
 const Chat = () => {
   const [user, setUser] = useState();
   const [data, setdata] = useState();
