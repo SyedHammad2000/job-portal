@@ -6,17 +6,22 @@ import {
   Grid,
   Heading,
   Input,
+  Spinner,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import nookies from "nookies";
 import Pusher from "pusher-js";
+import { ApplicationContext } from "@/components/appContext/ApplicationContext";
+import withAuth from "@/components/ProtectedRoute/withAuth";
 const Message = ({ id }) => {
   const [messages, SetMessages] = useState([]);
   const [message, SetMessage] = useState();
   const [user, setUser] = useState();
+  const { loader, setLoader, loading, setLoading } =
+    useContext(ApplicationContext);
   let [socket, setSocket] = useState();
   const token = nookies.get().token;
 
@@ -51,7 +56,7 @@ const Message = ({ id }) => {
 
     const channel = pusher.subscribe(Channelname);
     channel.bind("newMessage", (data) => {
-      SetMessages((prev) => [...prev, data]);
+      SetMessages((prev) => [...(prev || []), data]);
       console.log("message", data);
     });
 
@@ -62,6 +67,7 @@ const Message = ({ id }) => {
   }, [id]);
   console.log(user, "user");
   const handleClick = async (e) => {
+    setLoading(true);
     // !socket
     e.preventDefault();
     if (message) {
@@ -79,9 +85,31 @@ const Message = ({ id }) => {
 
       SetMessages(data?.chat?.messages);
       SetMessage("");
+
+      setLoading(false);
     }
   };
   console.log(messages, "mesg");
+  const createClick = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const { data } = await axios.post(
+      `${baseURL}/api/chat/${id}`,
+      {
+        text: "Hi Now you can chat...",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(data?.chat);
+    if (data?.chat) {
+      setLoading(false);
+      window.location.reload();
+    }
+  };
 
   const scrol = {
     "&::-webkit-scrollbar": {
@@ -154,14 +182,20 @@ const Message = ({ id }) => {
         placeholder="Enter Message"
         w={["100%", "70%", "50%", "40%"]}
       />
-      <Button mt="4" onClick={handleClick}>
-        Send
-      </Button>
+      {messages?.length > 0 ? (
+        <Button mt="4" onClick={handleClick}>
+          {loading ? <Spinner size={"md"} /> : "Send"}
+        </Button>
+      ) : (
+        <Button mt="4" onClick={createClick}>
+          {loading ? <Spinner size={"md"} /> : "Create Chat"}
+        </Button>
+      )}
     </Container>
   );
 };
 
-export default Message;
+export default withAuth(Message);
 
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.query;
