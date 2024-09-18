@@ -1,6 +1,7 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import ChatModel from "@/utils/models/ChatModel";
+import NextCors from "nextjs-cors";
 import Pusher from "pusher";
 
 const pusher = new Pusher({
@@ -12,6 +13,14 @@ const pusher = new Pusher({
 });
 
 export default async (req, res) => {
+  await NextCors(req, res, {
+    // Optionssers (IE11, various SmartTVs) choke on 204
+
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "https://job-portal-management.netlify.app/",
+    optionsSuccessStatus: 200, // some legacy brow
+  });
+
   await ConnectDb();
 
   await ConnectDb();
