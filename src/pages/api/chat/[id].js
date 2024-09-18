@@ -1,7 +1,6 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import ChatModel from "@/utils/models/ChatModel";
-import { initSocket } from "@/utils/socket/initSocket";
 import Pusher from "pusher";
 
 const pusher = new Pusher({

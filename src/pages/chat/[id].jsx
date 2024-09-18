@@ -12,7 +12,6 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import nookies from "nookies";
-import io from "socket.io-client";
 import Pusher from "pusher-js";
 const Message = ({ id }) => {
   const [messages, SetMessages] = useState([]);
@@ -123,7 +122,7 @@ const Message = ({ id }) => {
         border={"2px solid wheat"}
         boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}
         // bg="grey"
-        opacity={messages.length >0 ? "1" : "0.5"}
+        opacity={messages.length > 0 ? "1" : "0.5"}
       >
         <VStack spacing={4} align={""} justifyContent={"center"} w={""}>
           {messages?.map((msg, index) => {
