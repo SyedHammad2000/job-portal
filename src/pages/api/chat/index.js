@@ -4,6 +4,7 @@ import ChatModel from "@/utils/models/ChatModel";
 import NextCors from "nextjs-cors";
 // import NextCors from "nextjs-cors";
 export default async (req, res) => {
+  await ConnectDb();
   await NextCors(req, res, {
     // Optionssers (IE11, various SmartTVs) choke on 204
 
@@ -11,7 +12,6 @@ export default async (req, res) => {
     origin: "https://job-portal-management.netlify.app",
     optionsSuccessStatus: 200, // some legacy brow
   });
-  await ConnectDb();
 
   try {
     //   console.log(userId);
@@ -21,6 +21,7 @@ export default async (req, res) => {
       })
         .populate("receiverId")
         .populate("senderId");
+      console.log(chats);
 
       res.status(200).send({
         success: true,
