@@ -21,18 +21,20 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    setdata(JSON.parse(localStorage.getItem("user")));
     fetchUser();
+    const userrr = JSON.parse(localStorage.getItem("user"));
+    setdata(userrr);
+    console.log(data, "user");
   }, []);
-  console.log(data);
 
   return (
     <Container minH={"100vh"} minW={"100%"} h={"100%"} p={2}>
       <VStack spacing={4}>
-        {user?.chats?.map((chat) => (
+        {user?.chats?.map((chat, index) => (
           <>
-            <Box key={chat._id}>
+            <Box key={index}>
               <Button
+                key={index}
                 onClick={() => {
                   router.push(
                     `/chat/${
@@ -52,6 +54,7 @@ const Chat = () => {
                   right={0}
                   zIndex={1}
                   borderRadius={"full"}
+                  key={index}
                 >
                   {chat.messages?.length}
                 </Badge>
