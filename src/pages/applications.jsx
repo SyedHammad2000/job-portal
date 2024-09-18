@@ -30,23 +30,22 @@ const Applications = () => {
     loader,
   } = useContext(ApplicationContext);
 
+  const fetchApp = async () => {
+    setLoading(true);
+    const { data } = await axios.get(
+      `${baseURL}/api/application/applications`,
+      {
+        headers: {
+          Authorization: `Bearer ${nookies.get().token}`,
+        },
+      }
+    );
+    setPost(data.applications);
+    setLoading(false);
+    setPostslength(data.applications.length);
+    console.log(data.applications);
+  };
   useEffect(() => {
-    const fetchApp = async () => {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${baseURL}/api/application/applications`,
-        {
-          headers: {
-            Authorization: `Bearer ${nookies.get().token}`,
-          },
-        }
-      );
-      setPost(data.applications);
-      setLoading(false);
-      setPostslength(data.applications.length);
-      console.log(data.applications);
-    };
-
     fetchApp();
   }, []);
 

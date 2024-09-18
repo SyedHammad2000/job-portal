@@ -36,17 +36,17 @@ const Joblisting = () => {
   const [endDate, setEndDate] = useState("");
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
   const [open, setOpen] = useState(false);
+  const fetch = async () => {
+    setLoading(true);
+    const data = await axios.get(`${baseURL}/api/job`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setjobs(data.data);
+    setLoading(false);
+  };
   useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      const data = await axios.get(`${baseURL}/api/job`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      setjobs(data.data);
-      setLoading(false);
-    };
     fetch();
   }, []);
   const handleOpen = () => {

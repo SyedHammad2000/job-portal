@@ -20,7 +20,22 @@ const Message = ({ id }) => {
   let [socket, setSocket] = useState();
   const token = nookies.get().token;
 
+  const fetchUser = async () => {
+    if (!nookies.get().token || !id) {
+      return console.log("erroe");
+    }
+    const res = await axios.get(`${baseURL}/api/chat/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("res", res?.data);
+    SetMessages(res?.data?.chat?.messages || []);
+  };
+
   useEffect(() => {
+    fetchUser();
     const userId = JSON.parse(localStorage.getItem("user"));
     setUser(userId);
     if (!id || !userId._id) {
@@ -39,20 +54,6 @@ const Message = ({ id }) => {
       SetMessages((prev) => [...prev, data]);
       console.log("message", data);
     });
-    const fetchUser = async () => {
-      if (!nookies.get().token || !id) {
-        return console.log("erroe");
-      }
-      const res = await axios.get(`${baseURL}/api/chat/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log("res", res?.data);
-      SetMessages(res?.data?.chat?.messages || []);
-    };
-    fetchUser();
 
     return () => {
       pusher.unbind_all();

@@ -84,13 +84,17 @@ const SubmitApplication = ({ data }) => {
               >
                 HR {post.postedBy.name}
               </Text>
-              <Button
-                size={"sm"}
-                float={"inline-end"}
-                onClick={() => router.push(`/chat/${post.postedBy._id}`)}
-              >
-                Message
-              </Button>
+              {checkuser ? (
+                <Button
+                  size={"sm"}
+                  float={"inline-end"}
+                  onClick={() => router.push(`/chat/${post.postedBy._id}`)}
+                >
+                  Message
+                </Button>
+              ) : (
+                <></>
+              )}
             </>
           ) : (
             <>
@@ -106,13 +110,17 @@ const SubmitApplication = ({ data }) => {
               >
                 HR {post.postedBy.name}
               </Text>
-              <Button
-                size={"sm"}
-                float={"inline-end"}
-                onClick={() => router.push(`/chat/${post.postedBy._id}`)}
-              >
-                Message
-              </Button>
+              {checkuser ? (
+                <Button
+                  size={"sm"}
+                  float={"inline-end"}
+                  onClick={() => router.push(`/chat/${post.postedBy._id}`)}
+                >
+                  Message
+                </Button>
+              ) : (
+                <></>
+              )}
             </>
           )}
         </GridItem>

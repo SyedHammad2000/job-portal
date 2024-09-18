@@ -18,22 +18,22 @@ const Notifications = () => {
   const [loading, setLoading] = useState(false);
   const { setApp, app, setApplength } = useContext(ApplicationContext);
 
-  useEffect(() => {
-    const FetchApp = async () => {
-      setLoading(true);
-      const { data } = await axios.get(`${baseURL}/api/receiver/receiver`, {
-        headers: {
-          Authorization: `Bearer ${nookies.get().token}`,
-        },
-      });
+  const FetchApp = async () => {
+    setLoading(true);
+    const { data } = await axios.get(`${baseURL}/api/receiver/receiver`, {
+      headers: {
+        Authorization: `Bearer ${nookies.get().token}`,
+      },
+    });
 
-      setApp(data.receiver);
-      setApplength(data.receiver.length);
-      console.log(data.receiver);
-      if (setApp) {
-        setLoading(false);
-      }
-    };
+    setApp(data.receiver);
+    setApplength(data.receiver.length);
+    console.log(data.receiver);
+    if (setApp) {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     FetchApp();
   }, []);
 

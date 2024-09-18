@@ -73,9 +73,7 @@ const Updatedrawer = ({ user, token }) => {
       }
     );
     console.log(data);
-    // if (token) {
-    //   localStorage.removeItem("user");
-    // }
+    
     toast({
       title: "Welcome",
       description: "Succesfully updated",
