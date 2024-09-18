@@ -1,5 +1,6 @@
 import baseURL from "@/helper/baseURL";
 import {
+  Badge,
   Box,
   Button,
   Container,
@@ -51,6 +52,18 @@ const Chat = () => {
                   );
                 }}
               >
+                <Badge
+                  colorScheme={chat.messages?.length > 0 ? "green" : "red"}
+                  fontSize={"lg"}
+                  fontWeight={"bold"}
+                  pos={"absolute"}
+                  top={-2}
+                  right={0}
+                  zIndex={1}
+                  borderRadius={"full"}
+                >
+                  {chat.messages?.length}
+                </Badge>
                 Message from
                 <br />
                 {chat.receiverId.name === data.name

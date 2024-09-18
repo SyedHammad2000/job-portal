@@ -2,10 +2,8 @@
 
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
-import { corsMiddleware } from "@/utils/middleware/corsMiddleware";
 import Usermodel from "@/utils/models/Usermodel";
 import NextCors from "nextjs-cors";
-import jwt from "jsonwebtoken";
 
 export default async (req, res) => {
   await ConnectDb();

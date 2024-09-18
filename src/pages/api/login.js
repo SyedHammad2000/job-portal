@@ -1,8 +1,5 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import Usermodel from "@/utils/models/Usermodel";
-// import nookies from "nookies";
-import cookie from "cookie";
-// import {} from "json";
 import jwt from "jsonwebtoken";
 import NextCors from "nextjs-cors";
 
