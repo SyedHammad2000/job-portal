@@ -4,13 +4,13 @@ import ChatModel from "@/utils/models/ChatModel";
 // import NextCors from "nextjs-cors";
 
 export default async (req, res) => {
-  // await NextCors(req, res, {
-  //   // Optionssers (IE11, various SmartTVs) choke on 204
+  await NextCors(req, res, {
+    // Optionssers (IE11, various SmartTVs) choke on 204
 
-  //   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-  //   origin: "https://job-portal-management.netlify.app/",
-  //   optionsSuccessStatus: 200, // some legacy brow
-  // });
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "https://job-portal-management.netlify.app/",
+    optionsSuccessStatus: 200, // some legacy brow
+  });
 
   await ConnectDb();
 
