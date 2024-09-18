@@ -79,7 +79,7 @@ export const ApplicationPost = async (req, res) => {
 export const ApplicationGet = async (req, res) => {
   try {
     await Auth(req, res, async () => {
-      const userId = req.user.id;
+      const userId = req.user._id;
       const applications = await ApplicationModel.find({
         postBy: userId,
       })

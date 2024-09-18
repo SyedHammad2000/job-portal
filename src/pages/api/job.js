@@ -30,7 +30,7 @@ const JobPost = async (req, res) => {
           message: "Invalid Request",
         });
       }
-      const userId = req.user.id;
+      const userId = req.user._id;
 
       const { title, description, company, postedBy, location } = req.body;
 
