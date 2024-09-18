@@ -19,25 +19,24 @@ const Chat = () => {
   const router = useRouter();
   const { loading, setLoading } = useContext(ApplicationContext);
 
-  const fetchUser = async () => {
-    setLoading(true);
-    const { data } = await axios.get(`${baseURL}/api/chat`, {
-      headers: {
-        Authorization: `Bearer ${nookies.get().token}`,
-      },
-    });
-
-    await setUser(data);
-    setLoading(false);
-  };
-  console.log(user, "messagessss ");
-
   useEffect(() => {
-    fetchUser();
     const userrr = JSON.parse(localStorage.getItem("user"));
     setdata(userrr);
     console.log(data, "user");
+    const fetchUser = async () => {
+      setLoading(true);
+      const { data } = await axios.get(`${baseURL}/api/chat`, {
+        headers: {
+          Authorization: `Bearer ${nookies.get().token}`,
+        },
+      });
+
+      await setUser(data);
+      setLoading(false);
+    };
+    fetchUser();
   }, []);
+  console.log(user, "messagessss ");
 
   return (
     <Container minH={"100vh"} minW={"100%"} h={"100%"} p={2}>

@@ -4,9 +4,8 @@
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
   "/chat": "pages/chat.js",
-  "/profile": "pages/profile.js",
-  "/joblisting": "pages/joblisting.js",
-  "/api/register": "pages/api/register.js",
   "/api/chat": "pages/api/chat.js",
-  "/api/job": "pages/api/job.js"
+  "/api/register": "pages/api/register.js",
+  "/login": "pages/login.js",
+  "/api/login": "pages/api/login.js"
 }

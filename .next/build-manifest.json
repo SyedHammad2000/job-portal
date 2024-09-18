@@ -32,10 +32,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/chat.js"
     ],
-    "/joblisting": [
+    "/login": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/joblisting.js"
+      "static/chunks/pages/login.js"
     ]
   },
   "ampFirstPages": []
