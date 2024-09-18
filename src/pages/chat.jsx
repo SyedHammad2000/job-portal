@@ -3,6 +3,7 @@ import { Badge, Box, Button, Container, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import nookies from "nookies";
 
 const Chat = () => {
   const [user, setUser] = useState();
@@ -12,7 +13,7 @@ const Chat = () => {
   const fetchUser = async () => {
     const { data } = await axios.get(`${baseURL}/api/chat`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${nookies.get().token}`,
       },
     });
 
