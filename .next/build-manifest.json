@@ -22,10 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/chat": [
+    "/applications": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/chat.js"
+      "static/chunks/pages/applications.js"
+    ],
+    "/chat/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/chat/[id].js"
     ]
   },
   "ampFirstPages": []

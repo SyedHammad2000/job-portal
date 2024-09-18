@@ -10,10 +10,11 @@ export default async (req, res) => {
   // !Next cors
 
   await NextCors(req, res, {
-    // Options
+    // Optionssers (IE11, various SmartTVs) choke on 204
+
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     origin: "https://job-portal-management.netlify.app/",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200, // some legacy brow
   });
 
   switch (req.method) {
