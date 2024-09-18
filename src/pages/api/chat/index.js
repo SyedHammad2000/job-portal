@@ -24,11 +24,6 @@ export default async (req, res) => {
         .populate("receiverId")
         .populate("senderId");
 
-      if (!chats) {
-        return res
-          .status(200)
-          .json({ message: "No chat found", success: false });
-      }
       res.status(200).send({
         success: true,
         chats,
@@ -38,6 +33,6 @@ export default async (req, res) => {
     });
   } catch (error) {
     console.log(error, "error in try catch block");
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(401).send({ message: "Internal Server Error" });
   }
 };
