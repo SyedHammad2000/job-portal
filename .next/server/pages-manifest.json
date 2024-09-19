@@ -2,8 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/api/register": "pages/api/register.js",
   "/joblisting": "pages/joblisting.js",
-  "/login": "pages/login.js",
-  "/chat": "pages/chat.js",
-  "/api/chat/chats": "pages/api/chat/chats.js"
+  "/api/chat/chats": "pages/api/chat/chats.js",
+  "/chatdetail": "pages/chatdetail.js",
+  "/": "pages/index.js"
 }

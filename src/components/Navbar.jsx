@@ -145,7 +145,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
         >
           Job Feed
         </Link>
-        <Link href={"/chat"} m={"auto"}>
+        <Link href={"/chatdetail"} m={"auto"}>
           <FaFacebookMessenger size={"30px"} />
         </Link>
 
@@ -301,7 +301,7 @@ const Navbar = ({ onClose, onOpen, isOpen, onToggle }) => {
           >
             Job Feed
           </Link>
-          <Link href={"/chat"} m={"auto"}>
+          <Link href={"/chatdetail"} m={"auto"}>
             <FaFacebookMessenger size={"30px"} />
           </Link>
 
