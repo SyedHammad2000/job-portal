@@ -84,6 +84,7 @@ export const getServerSideProps = async (ctx) => {
   const res = await axios.get(`${baseURL}/api/chat/chats`, {
     headers: {
       Authorization: `Bearer ${cookies?.token}`,
+      "Content-Type": "application/json",
     },
   });
 
