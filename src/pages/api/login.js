@@ -3,14 +3,14 @@ import Usermodel from "@/utils/models/Usermodel";
 import jwt from "jsonwebtoken";
 import NextCors from "nextjs-cors";
 
-const allowedOrigins = [
-  "https://job-portal-chi-taupe.vercel.app",
-  "https://job-portal-davj.vercel.app",
-  "https://job-portal-management.netlify.app",
-  "https://main--job-portal-management.netlify.app/",
-  "https://bestfinder.netlify.app",
-  // Add your Netlify URL here
-];
+// const allowedOrigins = [
+//   "https://job-portal-chi-taupe.vercel.app",
+//   "https://job-portal-davj.vercel.app",
+//   "https://job-portal-management.netlify.app",
+//   "https://main--job-portal-management.netlify.app/",
+//   "https://bestfinder.netlify.app",
+//   // Add your Netlify URL here
+// ];
 
 export default async (req, res) => {
   await ConnectDb();

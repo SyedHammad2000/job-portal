@@ -2,6 +2,7 @@ const allowedOrigins = [
   "https://job-portal-chi-taupe.vercel.app",
   "https://job-portal-davj.vercel.app",
   "https://job-portal-management.netlify.app",
+  "https://bestfinder.netlify.app",
 ];
 
 export const corsMiddleware = (handler) => async (req, res) => {
