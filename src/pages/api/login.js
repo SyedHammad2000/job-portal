@@ -8,6 +8,7 @@ const allowedOrigins = [
   "https://job-portal-davj.vercel.app",
   "https://job-portal-management.netlify.app",
   "https://main--job-portal-management.netlify.app/",
+  "https://bestfinder.netlify.app",
   // Add your Netlify URL here
 ];
 
@@ -17,7 +18,10 @@ export default async (req, res) => {
   await NextCors(req, res, {
     // Options
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: allowedOrigins,
+    origin: [
+      "https://bestfinder.netlify.app",
+      "https://job-portal-management.netlify.app",
+    ],
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
 
