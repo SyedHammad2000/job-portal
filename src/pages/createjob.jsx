@@ -17,10 +17,10 @@ import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 
 const Createjob = () => {
-  const [title, setTitle] = useState();
-  const [company, setCompany] = useState();
-  const [location, setLocation] = useState();
-  const [description, setDescription] = useState();
+  const [title, setTitle] = useState("");
+  const [company, setCompany] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
   const [loader, setLoader] = useState(false);
   const toast = useToast();
   const [token, setToken] = useState();
@@ -84,7 +84,7 @@ const Createjob = () => {
       p={5}
     >
       <Heading size={"md"}>Add Job Post</Heading>
-      <MotionBox
+      <Box
         width={["100%", "50%", "60%", "60%"]}
         p={10}
         background={"linear-gradient(20deg,white,wheat)"}
@@ -96,9 +96,6 @@ const Createjob = () => {
         animate={{
           opacity: 1,
         }}
-        transition={{ duration: 0.7 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
       >
         <FormControl>
           <FormLabel color={"black"}>Title</FormLabel>
@@ -130,7 +127,7 @@ const Createjob = () => {
         <FormControl>
           <FormLabel color={"black"}>Description</FormLabel>
           <Textarea
-            placeholder="Job Description"
+            placeholder="Job Requirement"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -144,7 +141,7 @@ const Createjob = () => {
         >
           {loader ? <Spinner /> : "Add"}
         </Button>
-      </MotionBox>
+      </Box>
     </VStack>
   );
 };
