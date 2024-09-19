@@ -1,2 +1,4 @@
 node_modules/ 
 .next/cache/webpack/client-production/0.pack
+node_modules/
+.next/
