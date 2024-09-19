@@ -81,7 +81,15 @@ export default Chat;
 
 export const getServerSideProps = async (ctx) => {
   const cookies = await nookies.get(ctx);
-  const res = await axios.get(`${baseURL}/api/chat/chats`, {
+  if (!cookies.token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  const res = await axios.get(`${baseURL}/api/chats`, {
     headers: {
       Authorization: `Bearer ${cookies?.token}`,
       "Content-Type": "application/json",
