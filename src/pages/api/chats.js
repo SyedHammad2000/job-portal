@@ -20,7 +20,8 @@ export default async (req, res) => {
         // $or: [{ senderId: userId }, { receiverId: userId }],
       })
         .populate("receiverId", "name email")
-        .populate("senderId", "name email");
+        .populate("senderId", "name email")
+        .limit(1);
 
       // Send the chat data in the response
       res.status(200).send({
