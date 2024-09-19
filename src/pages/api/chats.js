@@ -1,18 +1,9 @@
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import ChatModel from "@/utils/models/ChatModel";
+// import receiver from "./receiver/receiver";
 
 export default async (req, res) => {
-  await ConnectDb();
-
-  switch (req.method) {
-    case "GET":
-      await ChatGet(req, res);
-      break;
-  }
-};
-
-export const ChatGet = async (req, res) => {
   await ConnectDb();
   await Auth(req, res, async () => {
     if (!req.user._id) {
