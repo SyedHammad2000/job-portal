@@ -14,26 +14,21 @@ export default async (req, res) => {
 
 export const ChatGet = async (req, res) => {
   await ConnectDb();
-  try {
-    await Auth(req, res, async () => {
-      if (!req.user._id) {
-        return res.status(401).send({ message: "Unauthorized" });
-      }
+  await Auth(req, res, async () => {
+    if (!req.user._id) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
 
-      const chats = await ChatModel.find({
-        $or: [{ senderId: req.user._id }, { receiverId: req.user._id }],
-      })
-        .populate("receiverId")
-        .populate("senderId");
-      console.log(chats);
+    const chats = await ChatModel.find({
+      $or: [{ senderId: req.user._id }, { receiverId: req.user._id }],
+    })
+      .populate("receiverId")
+      .populate("senderId");
+    console.log(chats);
 
-      res.status(200).send({
-        success: true,
-        chats,
-      });
+    res.status(200).send({
+      success: true,
+      chats,
     });
-  } catch (error) {
-    console.log(error, "error in try catch block");
-    res.status(400).send({ message: "Internal Server Error" });
-  }
+  });
 };
