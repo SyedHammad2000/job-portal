@@ -22,10 +22,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/jobdetail/[id]": [
+    "/chat": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/jobdetail/[id].js"
+      "static/chunks/pages/chat.js"
     ],
     "/joblisting": [
       "static/chunks/webpack.js",

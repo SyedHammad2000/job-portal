@@ -83,14 +83,14 @@ export const getServerSideProps = async (ctx) => {
   const cookies = await nookies.get(ctx);
   const res = await axios.get(`${baseURL}/api/chat/chats`, {
     headers: {
-      Authorization: `Bearer ${cookies.token}`,
+      Authorization: `Bearer ${cookies?.token}`,
     },
   });
 
-  console.log(res.data, "data");
+  console.log(res?.data, "data");
   return {
     props: {
-      alluser: res.data,
+      alluser: res?.data,
     },
   };
 };
