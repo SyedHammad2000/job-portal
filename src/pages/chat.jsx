@@ -5,7 +5,6 @@ import {
   Button,
   Container,
   Spinner,
-  Text,
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -82,7 +81,7 @@ export default Chat;
 
 export const getServerSideProps = async (ctx) => {
   const cookies = await nookies.get(ctx);
-  const res = await axios.get(`${baseURL}/api/chat`, {
+  const res = await axios.get(`${baseURL}/api/chat/chats`, {
     headers: {
       Authorization: `Bearer ${cookies.token}`,
     },
