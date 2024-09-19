@@ -22,7 +22,6 @@ const Message = ({ id }) => {
   const [user, setUser] = useState();
   const { loader, setLoader, loading, setLoading } =
     useContext(ApplicationContext);
-  let [socket, setSocket] = useState();
   const token = nookies.get().token;
 
   const fetchUser = async () => {
@@ -68,7 +67,7 @@ const Message = ({ id }) => {
   console.log(user, "user");
   const handleClick = async (e) => {
     setLoading(true);
-    // !socket
+
     e.preventDefault();
     if (message) {
       const { data } = await axios.post(

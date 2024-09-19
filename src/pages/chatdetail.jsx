@@ -97,7 +97,7 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
-  const res = await axios.get(`${baseURL}/api/chats`, {
+  const res = await axios.get(`${baseURL}/api/recei`, {
     headers: {
       Authorization: `Bearer ${cookies?.token}`,
       "Content-Type": "application/json",

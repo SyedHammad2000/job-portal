@@ -1,4 +1,4 @@
-// pages/api/pusher/auth.js
+
 import Pusher from "pusher";
 
 const pusher = new Pusher({

@@ -71,7 +71,7 @@ export const ChatCreatePost = async (req, res) => {
   await ConnectDb();
   try {
     await Auth(req, res, async () => {
-      //! implement socket
+   
       const { text } = req.body;
       const { id } = req.query;
       const userId = req.user._id;
