@@ -27,7 +27,7 @@ import { useRouter } from "next/router";
 const Profile = ({ user, token }) => {
   const router = useRouter();
   const MotionCard = motion(Card);
-  console.log(user,'usering');
+  console.log(user, "usering");
 
   return (
     <VStack
@@ -97,7 +97,7 @@ const Profile = ({ user, token }) => {
                 <Heading size="sm" textTransform="uppercase">
                   Role
                 </Heading>
-                <Text pt="2" fontSize="md">
+                <Text pt="2" fontSize="md" disabled>
                   {user.users.role}
                 </Text>
               </Box>

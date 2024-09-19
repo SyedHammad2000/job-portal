@@ -73,7 +73,7 @@ const Updatedrawer = ({ user, token }) => {
       }
     );
     console.log(data);
-    
+
     toast({
       title: "Welcome",
       description: "Succesfully updated",
@@ -160,6 +160,7 @@ const Updatedrawer = ({ user, token }) => {
                   value={role}
                   onChange={(e) => setrole(e.target.value)}
                   required
+                  disabled
                 >
                   <option value="employer">Employer</option>
                   <option value="applicant">Applicant</option>
