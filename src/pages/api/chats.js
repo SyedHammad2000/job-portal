@@ -17,7 +17,7 @@ export default async (req, res) => {
 
       // Fetch chats involving the authenticated user
       const chats = await ChatModel.find({
-        $or: [{ senderId: userId }, { receiverId: userId }],
+        // $or: [{ senderId: userId }, { receiverId: userId }],
       })
         .populate("receiverId", "name email")
         .populate("senderId", "name email");
