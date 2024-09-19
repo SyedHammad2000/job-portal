@@ -15,10 +15,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const { Settoken, tokens } = useContext(ApplicationContext);
   const [User, setUser] = useState();
-  // const [tokens, ] = useState();
   useEffect(() => {
-    // const token = localStorage.getItem("token");
-    // Settoken(token);
     const user = localStorage.getItem("user");
     setUser(JSON.parse(user));
   }, []);

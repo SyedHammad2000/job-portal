@@ -18,12 +18,10 @@ export const ChatGet = async (req, res) => {
     if (!req.user._id) {
       return res.status(401).send({ message: "Unauthorized" });
     }
-
+    const userId = req.user._id;
     const chats = await ChatModel.find({
-      $or: [{ senderId: req.user._id }, { receiverId: req.user._id }],
-    })
-      .populate("receiverId")
-      .populate("senderId");
+      $or: [{ senderId: userId }, { receiverId: userId }],
+    }).populate("receiverId");
     console.log(chats);
 
     res.status(200).send({
