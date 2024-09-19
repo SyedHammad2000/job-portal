@@ -71,7 +71,7 @@ const Login = () => {
         Cookie.set("token", data.token, { expires: 30 });
         const user = JSON.stringify(data.user);
         localStorage.setItem("user", user);
-        window.location.href = "/";
+        window.location.href = "/profile";
       }
 
       if (!data.success) {
