@@ -23,7 +23,7 @@ const Chat = ({ alluser }) => {
     const userrr = JSON.parse(localStorage.getItem("user"));
     setdata(userrr);
     console.log(data, "user");
-  }, []);
+  }, [alluser]);
   console.log(user, "messagessss ");
 
   console.log(data, "Data");
