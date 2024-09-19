@@ -13,14 +13,17 @@ import bg from "@/assets/background.jpg";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { Settoken, Setuser, users, tokens } = useContext(ApplicationContext);
+  const { Settoken, tokens } = useContext(ApplicationContext);
   const [User, setUser] = useState();
+  // const [tokens, ] = useState();
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    Settoken(token);
+    // const token = localStorage.getItem("token");
+    // Settoken(token);
     const user = localStorage.getItem("user");
     setUser(JSON.parse(user));
   }, []);
+  console.log(tokens, "token index page");
+  console.log(User, "user data index page");
   return (
     <>
       <Container
