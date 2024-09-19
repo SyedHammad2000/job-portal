@@ -15,13 +15,19 @@ export default async (req, res) => {
 export const ChatGet = async (req, res) => {
   await ConnectDb();
   await Auth(req, res, async () => {
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
+    const skip = (page - 1) * limit;
     if (!req.user._id) {
       return res.status(401).send({ message: "Unauthorized" });
     }
     const userId = req.user._id;
     const chats = await ChatModel.find({
       $or: [{ senderId: userId }, { receiverId: userId }],
-    }).populate("receiverId");
+    })
+      .populate("receiverId", "name email")
+      .limit(limit)
+      .skip(skip);
     console.log(chats);
 
     res.status(200).send({
