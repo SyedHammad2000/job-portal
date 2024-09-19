@@ -97,12 +97,20 @@ export const getServerSideProps = async (ctx) => {
       },
     };
   }
+
   const res = await axios.get(`${baseURL}/api/recei`, {
     headers: {
-      Authorization: `Bearer ${cookies?.token}`,
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${cookies.token}`,
     },
   });
+
+  if (!res?.data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  console.log(res?.data, "data");
 
   console.log(res?.data, "data");
   return {
