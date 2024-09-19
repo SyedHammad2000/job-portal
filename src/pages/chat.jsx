@@ -13,35 +13,26 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState, useContext } from "react";
 import nookies from "nookies";
 import { ApplicationContext } from "@/components/appContext/ApplicationContext";
-const Chat = () => {
+const Chat = ({ alluser }) => {
   const [user, setUser] = useState();
   const [data, setdata] = useState();
   const router = useRouter();
   const { loading, setLoading } = useContext(ApplicationContext);
+  console.log(alluser, "ALL");
 
   useEffect(() => {
     const userrr = JSON.parse(localStorage.getItem("user"));
     setdata(userrr);
     console.log(data, "user");
-    const fetchUser = async () => {
-      setLoading(true);
-      const { data } = await axios.get(`${baseURL}/api/chat`, {
-        headers: {
-          Authorization: `Bearer ${nookies.get().token}`,
-        },
-      });
-
-      await setUser(data);
-      setLoading(false);
-    };
-    fetchUser();
   }, []);
   console.log(user, "messagessss ");
+
+  console.log(data, "Data");
 
   return (
     <Container minH={"100vh"} minW={"100%"} h={"100%"} p={2}>
       <VStack spacing={4}>
-        {user?.chats?.map((chat, index) => (
+        {alluser?.chats?.map((chat, index) => (
           <>
             {chat ? (
               <Box key={index}>
@@ -50,7 +41,7 @@ const Chat = () => {
                   onClick={() => {
                     router.push(
                       `/chat/${
-                        chat.receiverId._id === data._id
+                        chat.receiverId._id === data?._id
                           ? chat.senderId._id
                           : chat.receiverId._id
                       }`
@@ -72,7 +63,7 @@ const Chat = () => {
                   </Badge>
                   Message from
                   <br />
-                  {chat.receiverId.name === data.name
+                  {chat.receiverId.name === data?.name
                     ? chat.senderId.name
                     : chat.receiverId.name}
                 </Button>
@@ -88,3 +79,19 @@ const Chat = () => {
 };
 
 export default Chat;
+
+export const getServerSideProps = async (ctx) => {
+  const cookies = await nookies.get(ctx);
+  const res = await axios.get(`${baseURL}/api/chat`, {
+    headers: {
+      Authorization: `Bearer ${cookies.token}`,
+    },
+  });
+
+  console.log(res.data, "data");
+  return {
+    props: {
+      alluser: res.data,
+    },
+  };
+};
