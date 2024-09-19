@@ -13,6 +13,7 @@ export default async (req, res) => {
 };
 
 export const ChatGet = async (req, res) => {
+  await ConnectDb();
   try {
     await Auth(req, res, async () => {
       if (!req.user._id) {
@@ -33,6 +34,6 @@ export const ChatGet = async (req, res) => {
     });
   } catch (error) {
     console.log(error, "error in try catch block");
-    res.status(401).send({ message: "Internal Server Error" });
+    res.status(400).send({ message: "Internal Server Error" });
   }
 };
