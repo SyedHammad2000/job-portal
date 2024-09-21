@@ -19,15 +19,7 @@ const ChatList = () => {
         {data.chats.map((chat) => (
           <li key={chat.id}>
             <strong>{chat.senderId.name}</strong> to{" "}
-            <strong>{chat.receiverId.name}</strong>
-            <ul>
-              {chat.messages.map((message, index) => (
-                <li key={index}>
-                  <strong>{message.sender}:</strong> {message.text}{" "}
-                  <em>({new Date(message.timestamp).toLocaleString()})</em>
-                </li>
-              ))}
-            </ul>
+            <strong>{chat.receiverId.name}</strong>: {chat.messages[0].text}
           </li>
         ))}
       </ul>

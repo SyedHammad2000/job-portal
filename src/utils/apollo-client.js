@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import nookies from "nookies";
 export const client = new ApolloClient({
-  uri: " http://localhost:3000/api/graphql",
+  uri: " /api/graphql",
   cache: new InMemoryCache(),
   headers: {
     Authorization: `Bearer ${nookies.get().token}`,
