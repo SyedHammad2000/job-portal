@@ -12,10 +12,10 @@ export const GET_CHATS = gql`
         name
         email
       }
-      message {
+      messages {
         text
-        timestamp
         sender
+        timestamp
       }
       createdAt
     }

@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-micro";
 import { typeDefs } from "@/utils/graphql/schema";
-import { resolvers } from "@/utils/graphql/resolvers"; // Note the plural 'resolvers'
+import { resolver } from "@/utils/graphql/resolver"; // Note the plural 'resolvers'
 import ConnectDb from "@/utils/connection/ConnectDb";
 import { Auth } from "@/utils/middleware/auth";
 import NextCors from "nextjs-cors";
@@ -16,7 +16,7 @@ const allowedOrigins = [
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: resolver,
   context: async ({ req, res }) => {
     await NextCors(req, res, {
       methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
@@ -27,11 +27,11 @@ const server = new ApolloServer({
     let user;
 
     await Auth(req, res, () => {
-      console.log(req.user);
+      console.log(req.user._id);
       user = req.user; // Extract user from the request
     });
 
-    return { user }; // Pass user in the context
+    return user; // Pass user in the context
   },
 });
 

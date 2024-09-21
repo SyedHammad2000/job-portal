@@ -1,22 +1,38 @@
 import { useQuery } from "@apollo/client";
 import { GET_CHATS } from "@/queries/GetChats";
 
-import React from "react";
-import { VStack } from "@chakra-ui/react";
-
-const getchats = () => {
+const ChatList = () => {
   const { loading, error, data } = useQuery(GET_CHATS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error{error.message}</p>;
-  console.log(data, "chats");
+
+  if (loading) return <p>Loading chats...</p>;
+  if (error) return <p>Error loading chats: {error.message}</p>;
+
+  if (!data) {
+    return <p>No chats found</p>;
+  }
+  console.log(data.chats, "chatss");
 
   return (
-    <VStack>
-      {data?.chats?.map((item) => (
-        <p>{item?.receiverId?.name}</p>
-      ))}
-    </VStack>
+    <div>
+      <h2>Chats</h2>
+      <ul>
+        {data.chats.map((chat) => (
+          <li key={chat.id}>
+            <strong>{chat.senderId.name}</strong> to{" "}
+            <strong>{chat.receiverId.name}</strong>
+            <ul>
+              {chat.messages.map((message, index) => (
+                <li key={index}>
+                  <strong>{message.sender}:</strong> {message.text}{" "}
+                  <em>({new Date(message.timestamp).toLocaleString()})</em>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default getchats;
+export default ChatList;

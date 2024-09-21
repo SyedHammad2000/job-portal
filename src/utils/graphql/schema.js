@@ -5,7 +5,7 @@ export const typeDefs = gql`
     id: ID!
     senderId: User
     receiverId: User
-    message: [Message]
+    messages: [Message]
     createdAt: Date
   }
 
@@ -16,9 +16,9 @@ export const typeDefs = gql`
   }
 
   type Message {
-    text: String
-    timestamp: Date
-    sender: String
+    text: String!
+    timestamp: Date!
+    sender: String!
   }
 
   type Query {
