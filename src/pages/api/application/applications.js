@@ -17,10 +17,6 @@ export default async (req, res) => {
     case "GET":
       await ApplicationGet(req, res);
       break;
-
-    case "PUT":
-      await ApplicationPut(req, res);
-      break;
   }
 };
 
@@ -37,8 +33,6 @@ export const ApplicationPost = async (req, res) => {
       });
       const user = await Usermodel.findOne({ _id: postById });
       console.log(user);
-      // console.log(jobId.postedBy._id);
-
       if (!jobId) {
         return res.status(400).send({
           message: "Invalid Request",
