@@ -13,6 +13,9 @@ export const typeDefs = gql`
     id: ID!
     name: String
     email: String
+    password: String
+    contact: String
+    address: String
   }
 
   type Message {
@@ -20,8 +23,29 @@ export const typeDefs = gql`
     timestamp: Date!
     sender: String!
   }
+  type Job {
+    id: ID!
+    title: String
+    description: String
+    location: String
+    postedAt: Date
+    company: String
+    postedBy: User
+  }
 
   type Query {
     chats: [Chat]
+    users: [User]
+    jobs: [Job]
+    job(id: ID!): Job
+  }
+  type Mutation {
+    createUser(
+      name: String!
+      email: String!
+      password: String!
+      contact: String!
+      address: String!
+    ): User
   }
 `;

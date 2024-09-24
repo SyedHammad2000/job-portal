@@ -16,6 +16,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@graphql-tools/merge": "^9.0.7",
     "@reduxjs/toolkit": "^2.2.7",
     "apollo-link-context": "^1.0.20",
     "apollo-server-micro": "^3.13.0",
