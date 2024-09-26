@@ -32,12 +32,21 @@ export const typeDefs = gql`
     company: String
     postedBy: User
   }
+  type Application {
+    id: ID!
+    ApplicantId: User!
+    JobPostId: Job!
+    postBy: User!
+    status: String!
+    resume: String!
+  }
 
   type Query {
     chats: [Chat]
     users: [User]
     jobs: [Job]
     job(id: ID!): Job
+    applications: [Application]
   }
   type Mutation {
     createUser(
@@ -47,5 +56,6 @@ export const typeDefs = gql`
       contact: String!
       address: String!
     ): User
+    applyUser(JobPostId: ID!, resume: String!, postBy: ID!): Application
   }
 `;

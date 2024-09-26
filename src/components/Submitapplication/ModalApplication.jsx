@@ -18,6 +18,8 @@ import {
 import axios from "axios";
 import baseURL from "@/helper/baseURL";
 import useCloudinary from "../cloudinarycomponent/useCloudinary";
+import { useMutation } from "@apollo/client";
+import { ApplyUser } from "@/queries/ApplyUser";
 
 const ModalApplication = ({ postId, token, postBy }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,30 +29,40 @@ const ModalApplication = ({ postId, token, postBy }) => {
   const [loader, setLoader] = useState(false);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+  const [applyUser, { error, data }] = useMutation(ApplyUser);
   useEffect(() => {
     setuser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   const handleSubmit = async () => {
     setLoader(true);
-    const { data } = await axios.post(
-      `${baseURL}/api/application/applications`,
-      {
-        ApplicantId: user._id,
+    // const { data } = await axios.post(
+    //   `${baseURL}/api/application/applications`,
+    //   {
+    //     ApplicantId: user._id,
+    //     JobPostId: postId,
+    //     resume: Pics,
+    //     postById: postBy._id,
+    //   },
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+    const res = applyUser({
+      variables: {
         JobPostId: postId,
         resume: Pics,
-        postById: postBy._id,
+        postBy: postBy._id,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    });
+
+    console.log(res);
     console.log(data);
-    if (data.success) {
+    if (res.then) {
       toast({
-        title: data.message,
+        title: "applied",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -59,7 +71,7 @@ const ModalApplication = ({ postId, token, postBy }) => {
       onClose();
       setPics("");
       setLoader(false);
-      window.location.reload();
+      // window.location.reload();
     } else {
       toast({
         title: data.message,
